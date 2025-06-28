@@ -1,6 +1,5 @@
-<p align="center">
-    ![image alt](https://github.com/amntllhz/anaksehat/blob/fbc8e0e97dc68d1861e9a8ee724b70acf0e0c46e/anaksehatlogo.svg)
-</p>
+
+![image alt](https://github.com/amntllhz/anaksehat/blob/fbc8e0e97dc68d1861e9a8ee724b70acf0e0c46e/anaksehatlogo.svg)
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
