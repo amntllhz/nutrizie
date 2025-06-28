@@ -29,4 +29,4 @@ Anaksehat is a website that contains nutritional information equipped with a tod
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+&copy; anaksehat - 2024
