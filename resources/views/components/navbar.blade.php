@@ -90,7 +90,7 @@
     <div class="flex items-center justify-between">
         {{-- Logo --}}
         <a href="#hero">
-            <img class="h-5 sm:h-4" src="{{ asset('img/logo.svg') }}" alt="">
+            <img class="h-5 sm:h-4" src="{{ asset('img/nutrizie-logo.svg') }}" alt="">
         </a>
 
         {{-- Hamburger Button --}}
