@@ -84,46 +84,50 @@
     // Jika pakai Blade, ini bisa ditaruh di layout: untuk AlpineJS
 @endphp
 
-<div 
-    x-data="{ open: false }" 
+<div x-data="{ open: false }"
     class="max-w-6xl sm:max-w-9/10 w-full fixed left-1/2 -translate-x-1/2 top-4 z-50 
-           bg-prim/10 backdrop-blur-lg px-6 py-4 sm:py-3 rounded-xl transition-all duration-300"
->
+           bg-prim/10 backdrop-blur-lg px-6 py-4 sm:py-3 rounded-full transition-all duration-300">
     <div class="flex items-center justify-between">
         {{-- Logo --}}
         <a href="#hero">
-            <img class="h-6 sm:h-5" src="{{ asset('img/logo.svg') }}" alt=""> 
+            <img class="h-5 sm:h-4" src="{{ asset('img/logo.svg') }}" alt="">
         </a>
-        
+
         {{-- Hamburger Button --}}
         <button @click="open = !open" class="hidden sm:block text-prim focus:outline-none">
             <!-- Open Icon -->
             <svg x-show="!open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
             </svg>
             <!-- Close Icon -->
             <svg x-show="open" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
 
         {{-- Menu utama (inline horizontal di lg) --}}
-        <div class="sm:hidden flex items-center gap-8">            
-            <a href={{ url('/berita') }} class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Berita</a>
-            <a href={{ url('/cekgizi') }} class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Cek Status Gizi</a>
-            <a href="#tentang" class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Tentang</a>  
+        <div class="sm:hidden flex items-center gap-8">
+            <a href={{ url('/berita') }}
+                class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Berita</a>
+            <a href={{ url('/cekgizi') }}
+                class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Cek
+                Status Gizi</a>
+            <a href="#tentang"
+                class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Tentang</a>
         </div>
     </div>
 
     {{-- Menu responsif (stacked vertical in xs) --}}
-    <div x-show="open" x-collapse x-cloak class="mt-8 sm:flex flex-col gap-3 hidden">        
-        <a href={{ url('/berita') }} class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Berita</a>
-        <a href={{ url('/cekgizi') }} class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Cek Gizi</a>
-        <a href="#tentang" class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Tentang</a>
+    <div x-show="open" x-collapse x-cloak class="mt-8 sm:flex flex-col gap-3 hidden">
+        <a href={{ url('/berita') }}
+            class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Berita</a>
+        <a href={{ url('/cekgizi') }}
+            class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Cek
+            Gizi</a>
+        <a href="#tentang"
+            class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Tentang</a>
     </div>
 </div>
-
