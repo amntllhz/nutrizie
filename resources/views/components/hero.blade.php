@@ -8,7 +8,7 @@
         <div class="flex flex-col gap-y-4 w-1/2 z-20 sm:w-full">
 
             <div
-                class="small-badge w-fit gap-x-1.5 flex flex-row ring-2 ring-inset ring-prim/10 bg-prim/10 rounded-full py-1.5 px-4 sm:py-1 items-center">
+                class="small-badge w-fit backdrop-blur-sm gap-x-1.5 flex flex-row ring-2 ring-inset ring-prim/10 bg-prim/10 rounded-full py-1.5 px-4 sm:py-1 items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-3.5 text-white">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -40,17 +40,17 @@
             </a>
 
             <div class="flex gap-x-4 items-center mt-2 border-t border-white/10 pt-4 divide-x divide-white/10">
-                <div class="flex-1 space-y-1.5">
+                <div class="flex flex-col pr-5 space-y-1.5">
                     <p class="text-[11px] text-gray-300">Standar Rujukan</p>
                     <p class="text-sm font-semibold text-white">Kemenkes RI</p>
                 </div>
-                <div class="flex-1 space-y-1.5 pl-4">
+                <div class="flex flex-col pr-5 space-y-1.5">
                     <p class="text-[11px] text-gray-300">Akses Layanan</p>
                     <p class="text-sm font-semibold text-white">100% Gratis</p>
                 </div>
-                <div class="flex-1 space-y-1.5 pl-4">
-                    <p class="text-[11px] text-gray-300">Keamanan Data</p>
-                    <p class="text-sm font-semibold text-white">Sekali Pakai</p>
+                <div class="flex flex-col pr-5 space-y-1.5">
+                    <p class="text-[11px] text-gray-300">Data Cek Gizi</p>
+                    <p class="text-sm font-semibold text-white">Tidak Disimpan</p>
                 </div>
             </div>
 
