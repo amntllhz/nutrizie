@@ -21,12 +21,12 @@
                     <div class="">
                         <input name="email" type="email" id="email"
                             class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-400 placeholder:text-[11px] focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
-                            placeholder="example@gmail.com" required />
+                            placeholder="example@gmail.com" required autocomplete="off" />
                     </div>
                     <div class="">
                         <textarea id="pesan" name="pesan" rows="3"
                             class="block w-full rounded-lg border-0 py-2.5 text-xs text-gratwo placeholder:text-gray-400 placeholder:text-[11px] focus:ring-2 focus:ring-inset focus:ring-prim"
-                            placeholder="Tuliskan pesanmu disini"></textarea>
+                            placeholder="Tuliskan pesanmu disini" required autocomplete="off"></textarea>
                     </div>
                     <button type="submit"
                         class="w-fit rounded-lg cursor-pointer bg-prim px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gratwo transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prim">Kirim</button>
