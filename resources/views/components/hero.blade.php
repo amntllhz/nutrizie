@@ -28,7 +28,7 @@
             </div>
 
             <a href="#features"
-                class="flex items-center gap-x-1 w-fit text-sm bg-prim text-white py-2 rounded-lg font-semibold px-6 hover:bg-gratwo transition-all ease-in-out duration-300 hover:ring-1 hover:ring-inset-1 hover:ring-white">
+                class="w-fit flex gap-x-1.5 justify-center items-center text-white text-center cursor-pointer font-semibold bg-prim hover:bg-gratwo transition duration-300 ease-in-out px-6 py-2 text-sm rounded-lg inset-ring inset-ring-gratwo/20 outline -outline-offset-2 outline-gratwo/30 shadow-md shadow-gratwo/40 inset-shadow-[0_-3px_4px] inset-shadow-gratwo/80 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prim hover:ring-1 hover:ring-inset-1 hover:ring-white">
                 Lihat Fitur
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" width="1em" height="1em"
                     viewBox="0 0 24 24">
