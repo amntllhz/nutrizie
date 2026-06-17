@@ -21,38 +21,85 @@
     </section>
 
     <div class="max-w-6xl mx-auto px-10 py-4 w-full mb-2 sm:px-6 sm:mb-0">
-        <form method="GET" action="{{ url('/berita') }}" class="flex items-center space-x-2">
-            <select name="order" id="order"
-                class="w-24 bg-gray-50 border flex items-center gap-2 border-gray-300 text-prim text-xs rounded-lg focus:ring-prim focus:border-prim p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                onchange="this.form.submit()">
-                <option class="text-sm sm:text-xs" value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>
-                    Terbaru</option>
-                <option class="text-sm sm:text-xs" value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>
-                    Terlama</option>
-            </select>
-        </form>
+        <div class="flex items-center space-x-2">
+            <form method="GET" action="{{ url('/berita') }}">
+                @if (request('search'))
+                    <input type="hidden" name="search" value="{{ request('search') }}">
+                @endif
+
+                <input type="hidden" name="order" value="desc">
+                <button type="submit"
+                    class="px-3.5 py-1 text-[11px] rounded-full border transition-all duration-300 {{ request('order', 'desc') === 'desc' ? 'bg-prim/20 text-prim border-prim shadow-sm' : 'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100' }}">
+                    Terbaru
+                </button>
+            </form>
+
+            <form method="GET" action="{{ url('/berita') }}">
+                @if (request('search'))
+                    <input type="hidden" name="search" value="{{ request('search') }}">
+                @endif
+
+                <input type="hidden" name="order" value="asc">
+                <button type="submit"
+                    class="px-3.5 py-1 text-[11px] rounded-full border transition-all duration-300 {{ request('order') === 'asc' ? 'bg-prim/20 text-prim border-prim shadow-sm' : 'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100' }}">
+                    Terlama
+                </button>
+            </form>
+        </div>
     </div>
 
     <section class="max-w-6xl mx-auto px-10 sm:w-full sm:px-4 mb-24">
-        <div class="grid grid-cols-3 gap-6 sm:grid-cols-1 sm:p-2">
+        <div class="grid grid-cols-4 gap-4 sm:grid-cols-1 sm:p-2">
 
             @foreach ($articles as $article)
-                <a href="{{ url('/berita/' . $article->id) }}">
+                <a href="{{ url('/berita/' . $article->id) }}" class="block group">
                     <div
-                        class="w-full bg-white p-5 rounded-3xl space-y-4 ring-2 ring-inset ring-prim/20 hover:shadow-lg hover:ease-in-out hover:duration-300 hover:shadow-prim/20 sm:p-4">
+                        class="w-full bg-white p-2 rounded-3xl space-y-3 ring-1 ring-inset ring-prim/20 hover:bg-prim/5 hover:ring-2 hover:ease-in-out hover:duration-300 sm:p-4">
+
                         @if ($article->gambar)
-                            <img class="object-cover w-full h-32 rounded-xl"
-                                src="{{ asset('storage/' . $article->gambar) }}" alt="">
-                        @endif
-                        <div class="space-y-2">
-                            <div class="flex flex-row w-full justify-between items-center">
-                                <p class="text-prim font-semibold text-xs py-1 px-3 bg-prim/10 rounded-md">Author</p>
-                                <p class="text-gray-400 text-xs py-1.5 px-1">{{ $article->created_at_human }}</p>
+                            <div
+                                class="relative w-full h-48 rounded-2xl overflow-hidden transition-transform duration-300">
+                                <img class="object-cover w-full h-full"
+                                    src="{{ asset('storage/' . $article->gambar) }}" alt="{{ $article->judul }}">
+
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent">
+                                </div>
+
+                                <div
+                                    class="absolute bottom-0 inset-x-0 p-3 flex flex-row w-full justify-between items-center sm:p-4">
+                                    <p
+                                        class="text-white bg-white/20 backdrop-blur-sm font-semibold text-[9px] py-1 px-2.5 rounded-full border border-white/10">
+                                        Author
+                                    </p>
+                                    <p class="text-white text-[9px] py-1.5 px-1 font-medium drop-shadow-md">
+                                        {{ $article->created_at_human }}
+                                    </p>
+                                </div>
                             </div>
-                            <h1 class="text-xl text-prim font-bold line-clamp-2 sm:text-xl">{{ $article->judul }}</h1>
-                            <p class="text-gray-500 text-xs font-medium text-justify line-clamp-3 sm:text-xs">
-                                {{ $article->deskripsi }}</p>
+                        @endif
+
+                        <div class="px-2 pb-1 space-y-1.5">
+                            <h1
+                                class="text-sm text-prim font-bold line-clamp-2 sm:text-lg group-hover:text-gratwo transition-colors duration-300">
+                                {{ $article->judul }}
+                            </h1>
+
+                            <p class="text-[11px] text-gray-400 line-clamp-2 font-light leading-relaxed">
+                                {{ Str::limit(strip_tags($article->konten), 100) }}
+                            </p>
+
+                            <div
+                                class="flex items-center text-[11px] text-prim font-semibold pt-1 group-hover:underline">
+                                Baca selengkapnya
+                                <svg class="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
                         </div>
+
                     </div>
                 </a>
             @endforeach
