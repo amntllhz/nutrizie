@@ -29,7 +29,7 @@
 
                 <input type="hidden" name="order" value="desc">
                 <button type="submit"
-                    class="px-3.5 py-1 text-[11px] rounded-full border transition-all duration-300 {{ request('order', 'desc') === 'desc' ? 'bg-prim/20 text-prim border-prim shadow-sm' : 'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100' }}">
+                    class="px-3.5 py-1 cursor-pointer text-[11px] rounded-full border transition-all duration-300 {{ request('order', 'desc') === 'desc' ? 'bg-prim/10 text-prim border-prim' : 'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100' }}">
                     Terbaru
                 </button>
             </form>
@@ -41,7 +41,7 @@
 
                 <input type="hidden" name="order" value="asc">
                 <button type="submit"
-                    class="px-3.5 py-1 text-[11px] rounded-full border transition-all duration-300 {{ request('order') === 'asc' ? 'bg-prim/20 text-prim border-prim shadow-sm' : 'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100' }}">
+                    class="px-3.5 py-1 cursor-pointer text-[11px] rounded-full border transition-all duration-300 {{ request('order') === 'asc' ? 'bg-prim/10 text-prim border-prim' : 'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100' }}">
                     Terlama
                 </button>
             </form>
@@ -58,7 +58,7 @@
 
                         @if ($article->gambar)
                             <div
-                                class="relative w-full h-48 rounded-2xl overflow-hidden transition-transform duration-300">
+                                class="relative w-full h-40 rounded-2xl overflow-hidden transition-transform duration-300">
                                 <img class="object-cover w-full h-full"
                                     src="{{ asset('storage/' . $article->gambar) }}" alt="{{ $article->judul }}">
 
