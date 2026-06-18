@@ -33,16 +33,16 @@
                 </p>
             </div>
             <form method="POST" action="{{ route('cekgizi.hitung') }}"
-                class="mt-10 grid grid-cols-6 gap-6 sm:grid-cols-1">
+                class="mt-10 grid grid-cols-6 gap-6 sm:grid-cols-1" x-data="{ loading: false }" @submit="loading = true">
                 @csrf
                 <div class="col-span-3">
-                    <label for="nama" class="block mb-2 text-sm font-medium text-gray-400">Nama</label>
+                    <label for="nama" class="block mb-2 text-xs font-medium text-gray-400">Nama</label>
                     <input name="nama" id="nama" type="text"
-                        class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-400 placeholder:text-xs focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
+                        class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-300 placeholder:text-[11px] focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
                         placeholder="Tuliskan nama" required autocomplete="off" />
                 </div>
                 <div class="col-span-3">
-                    <label for="gender" class="block mb-2 text-sm font-medium text-gray-400">Jenis Kelamin</label>
+                    <label for="gender" class="block mb-2 text-xs font-medium text-gray-400">Jenis Kelamin</label>
                     <select id="gender" name="gender"
                         class="bg-gray-50 border border-gray-300 text-prim text-xs rounded-lg focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option class="text-xs" value="Laki-laki">Laki-laki</option>
@@ -50,34 +50,53 @@
                     </select>
                 </div>
                 <div class="col-span-2 sm:col-span-3">
-                    <label for="umur" class="block mb-2 text-sm font-medium text-gray-400">Umur ( Dalam bulan
+                    <label for="umur" class="block mb-2 text-xs font-medium text-gray-400">Umur ( Dalam bulan
                         )</label>
                     <input name="umur" id="umur" type="number" min="0" max="60"
-                        class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-400 placeholder:text-xs focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
+                        class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-300 placeholder:text-[11px] focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
                         placeholder="Tuliskan Umur" required autocomplete="off" inputmode="numeric" />
                 </div>
                 <div class="col-span-2 sm:col-span-3">
-                    <label for="berat" class="block mb-2 text-sm font-medium text-gray-400">Berat Badan</label>
+                    <label for="berat" class="block mb-2 text-xs font-medium text-gray-400">Berat Badan (Kg)</label>
                     <input name="berat" id="berat" type="text" step="0.1" min="0"
-                        class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-400 placeholder:text-xs focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
+                        class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-300 placeholder:text-[11px] focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
                         placeholder="Tuliskan Berat Badan" required autocomplete="off" />
                 </div>
                 <div class="col-span-2 sm:col-span-3">
-                    <label for="panjang" class="block mb-2 text-sm font-medium text-gray-400">Panjang Badan</label>
+                    <label for="panjang" class="block mb-2 text-xs font-medium text-gray-400">Panjang Badan
+                        (Cm)</label>
                     <input name="panjang" id="panjang" type="text" step="0.1" min="0"
-                        class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-400 placeholder:text-xs focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
+                        class=" bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-300 placeholder:text-[11px] focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
                         placeholder="Tuliskan Berat Badan" required autocomplete="off" />
                 </div>
 
-                <button type="submit"
-                    class="col-span-2 w-fit flex gap-2 items-center rounded-lg bg-prim px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gratwo transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prim">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M2.4 0C1.76348 0 1.15303 0.252856 0.702944 0.702944C0.252856 1.15303 0 1.76348 0 2.4V13.6C0 14.2365 0.252856 14.847 0.702944 15.2971C1.15303 15.7471 1.76348 16 2.4 16H9.6V12C9.6 11.3635 9.85286 10.753 10.3029 10.3029C10.753 9.85286 11.3635 9.6 12 9.6H16V2.4C16 1.76348 15.7471 1.15303 15.2971 0.702944C14.847 0.252856 14.2365 0 13.6 0H2.4ZM12.2344 15.2968C11.9468 15.5844 11.5909 15.7941 11.2 15.9064V12C11.2 11.7878 11.2843 11.5843 11.4343 11.4343C11.5843 11.2843 11.7878 11.2 12 11.2H15.9064C15.7941 11.5909 15.5844 11.9468 15.2968 12.2344L12.2344 15.2968ZM4 3.2C3.78783 3.2 3.58434 3.28429 3.43431 3.43431C3.28429 3.58434 3.2 3.78783 3.2 4C3.2 4.21217 3.28429 4.41566 3.43431 4.56569C3.58434 4.71571 3.78783 4.8 4 4.8H12C12.2122 4.8 12.4157 4.71571 12.5657 4.56569C12.7157 4.41566 12.8 4.21217 12.8 4C12.8 3.78783 12.7157 3.58434 12.5657 3.43431C12.4157 3.28429 12.2122 3.2 12 3.2H4ZM4 6.4C3.78783 6.4 3.58434 6.48429 3.43431 6.63431C3.28429 6.78434 3.2 6.98783 3.2 7.2C3.2 7.41217 3.28429 7.61566 3.43431 7.76569C3.58434 7.91571 3.78783 8 4 8H12C12.2122 8 12.4157 7.91571 12.5657 7.76569C12.7157 7.61566 12.8 7.41217 12.8 7.2C12.8 6.98783 12.7157 6.78434 12.5657 6.63431C12.4157 6.48429 12.2122 6.4 12 6.4H4ZM4 9.6C3.78783 9.6 3.58434 9.68429 3.43431 9.83431C3.28429 9.98434 3.2 10.1878 3.2 10.4C3.2 10.6122 3.28429 10.8157 3.43431 10.9657C3.58434 11.1157 3.78783 11.2 4 11.2H7.2C7.41217 11.2 7.61566 11.1157 7.76569 10.9657C7.91571 10.8157 8 10.6122 8 10.4C8 10.1878 7.91571 9.98434 7.76569 9.83431C7.61566 9.68429 7.41217 9.6 7.2 9.6H4Z"
-                            fill="white" />
+                <button type="submit" :disabled="loading"
+                    class="col-span-2 w-fit flex gap-x-1.5 justify-center items-center text-white text-center cursor-pointer font-semibold bg-prim hover:bg-gratwo transition duration-300 ease-in-out px-6 py-2 text-sm rounded-lg inset-ring inset-ring-gratwo/50 outline -outline-offset-2 outline-gratwo/40 shadow-md shadow-gratwo/30 inset-shadow-[0_-3px_4px] inset-shadow-gratwo/50 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prim">
+
+                    {{-- <svg x-show="!loading" class="h-4 w-4 text-white" width="100%" height="100%" viewBox="0 0 24 24"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15.5 11.5H14.5L13 14.5L11 8.5L9.5 11.5H8.5M11.9932 5.13581C9.9938 2.7984 6.65975 2.16964 4.15469 4.31001C1.64964 6.45038 1.29697 10.029 3.2642 12.5604C4.75009 14.4724 8.97129 18.311 10.948 20.0749C11.3114 20.3991 11.4931 20.5613 11.7058 20.6251C11.8905 20.6805 12.0958 20.6805 12.2805 20.6251C12.4932 20.5613 12.6749 20.3991 13.0383 20.0749C15.015 18.311 19.2362 14.4724 20.7221 12.5604C22.6893 10.029 22.3797 6.42787 19.8316 4.31001C17.2835 2.19216 13.9925 2.7984 11.9932 5.13581Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg> --}}
+
+                    <svg x-show="!loading" class="h-4 w-4 text-white" width="100%" height="100%" viewBox="0 0 24 24"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20 10V6.8C20 5.11984 20 4.27976 19.673 3.63803C19.3854 3.07354 18.9265 2.6146 18.362 2.32698C17.7202 2 16.8802 2 15.2 2H8.8C7.11984 2 6.27976 2 5.63803 2.32698C5.07354 2.6146 4.6146 3.07354 4.32698 3.63803C4 4.27976 4 5.11984 4 6.8V17.2C4 18.8802 4 19.7202 4.32698 20.362C4.6146 20.9265 5.07354 21.3854 5.63803 21.673C6.27976 22 7.11984 22 8.8 22H12M12.5 11H8M9 15H8M16 7H8M16.9973 14.8306C16.1975 13.9216 14.8639 13.6771 13.8619 14.5094C12.8599 15.3418 12.7188 16.7335 13.5057 17.7179C14.2926 18.7024 16.9973 21 16.9973 21C16.9973 21 19.7019 18.7024 20.4888 17.7179C21.2757 16.7335 21.1519 15.3331 20.1326 14.5094C19.1134 13.6858 17.797 13.9216 16.9973 14.8306Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    Cek Status Gizi
+
+                    <svg x-show="loading" class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" style="display: none;">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+
+                    <span x-text="loading ? 'Menghitung...' : 'Cek Status Gizi'"></span>
                 </button>
             </form>
         </div>

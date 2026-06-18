@@ -86,7 +86,8 @@
 
 <div x-data="{ open: false }"
     class="max-w-6xl sm:max-w-9/10 w-full fixed left-1/2 -translate-x-1/2 top-4 z-50 
-           bg-prim/10 backdrop-blur-lg px-6 py-4 sm:py-3 rounded-full transition-all duration-300">
+           bg-prim/10 backdrop-blur-lg px-6 py-4 sm:py-3 transition-all duration-300 rounded-[2rem]">
+
     <div class="flex items-center justify-between">
         {{-- Logo --}}
         <a href="#hero">
@@ -111,23 +112,26 @@
         {{-- Menu utama (inline horizontal di lg) --}}
         <div class="sm:hidden flex items-center gap-8">
             <a href={{ url('/berita') }}
-                class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Berita</a>
+                class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Berita</a>
             <a href={{ url('/cekgizi') }}
-                class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Cek
+                class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Cek
                 Status Gizi</a>
             <a href="#tentang"
-                class="text-prim hover:text-white font-display text-sm font-medium transition duration-300 ease-in-out">Tentang</a>
+                class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Tentang</a>
         </div>
     </div>
 
     {{-- Menu responsif (stacked vertical in xs) --}}
-    <div x-show="open" x-collapse x-cloak class="mt-8 sm:flex flex-col gap-3 hidden">
-        <a href={{ url('/berita') }}
-            class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Berita</a>
-        <a href={{ url('/cekgizi') }}
-            class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Cek
-            Gizi</a>
-        <a href="#tentang"
-            class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out">Tentang</a>
+    <div x-show="open" x-collapse x-cloak class="md:hidden overflow-hidden">
+        <!-- Container dalam diberi margin & border-top agar rapi saat terbuka -->
+        <div class="mt-4 mb-3 pt-3 flex flex-col gap-2">
+            <a href="{{ url('/berita') }}"
+                class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Berita</a>
+            <a href="{{ url('/cekgizi') }}"
+                class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Cek
+                Gizi</a>
+            <a href="#tentang"
+                class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Tentang</a>
+        </div>
     </div>
 </div>
