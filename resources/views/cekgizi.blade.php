@@ -41,7 +41,7 @@
                     @csrf
 
                     {{-- nama --}}
-                    <div class="col-span-3">
+                    <div class="col-span-2">
                         <label for="nama" class="block mb-2 text-xs font-medium text-gray-400">Nama</label>
                         <input name="nama" id="nama" type="text" pattern="[A-Za-z\s]+"
                             oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"
@@ -52,7 +52,7 @@
                     </div>
 
                     {{-- gender --}}
-                    <div class="col-span-3">
+                    <div class="col-span-2">
                         <label for="gender" class="block mb-2 text-xs font-medium text-gray-400">Jenis Kelamin</label>
                         <div x-data="{
                             selectOpen: false,
@@ -141,6 +141,100 @@
 
                             <!-- Hidden input to send back to Laravel -->
                             <input type="hidden" name="gender" x-ref="hiddenSelect" value="Laki-laki" required>
+                        </div>
+                    </div>
+
+                    {{-- metode ukur --}}
+                    <div class="col-span-2">
+                        <label for="metode_ukur" class="block mb-2 text-xs font-medium text-gray-400">Metode
+                            Ukur</label>
+                        <div x-data="{
+                            selectOpen: false,
+                            selectedItem: { title: 'Terlentang', value: 'PB' },
+                            selectableItems: [
+                                { title: 'Terlentang', value: 'PB' },
+                                { title: 'Berdiri', value: 'TB' }
+                            ],
+                            selectableItemActive: null,
+                            selectId: $id('select'),
+                            selectDropdownPosition: 'bottom',
+                            selectScrollToActiveItem() {
+                                if (this.selectableItemActive) {
+                                    const activeElement = document.getElementById(this.selectableItemActive.value + '-' + this.selectId)
+                                    const newScrollPos = (activeElement.offsetTop + activeElement.offsetHeight) - this.$refs.selectableItemsList.offsetHeight;
+                                    this.$refs.selectableItemsList.scrollTop = newScrollPos > 0 ? newScrollPos : 0;
+                                }
+                            },
+                            selectableItemIsActive(item) {
+                                return this.selectableItemActive && this.selectableItemActive.value === item.value;
+                            },
+                            selectPositionUpdate() {
+                                const bottomPos = this.$refs.selectButton.getBoundingClientRect().top + this.$refs.selectButton.offsetHeight + parseInt(window.getComputedStyle(this.$refs.selectableItemsList).maxHeight);
+                                this.selectDropdownPosition = window.innerHeight < bottomPos ? 'top' : 'bottom';
+                            }
+                        }" x-init="$watch('selectOpen', function() {
+                            if (!selectedItem) {
+                                selectableItemActive = selectableItems[0];
+                            } else {
+                                selectableItemActive = selectedItem;
+                            }
+                            setTimeout(() => selectScrollToActiveItem(), 10);
+                            selectPositionUpdate();
+                            window.addEventListener('resize', () => selectPositionUpdate());
+                        });" class="relative w-full">
+                            <!-- Tombol Dropdown -->
+                            <button x-ref="selectButton" @click="selectOpen = !selectOpen" type="button"
+                                class="relative flex justify-between bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-300 focus:outline-1 focus:ring-1 focus:ring-prim focus:outline-prim focus:border-prim w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <span x-text="selectedItem ? selectedItem.title : 'Jenis Kelamin'"
+                                    class="truncate"></span>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+
+                            <!-- Dropdown List -->
+                            <ul x-show="selectOpen" x-ref="selectableItemsList" @click.away="selectOpen = false"
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0 -translate-y-1"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                :class="{
+                                    'bottom-0 mb-11': selectDropdownPosition ==
+                                        'top',
+                                    'top-0 mt-11': selectDropdownPosition == 'bottom'
+                                }"
+                                class="absolute w-full py-1 mt-1 overflow-auto text-xs bg-white rounded-md shadow-md max-h-56 border border-gray-200 focus:outline-none z-10 dark:bg-gray-700 dark:border-gray-600"
+                                x-cloak>
+                                <template x-for="item in selectableItems" :key="item.value">
+                                    <li @click="
+                                        selectedItem = item;
+                                        selectOpen = false;
+                                        $refs.hiddenSelect.value = item.value;
+                                        $refs.selectButton.focus();
+                                    "
+                                        :id="item.value + '-' + selectId"
+                                        :class="{
+                                            'bg-gray-100 text-gray-900 dark:bg-gray-600 dark:text-white': selectableItemIsActive(
+                                                item)
+                                        }"
+                                        @mousemove="selectableItemActive = item"
+                                        class="relative flex items-center h-full py-2 pl-8 text-gratwo cursor-pointer select-none hover:bg-gray-50 dark:text-white dark:hover:bg-gray-600">
+                                        <svg x-show="selectedItem && selectedItem.value === item.value"
+                                            class="absolute left-0 w-3.5 h-3.5 ml-2 stroke-current text-prim"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                        <span class="block font-medium truncate" x-text="item.title"></span>
+                                    </li>
+                                </template>
+                            </ul>
+
+                            <!-- Hidden input to send back to Laravel -->
+                            <input type="hidden" name="metode_ukur" x-ref="hiddenSelect" value="PB" required>
                         </div>
                     </div>
 
@@ -290,7 +384,29 @@
                         }
                     }
 
-                    // === 3. Validate Umur
+                    // === 3. Validate Metode Ukur Select
+                    const metodeUkurInput = document.querySelector('input[name="metode_ukur"]');
+                    if (metodeUkurInput) {
+                        const wrapper = metodeUkurInput.closest('div.relative');
+                        const selectButton = wrapper?.querySelector('button');
+                        if (!metodeUkurInput.value) {
+                            valid = false;
+                            if (!firstErrorElement && wrapper) firstErrorElement = wrapper;
+                            if (selectButton) {
+                                selectButton.classList.add('ring-1', 'ring-red-400');
+                            }
+
+                            const msg = document.createElement('p');
+                            msg.className =
+                                'text-red-500 font-medium pl-1 text-[10px] mt-1 form-error-msg';
+                            msg.textContent = 'Metode ukur wajib dipilih';
+                            wrapper.parentElement.appendChild(msg);
+                        } else if (selectButton) {
+                            selectButton.classList.remove('ring-1', 'ring-red-400');
+                        }
+                    }
+
+                    // === 4. Validate Umur
                     const umurInput = document.getElementById('umur');
                     if (umurInput) {
                         const value = umurInput.value.trim();
@@ -320,7 +436,7 @@
                         }
                     }
 
-                    // === 4. Validate Berat
+                    // === 5. Validate Berat
                     const beratInput = document.getElementById('berat');
                     if (beratInput) {
                         const value = beratInput.value.trim();
@@ -350,7 +466,7 @@
                         }
                     }
 
-                    // === 5. Validate Panjang
+                    // === 6. Validate Panjang
                     const panjangInput = document.getElementById('panjang');
                     if (panjangInput) {
                         const value = panjangInput.value.trim();
@@ -380,7 +496,7 @@
                         }
                     }
 
-                    // === 6. If form is invalid, cancel submit and scroll to first error
+                    // === 7. If form is invalid, cancel submit and scroll to first error
                     if (!valid) {
                         this.loading = false;
                         e.preventDefault();
@@ -406,7 +522,7 @@
                         return;
                     }
 
-                    // === 7. Submit form if valid
+                    // === 8. Submit form if valid
                     e.target.submit();
                 }
             }));

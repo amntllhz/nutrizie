@@ -22,6 +22,7 @@ class CekGiziController extends Controller
         // Validasi input
         $request->validate([
             'nama' => 'required',
+            'metode_ukur' => 'required|in:PB,TB',
             'gender' => 'required',
             'umur' => 'required|numeric',
             'berat' => 'required',
@@ -30,6 +31,7 @@ class CekGiziController extends Controller
 
         // Ambil data input dari form
         $nama = $request->nama;
+        $metodeUkur = $request->metode_ukur;
         $gender = $request->gender;
         $umur = $request->umur;
         $berat = $request->berat;
@@ -57,13 +59,17 @@ class CekGiziController extends Controller
 
         // Tentukan status gizi BB/U
         $statusBbu = $this->getStatusBbu($zscoreBbu);
-        
+
 
         /** Perhitungan PB/U **/
         // Ambil data antropometri PB/U berdasarkan gender dan umur
+        $koreksi = $this->getKoreksi($umur, $panjang, $metodeUkur);
+        $panjangUntukRujukan = $koreksi['nilai'];
+        $metodeRujukan = $koreksi['metode_rujukan'];
+
         $dataPbu = $gender === 'Laki-laki'
-            ? PbuLakilaki::where('id_umur', $umur)->first()
-            : PbuPerempuan::where('id_umur', $umur)->first();
+            ? PbuLakilaki::where('id_umur', $umur)->where('metode_ukur', $metodeRujukan)->first()
+            : PbuPerempuan::where('id_umur', $umur)->where('metode_ukur', $metodeRujukan)->first();
 
         if (!$dataPbu) {
             return redirect()->back()->withErrors([
@@ -73,7 +79,7 @@ class CekGiziController extends Controller
 
         // Hitung Z-Score PB/U
         $zscorePbu = $this->calculateZscore(
-            $panjang,
+            $panjangUntukRujukan,
             $dataPbu->median,
             $dataPbu->sd1,
             $dataPbu->sdmin1
@@ -86,7 +92,57 @@ class CekGiziController extends Controller
         $catatan = $this->getCatatan($statusBbu, $statusPbu);
 
         // Tampilkan hasil di view
-        return view('hasilgizi', compact('nama', 'gender', 'umur', 'berat', 'panjang', 'zscoreBbu', 'statusBbu', 'zscorePbu', 'statusPbu','catatan'));
+        return view('hasilgizi', compact('nama', 'gender', 'umur', 'berat', 'panjang', 'zscoreBbu', 'statusBbu', 'zscorePbu', 'statusPbu', 'catatan'));
+    }
+
+    // Metode untuk menentukan metode ukur default berdasarkan standar Kemenkes
+    private function getDefaultMetode($umur)
+    {
+        return $umur < 24 ? 'PB' : 'TB';
+    }
+
+    // Metode untuk menerapkan koreksi 0.7cm sesuai Permenkes No.2 Tahun 2020
+    private function getKoreksi($umur, $panjang, $metodeUkurInput)
+    {
+        // Umur 24 punya rujukan PB dan TB asli, tidak perlu koreksi
+        if ($umur == 24) {
+            return [
+                'nilai' => $panjang,
+                'metode_rujukan' => $metodeUkurInput,
+            ];
+        }
+
+        $defaultMetode = $this->getDefaultMetode($umur);
+
+        // Jika metode ukur sesuai default umur, tidak perlu koreksi
+        if ($metodeUkurInput === $defaultMetode) {
+            return [
+                'nilai' => $panjang,
+                'metode_rujukan' => $defaultMetode,
+            ];
+        }
+
+        // Anak <24 bulan diukur berdiri (TB) -> tambah 0.7cm, cocokkan ke tabel PB
+        if ($umur < 24 && $metodeUkurInput === 'TB') {
+            return [
+                'nilai' => $panjang + 0.7,
+                'metode_rujukan' => 'PB',
+            ];
+        }
+
+        // Anak >24 bulan diukur terlentang (PB) -> kurang 0.7cm, cocokkan ke tabel TB
+        if ($umur > 24 && $metodeUkurInput === 'PB') {
+            return [
+                'nilai' => $panjang - 0.7,
+                'metode_rujukan' => 'TB',
+            ];
+        }
+
+        // Fallback (seharusnya tidak pernah tercapai)
+        return [
+            'nilai' => $panjang,
+            'metode_rujukan' => $defaultMetode,
+        ];
     }
 
     // Metode untuk menghitung z-score
@@ -98,7 +154,7 @@ class CekGiziController extends Controller
         }
         // Jika nilai lebih besar dari median
         return ($value - $median) / ($sd1 - $median);
-    }    
+    }
 
     // Tambahkan metode di bawah metode lain
     private function getCatatan($statusBbu, $statusPbu)
