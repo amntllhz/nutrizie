@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\BbuLakilaki;
-use App\Models\PbuLakilaki;
 use App\Models\BbuPerempuan;
+use App\Models\PbuLakilaki;
 use App\Models\PbuPerempuan;
+use App\Services\GeminiService;
 use Illuminate\Http\Request;
 
 class CekGiziController extends Controller
@@ -36,6 +37,7 @@ class CekGiziController extends Controller
         $umur = $request->umur;
         $berat = $request->berat;
         $panjang = $request->panjang;
+        $tanggalCek = now();
 
         /** Perhitungan BB/U **/
         // Ambil data antropometri BB/U berdasarkan gender dan umur
@@ -89,10 +91,14 @@ class CekGiziController extends Controller
         $statusPbu = $this->getStatusPbu($zscorePbu);
 
         // Tentukan catatan
-        $catatan = $this->getCatatan($statusBbu, $statusPbu);
+        $geminiService = new GeminiService();
+        $catatanAi = $geminiService->generateCatatan($gender, $umur, $statusBbu, $statusPbu);
+
+        $catatan = $catatanAi ?? $this->getCatatanFallback($statusBbu, $statusPbu);
+
 
         // Tampilkan hasil di view
-        return view('hasilgizi', compact('nama', 'gender', 'umur', 'berat', 'panjang', 'zscoreBbu', 'statusBbu', 'zscorePbu', 'statusPbu', 'catatan'));
+        return view('hasilgizi', compact('nama', 'gender', 'umur', 'berat', 'panjang', 'zscoreBbu', 'statusBbu', 'zscorePbu', 'statusPbu', 'catatan', 'tanggalCek', 'metodeUkur'));
     }
 
     // Metode untuk menentukan metode ukur default berdasarkan standar Kemenkes
@@ -157,43 +163,26 @@ class CekGiziController extends Controller
     }
 
     // Tambahkan metode di bawah metode lain
-    private function getCatatan($statusBbu, $statusPbu)
+    private function getCatatanFallback($statusBbu, $statusPbu)
     {
-        $catatan = [];
+        $catatanBb = [
+            'Berat Badan Sangat Kurang' => 'kondisi berat badan yang memerlukan perhatian segera, disarankan untuk konsultasi ke fasilitas kesehatan terdekat',
+            'Berat Badan Kurang' => 'berat badan yang kurang dari ideal, perlu diperhatikan asupan makanan agar mendapatkan nutrisi yang cukup',
+            'Berat Badan Normal' => 'berat badan yang baik, pertahankan pola makan dengan gizi seimbang',
+            'Risiko Berat Badan Lebih' => 'risiko berat badan lebih, sebaiknya hindari makanan tinggi gula dan lemak',
+        ];
 
-        // Saran berdasarkan BB/U
-        switch ($statusBbu) {
-            case 'Berat Badan Sangat Kurang':
-                $catatan['bb'] = 'Kondisi ini memerlukan perhatian segera. Silakan konsultasikan ke fasilitas kesehatan terdekat untuk evaluasi lebih lanjut.';
-                break;
-            case 'Berat Badan Kurang':
-                $catatan['bb'] = 'Perhatikan asupan makanan balita Anda. Pastikan mereka mendapatkan nutrisi yang cukup setiap harinya.';
-                break;
-            case 'Berat Badan Normal':
-                $catatan['bb'] = 'Kondisi baik! Pastikan pola makan tetap terjaga dengan gizi seimbang.';
-                break;
-            case 'Risiko Berat Badan Lebih':
-                $catatan['bb'] = 'Perhatikan pola makan balita. Hindari makanan tinggi gula dan lemak.';
-                break;
-        }
+        $catatanPb = [
+            'Sangat Pendek' => 'indikasi stunting yang memerlukan intervensi dini, segera periksa ke fasilitas kesehatan',
+            'Pendek' => 'panjang/tinggi badan yang kurang dari ideal, perlu pola makan bergizi dan stimulasi tumbuh kembang optimal',
+            'Normal' => 'panjang/tinggi badan yang sesuai usia, pertahankan pola makan dan perawatan yang baik',
+            'Tinggi' => 'panjang/tinggi badan di atas rata-rata, perhatikan pola makan agar tetap sesuai usia',
+        ];
 
-        // Saran berdasarkan PB/U
-        switch ($statusPbu) {
-            case 'Sangat Pendek':
-                $catatan['pb'] = 'Kondisi ini menunjukkan stunting. Segera periksa ke fasilitas kesehatan untuk intervensi dini.';
-                break;
-            case 'Pendek':
-                $catatan['pb'] = 'Pastikan balita mendapatkan pola makan bergizi dan stimulasi tumbuh kembang yang optimal.';
-                break;
-            case 'Normal':
-                $catatan['pb'] = 'Kondisi baik! Pertahankan pola makan dan perawatan balita.';
-                break;
-            case 'Tinggi':
-                $catatan['pb'] = 'Perhatikan pola makan balita agar panjang badan tetap sesuai dengan usia.';
-                break;
-        }
+        $teksBb = $catatanBb[$statusBbu] ?? '';
+        $teksPb = $catatanPb[$statusPbu] ?? '';
 
-        return $catatan;
+        return "Berdasarkan hasil pemeriksaan, balita menunjukkan {$teksBb}. Sementara itu, untuk indikator panjang/tinggi badan, balita menunjukkan {$teksPb}.";
     }
 
 
