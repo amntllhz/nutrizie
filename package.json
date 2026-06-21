@@ -20,6 +20,7 @@
     "dependencies": {
         "@alpinejs/collapse": "^3.14.9",
         "@tailwindcss/vite": "^4.1.10",
-        "alpinejs": "^3.14.9"
+        "alpinejs": "^3.14.9",
+        "modern-screenshot": "^4.7.0"
     }
 }
