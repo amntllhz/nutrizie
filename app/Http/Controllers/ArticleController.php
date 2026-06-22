@@ -25,14 +25,24 @@ class ArticleController extends Controller
     }
 
     public function show($id)
-    {   
-        // cari artikel berdasarkan id
-        $article = Article::find($id);
+    {
+        // Cari artikel berdasarkan id atau lempar 404 jika tidak ketemu
+        $article = Article::findOrFail($id);
 
-        // ubah created_at menjadi format week ago
+        // Ubah tanggal menjadi format diffForHumans
         $article->created_at_human = $article->created_at->diffForHumans();
 
-        // kirim data artikel ke view
-        return view('detail', compact('article'));
+        // Ambil 3 artikel lain untuk rekomendasi berita terkait
+        $beritaTerkait = Article::where('id', '!=', $id)
+            ->latest()
+            ->take(3)
+            ->get()
+            ->map(function ($item) {
+                $item->created_at_human = $item->created_at->diffForHumans();
+                return $item;
+            });
+
+        // Kirim data artikel utama dan berita terkait ke view
+        return view('detail', compact('article', 'beritaTerkait'));
     }
 }

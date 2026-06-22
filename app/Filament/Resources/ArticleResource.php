@@ -2,18 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Article;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Storage;
-use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ArticleResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ArticleResource\RelationManagers;
+use App\Models\Article;
+use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleResource extends Resource
 {
@@ -31,20 +29,35 @@ class ArticleResource extends Resource
                     ->label('Judul'),
                 Forms\Components\Textarea::make('deskripsi')
                     ->required()
-                    ->label('Deskripsi'),
-                Forms\Components\Textarea::make('konten')
+                    ->rows(3)
+                    ->label('Deskripsi Singkat (Lead)'),
+
+                // Mengubah Textarea menjadi RichEditor
+                RichEditor::make('konten')
                     ->label('Konten Artikel')
                     ->required()
-                    ->rows(5) // Menentukan tinggi area teks
-                    ->placeholder('Masukkan konten artikel di sini...'),
+                    ->toolbarButtons([
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'heading',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'undo',
+                    ])
+                    ->columnSpanFull(), // Agar editor memenuhi lebar form dashboard
+
                 FileUpload::make('gambar')
-                    ->label('Gambar')
+                    ->label('Gambar Utama')
                     ->image()
                     ->required()
-                    ->maxSize(5120) // Maksimal 5MB
+                    ->maxSize(5120)
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg'])
-                    ->disk('public') // Menyimpan gambar di storage/app/public
-                    ->imagePreviewHeight(100), // Menampilkan preview gambar di form
+                    ->disk('public')
+                    ->imagePreviewHeight(100)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -60,13 +73,13 @@ class ArticleResource extends Resource
                     ->limit(25)
                     ->label('Deskripsi'),
                 Tables\Columns\TextColumn::make('konten')
-                    ->limit(30) 
-                    ->label('Konten') 
-                    ->sortable(), 
+                    ->limit(30)
+                    ->label('Konten')
+                    ->sortable(),
                 Tables\Columns\ImageColumn::make('gambar')
                     ->disk('public')
-                    ->label('Gambar')   
-                    ->url(fn ($record) => Storage::url($record->gambar))                 
+                    ->label('Gambar')
+                    ->url(fn($record) => Storage::url($record->gambar))
                     ->sortable(),
             ])
             ->filters([

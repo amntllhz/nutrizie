@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('judul', 255);
-            $table->text('deskripsi');
+            $table->text('deskripsi'); // Berfungsi sebagai ringkasan pendek (lead)
+            $table->mediumText('konten'); // Kolom baru untuk RichEditor Filament
             $table->string('gambar')->nullable();
             $table->timestamps();
         });

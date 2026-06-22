@@ -215,7 +215,7 @@
         window.downloadHasilGizi('hasil-cek-gizi-{{ \Str::slug($nama) }}.png').finally(() => downloading = false);
     "
                     :disabled="downloading"
-                    class="w-fit flex items-center gap-x-1.5 rounded-lg bg-prim px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gratwo cursor-pointer transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prim">
+                    class="w-fit flex items-center gap-x-1.5 rounded-lg bg-prim px-6 py-2 text-sm font-semibold text-white hover:bg-gratwo cursor-pointer transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prim">
                     <svg class="h-3 w-3 text-white" width="100%" height="100%" viewBox="0 0 24 24"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

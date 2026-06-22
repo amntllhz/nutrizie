@@ -48,3 +48,28 @@
 [x-cloak] {
     display: none !important;
 }
+
+/* Custom styling khusus untuk isi artikel berita */
+.konten-artikel h2 {
+    @apply text-lg font-bold text-gray-900 mt-8 mb-3 block;
+}
+
+.konten-artikel h3 {
+    @apply text-base font-bold text-gray-900 mt-6 mb-2 block;
+}
+
+.konten-artikel p {
+    @apply text-sm mb-4 leading-relaxed text-justify text-gray-700 ;
+}
+
+.konten-artikel ul {
+    @apply text-sm list-disc ml-6 my-4 space-y-2 block;
+}
+
+.konten-artikel ol {
+    @apply text-sm list-decimal ml-6 my-4 space-y-2 block;
+}
+
+.konten-artikel li {
+    @apply text-sm pl-1 text-gray-700 text-justify leading-6;
+}
