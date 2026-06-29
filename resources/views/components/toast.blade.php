@@ -34,7 +34,7 @@ setTimeout(() => show = false, {{ $duration }})" x-show="show" x-cloak
     x-transition:leave="transition ease-[cubic-bezier(0.4,0,1,1)] duration-200"
     x-transition:leave-start="opacity-100 translate-x-0 scale-100"
     x-transition:leave-end="opacity-0 translate-x-0 scale-95"
-    class="fixed top-5 right-5 z-50 flex items-start gap-x-2.5 max-w-sm p-4 rounded-xl border font-in {{ $color['bg'] }} {{ $color['border'] }}">
+    class="fixed top-5 right-5 z-50 flex items-start gap-x-2.5 max-w-[22rem] w-full p-4 rounded-xl border font-in {{ $color['bg'] }} {{ $color['border'] }}">
 
     {{-- Ikon berbeda per tipe --}}
     @if ($type === 'success')

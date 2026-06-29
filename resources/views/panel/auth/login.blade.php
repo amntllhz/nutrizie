@@ -2,7 +2,6 @@
 
 @section('title', 'Login')
 
-
 @section('content')
 
     <body class="font-in bg-gray-50 flex items-center justify-center min-h-screen">

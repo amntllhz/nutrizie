@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ToastHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('panel.dashboard'));
+
+            return ToastHelper::flash(
+                redirect()->intended(route('panel.dashboard')),
+                type: 'success',
+                message: 'Selamat datang kembali Nutrimin ...',
+                title: 'Login Berhasil'
+            );
         }
 
         return back()->withErrors([
