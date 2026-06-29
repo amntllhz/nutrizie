@@ -51,12 +51,12 @@
 
                 <div class="flex flex-col gap-y-5">
                     @forelse($beritaTerkait as $terkait)
-                        <a href="{{ route('berita.show', $terkait->id) }}"
-                            class="group flex gap-x-4 items-start p-2 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300">
+                        <a href="{{ route('detailberita.show', $terkait->id) }}"
+                            class="group flex gap-x-4 items-start p-2 rounded-xl hover:bg-white hover:ring-1 hover:ring-prim/20 hover:ring-inset transition-all duration-300">
                             <img class="w-20 h-20 object-cover rounded-lg flex-shrink-0 bg-gray-100"
                                 src="{{ asset('storage/' . $terkait->gambar) }}" alt="">
                             <div class="flex flex-col gap-y-1">
-                                <span class="text-[10px] text-prim font-semibold bg-prim/10 px-2 py-0.5 rounded w-fit">
+                                <span class="text-[9px] text-prim font-semibold bg-prim/10 px-2 py-0.5 rounded w-fit">
                                     {{ $terkait->created_at_human }}
                                 </span>
                                 <h4
