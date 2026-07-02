@@ -3,9 +3,10 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CekGiziController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\Panel\DashboardController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
     return view('home');
@@ -34,14 +35,31 @@ Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.s
 Route::get('/cekgizi', [CekGiziController::class, 'index'])->name('cekgizi');
 Route::post('/cekgizi', [CekGiziController::class, 'hitung'])->name('cekgizi.hitung')->middleware('throttle:10,1');
 
+// Auth routes (Sprint 2 akan convert ke Inertia Page)
+Route::get('/auth/login', [AuthController::class, 'showLoginForm'])
+    ->name('auth.login')
+    ->middleware('guest');
 
-Route::prefix('auth')->name('auth.')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-});
+Route::post('/auth/login', [AuthController::class, 'login'])
+    ->name('auth.login.post');
 
+Route::post('/auth/logout', [AuthController::class, 'logout'])
+    ->name('auth.logout')
+    ->middleware('auth');
 
-Route::prefix('panel')->name('panel.')->middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
+// Panel routes — protected, pakai panel-app.blade.php sebagai root view
+Route::middleware(['auth'])
+    ->prefix('panel')
+    ->name('panel.')
+    ->group(function () {
+
+        // Override root view ke panel-app.blade.php untuk semua route di group ini
+        Inertia::setRootView('panel-app');
+
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
+
+        // Sprint 3-5 akan tambah route di sini:
+        // Route::resource('artikel', ArtikelController::class);
+        // Route::resource('feedback', FeedbackController::class)->only(['index','show','destroy']);
+    });

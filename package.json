@@ -13,14 +13,18 @@
         "axios": "^1.7.4",
         "concurrently": "^9.0.1",
         "flowbite": "^2.5.2",
-        "laravel-vite-plugin": "^1.0",
+        "laravel-vite-plugin": "^3.1.0",
         "tailwindcss": "^4.1.10",
-        "vite": "^6.3.5"
+        "vite": "^8.1.2"
     },
     "dependencies": {
         "@alpinejs/collapse": "^3.14.9",
-        "@tailwindcss/vite": "^4.1.10",
+        "@inertiajs/react": "^3.5.0",
+        "@tailwindcss/vite": "^4.3.2",
+        "@vitejs/plugin-react": "^6.0.3",
         "alpinejs": "^3.14.9",
-        "modern-screenshot": "^4.7.0"
+        "modern-screenshot": "^4.7.0",
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7"
     }
 }

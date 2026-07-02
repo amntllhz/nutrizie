@@ -2,43 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ToastHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AuthController extends Controller
 {
     //
 
-    public function ShowLoginForm()
+    public function showLoginForm(): Response
     {
-        return view('panel.auth.login');
+        return Inertia::render('Auth/Login');
     }
 
-    public function Login(Request $request)
+    public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return ToastHelper::flash(
-                redirect()->intended(route('panel.dashboard')),
-                type: 'success',
-                message: 'Selamat datang kembali Nutrimin ...',
-                title: 'Login Berhasil'
-            );
+            // Inertia-compatible flash — dibaca via usePage().props.flash di React
+            session()->flash('success', 'Selamat datang kembali, Nutrimin!');
+
+            return redirect()->intended(route('panel.dashboard'));
         }
 
         return back()->withErrors([
-            'login' => 'Email atau password yang Anda masukkan salah',
+            'login' => 'Email atau password yang Anda masukkan salah.',
         ])->onlyInput('email');
     }
 
-    public function Logout(Request $request)
+    public function logout(Request $request)
     {
         Auth::logout();
 

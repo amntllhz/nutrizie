@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\HandleInertiaRequest;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -12,7 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
-        $middleware->redirectGuestsTo(fn() => route('auth.login'));
+        $middleware->web(append: [
+            HandleInertiaRequest::class,
+        ]);
+
+        $middleware->redirectGuestsTo('/auth/login');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

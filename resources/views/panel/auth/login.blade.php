@@ -21,7 +21,7 @@
                 </x-toast>
             @endif
 
-            <form method="POST" action="{{ route('auth.login.submit') }}" class="space-y-3" x-data="loginForm"
+            <form method="POST" action="{{ route('auth.login.post') }}" class="space-y-3" x-data="loginForm"
                 x-on:submit.prevent="validateAndSubmit" novalidate>
                 @csrf
 
