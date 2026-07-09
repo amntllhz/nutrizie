@@ -2,6 +2,7 @@ import PanelLayout from '@/Layout/PanelLayout';
 import { Head, Link } from '@inertiajs/react';
 import noArtikel from '../../../../public/img/no-artikel.svg';
 import noFeedback from '../../../../public/img/no-feedback.svg';
+import CountUp from '@/components/ui/CountUp';
 
 export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedback = [] }) {
     const {
@@ -119,13 +120,13 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                                                 </p>
 
                                                 {/* Waktu di Sisi Kanan agar Balance */}
-                                                <span className="shrink-0 text-[9px] tracking-wide text-gray-400">
+                                                <span className="shrink-0 text-[8px] tracking-wide text-gray-400">
                                                     {fb.created_at}
                                                 </span>
                                             </div>
 
                                             {/* Pesan Feedback */}
-                                            <p className="text-[10px] text-gray-500 font-normal line-clamp-2 mt-1 leading-relaxed pr-2">
+                                            <p className="text-[10px] text-gray-500 font-normal line-clamp-1 mt-1 leading-relaxed pr-2">
                                                 {fb.pesan}
                                             </p>
                                         </div>
@@ -147,12 +148,6 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                         </div>
                     </div>
                 </div>
-
-                {/* Inertia check badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-lg">
-                    <span className="w-2 h-2 rounded-full bg-green-500" />
-                    <span className="text-xs text-green-700 font-medium">Inertia + React aktif</span>
-                </div>
             </div>
         </>
     );
@@ -166,7 +161,16 @@ function StatCard({ label, value, icon }) {
                 <span className="text-xs font-medium text-gray-500">{label}</span>
                 <span className="p-1.5 rounded-lg bg-prim/5 text-prim">{icon}</span>
             </div>
-            <p className="text-2xl font-semibold text-gray-900">{value}</p>
+            {/* <p className="text-2xl font-semibold text-gray-900">{value}</p> */}
+            <CountUp
+                from={0}
+                to={value}
+                separator=","
+                direction="up"
+                duration={0.8}
+                className="text-2xl font-semibold text-gray-900"
+                delay={0}
+            />
         </div>
     );
 }

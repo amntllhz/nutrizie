@@ -4,7 +4,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CekGiziController;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\Panel\DashboardController;
+use App\Http\Controllers\Panel\DashboardPanelController;
+use App\Http\Controllers\Panel\FeedbackPanelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -56,10 +57,12 @@ Route::middleware(['auth'])
         // Override root view ke panel-app.blade.php untuk semua route di group ini
         Inertia::setRootView('panel-app');
 
-        Route::get('/dashboard', [DashboardController::class, 'index'])
+        Route::get('/dashboard', [DashboardPanelController::class, 'index'])
             ->name('dashboard');
 
-        // Sprint 3-5 akan tambah route di sini:
-        // Route::resource('artikel', ArtikelController::class);
-        // Route::resource('feedback', FeedbackController::class)->only(['index','show','destroy']);
+        Route::get('/feedback', [FeedbackPanelController::class, 'index'])->name('feedback.index');
+        Route::post('/feedback/bulk-mark-read', [FeedbackPanelController::class, 'bulkMarkRead'])->name('feedback.bulkMarkRead');
+        Route::delete('/feedback/bulk-destroy', [FeedbackPanelController::class, 'bulkDestroy'])->name('feedback.bulkDestroy');
+        Route::patch('/feedback/{feedback}/mark-read', [FeedbackPanelController::class, 'markRead'])->name('feedback.markRead');
+        Route::delete('/feedback/{feedback}', [FeedbackPanelController::class, 'destroy'])->name('feedback.destroy');
     });

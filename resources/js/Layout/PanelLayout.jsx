@@ -1,5 +1,9 @@
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Link, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
+import logoutIcon from '../../../public/img/logout.svg'
 
 const navItems = [
     {
@@ -34,80 +38,18 @@ const navItems = [
     },
 ];
 
-function FlashBanner() {
-    const { flash = {} } = usePage().props;
-    const [visible, setVisible] = useState(false);
-    const [message, setMessage] = useState('');
-    const [type, setType] = useState('success');
-
-    useEffect(() => {
-        if (flash.success) {
-            setMessage(flash.success);
-            setType('success');
-            setVisible(true);
-        } else if (flash.error) {
-            setMessage(flash.error);
-            setType('error');
-            setVisible(true);
-        } else if (flash.info) {
-            setMessage(flash.info);
-            setType('info');
-            setVisible(true);
-        }
-
-        const timer = setTimeout(() => setVisible(false), 4000);
-        return () => clearTimeout(timer);
-    }, [flash]);
-
-    if (!visible || !message) return null;
-
-    const styles = {
-        success: 'bg-green-50 border-green-200 text-green-700',
-        error: 'bg-red-50 border-red-200 text-red-700',
-        info: 'bg-blue-50 border-blue-200 text-blue-700',
-    };
-
-    const icons = {
-        success: (
-            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-        ),
-        error: (
-            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        ),
-        info: (
-            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 110 20A10 10 0 0112 2z" />
-            </svg>
-        ),
-    };
-
-    return (
-        <div className={`flex items-center gap-2.5 px-4 py-2.5 border-b text-sm font-medium ${styles[type]}`}>
-            {icons[type]}
-            <span>{message}</span>
-            <button
-                onClick={() => setVisible(false)}
-                className="ml-auto opacity-60 hover:opacity-100 transition-opacity"
-            >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-    );
-}
-
 export default function PanelLayout({ children }) {
     const { url, props } = usePage();
     const user = props.auth?.user;
     const [collapsed, setCollapsed] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [logoutOpen, setLogoutOpen] = useState(false);
+    const icon = logoutIcon
 
-    const isActive = (href) => url === href || url.startsWith(href + '/');
+    // const isActive = (href) => url === href || url.startsWith(href + '/');
+    const cleanUrl = url ? url.split('?')[0] : '';
+
+    const isActive = (href) => cleanUrl === href || cleanUrl.startsWith(href + '/');
 
     return (
         <div className="flex h-screen overflow-hidden bg-gray-50">
@@ -164,79 +106,128 @@ export default function PanelLayout({ children }) {
             <aside
                 className={`
                     flex flex-col h-screen bg-white border-r border-gray-200 
-                    transition-all duration-300 flex-shrink-0 select-none
+                    transition-all duration-300 flex-shrink-0 select-none 
                     sm:hidden
                     ${collapsed ? 'w-16' : 'w-64'}
                 `}
             >
                 {/* Header: Logo + Toggle */}
-                <div className={`flex items-center h-14 px-4 border-b border-gray-100 ${collapsed ? 'justify-center' : 'justify-between'}`}>
+                <div className={`flex items-center h-14 border-b border-gray-100 ${collapsed ? 'justify-start pl-5' : 'justify-between px-4 '}`}>
                     {!collapsed ? (
-                        <div className="flex items-center justify-between w-full transition-all pl-3 pr-1">
+                        <div className="flex items-center justify-between w-full transition-all pl-2 pr-1">
 
                             <img src="/img/nutrizie-logo.svg" className="h-5" alt="Logo" />
-                            <button
-                                onClick={() => setCollapsed(true)}
-                                className="p-1.5 cursor-pointer rounded-lg text-gray-300 hover:text-gray-400 hover:bg-gray-50 transition-colors focus:outline-none"
-                                title="Collapse Sidebar"
-                            >
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => setCollapsed(true)}
+                                        className="p-1.5 cursor-pointer rounded-lg text-gray-300 hover:text-gray-400 hover:bg-gray-50 transition-colors focus:outline-none"
+                                    >
 
-                                <svg className="w-4.5 h-4.5" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6.5 17.5L6.5 6.5M7.8 3H16.2C17.8802 3 18.7202 3 19.362 3.32698C19.9265 3.6146 20.3854 4.07354 20.673 4.63803C21 5.27976 21 6.11984 21 7.8V16.2C21 17.8802 21 18.7202 20.673 19.362C20.3854 19.9265 19.9265 20.3854 19.362 20.673C18.7202 21 17.8802 21 16.2 21H7.8C6.11984 21 5.27976 21 4.63803 20.673C4.07354 20.3854 3.6146 19.9265 3.32698 19.362C3 18.7202 3 17.8802 3 16.2V7.8C3 6.11984 3 5.27976 3.32698 4.63803C3.6146 4.07354 4.07354 3.6146 4.63803 3.32698C5.27976 3 6.11984 3 7.8 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
+                                        <svg className="w-4.5 h-4.5" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.5 17.5L6.5 6.5M7.8 3H16.2C17.8802 3 18.7202 3 19.362 3.32698C19.9265 3.6146 20.3854 4.07354 20.673 4.63803C21 5.27976 21 6.11984 21 7.8V16.2C21 17.8802 21 18.7202 20.673 19.362C20.3854 19.9265 19.9265 20.3854 19.362 20.673C18.7202 21 17.8802 21 16.2 21H7.8C6.11984 21 5.27976 21 4.63803 20.673C4.07354 20.3854 3.6146 19.9265 3.32698 19.362C3 18.7202 3 17.8802 3 16.2V7.8C3 6.11984 3 5.27976 3.32698 4.63803C3.6146 4.07354 4.07354 3.6146 4.63803 3.32698C5.27976 3 6.11984 3 7.8 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent side="right">
+                                    <p className="text-xs text-prim">Collapse Sidebar</p>
+                                </TooltipContent>
+                            </Tooltip>
                         </div>
                     ) : (
-                        <button
-                            onClick={() => setCollapsed(false)}
-                            className="p-1 rounded-xl cursor-pointer hover:bg-gray-50 transition-all duration-200 focus:outline-none group active:scale-95"
-                            title="Expand Sidebar"
-                        >
-                            <img src="/img/nutrizie-icon.svg" className="h-6 w-6 transition-transform group-hover:scale-105" alt="Icon Logo" />
-                        </button>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <button
+                                    onClick={() => setCollapsed(false)}
+                                    className="p-1 rounded-xl cursor-pointer hover:bg-gray-50 transition-all duration-200 focus:outline-none group active:scale-95"
+                                >
+                                    <img src="/img/nutrizie-icon.svg" className="h-5 w-5 transition-transform group-hover:scale-105" alt="Icon Logo" />
+                                </button>
+                            </TooltipTrigger>
+                            <TooltipContent side="right">
+                                <p className="text-xs text-prim">Expand Sidebar</p>
+                            </TooltipContent>
+                        </Tooltip>
                     )}
                 </div>
 
                 {/* Navigation Menu */}
-                <nav className="flex-1 pr-3 pl-4 py-4 space-y-1 overflow-y-auto">
+                <nav className="flex-1 px-0 py-4 space-y-0 overflow-y-auto">
                     {navItems.map((item) => {
                         const active = isActive(item.href);
                         return (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                className={`
-                                    relative flex items-center gap-x-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors group overflow-visible
-                                    ${active ? 'bg-prim/5 text-prim' : 'text-gray-500 hover:bg-gray-50/75 hover:text-gray-700'}
-                                    ${collapsed ? 'justify-center' : ''}
-                                `}
-                                title={item.label}
-                            >
-                                {active && (
-                                    <span className="absolute -left-2 top-1/2 -translate-y-1/2 w-[2px] h-2/4 bg-prim rounded-md"></span>
-                                )}
-                                {item.icon}
-                                {!collapsed && <span>{item.label}</span>}
-                            </Link>
+                            <div className='relative flex-1 pr-3 pl-4 w-full'>
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className={`
+                                        relative flex items-center gap-x-3 pr-3 pl-[0.55rem] py-2.5 rounded-md text-xs font-medium transition-colors duration-300 group overflow-hidden
+                                        ${active ? 'bg-prim/10 text-prim' : 'text-gray-500 hover:bg-gray-50/75 hover:text-gray-700'}
+                                        ${collapsed ? 'justify-start' : ''}
+                                    `}
+                                    title={item.label}
+                                >
+                                    {item.icon}
+                                    {!collapsed && <span>{item.label}</span>}
+                                </Link>
+                                {/* {active && (
+                                    <span className="absolute left-2 top-1/2 -translate-y-1/2 w-[2px] h-2/4 bg-prim rounded-md"></span>
+                                )} */}
+                                <span className={`
+                                        pointer-events-none
+                                        absolute left-2 top-1/2 -translate-y-1/2 w-[2px] h-5 bg-prim rounded-md
+                                        transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                                        origin-center
+                                        ${active ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}
+                                    `}>
+                                </span>
+                            </div>
                         );
                     })}
                 </nav>
 
                 {/* Logout */}
-                <div className="px-3 py-2">
-                    <Link
-                        href="/auth/logout"
-                        method="post"
-                        as="button"
-                        className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+                <div className="pr-3 pl-4 py-2 overflow-hidden">
+                    <button
+                        onClick={() => setLogoutOpen(true)}
+                        className="flex items-center gap-x-3 pr-3 pl-[0.55rem] py-2.5 w-full justify-start rounded-lg text-sm font-medium hover:bg-gray-50 transition-all duration-300 cursor-pointer text-gray-500 hover:text-gray-700 hover:ring hover:ring-gray-200"
                     >
-                        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        <svg className='w-4.5 h-4.5 flex-shrink-0' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 16.9999L21 11.9999M21 11.9999L16 6.99994M21 11.9999H9M12 16.9999C12 17.2955 12 17.4433 11.989 17.5713C11.8748 18.9019 10.8949 19.9968 9.58503 20.2572C9.45903 20.2823 9.31202 20.2986 9.01835 20.3312L7.99694 20.4447C6.46248 20.6152 5.69521 20.7005 5.08566 20.5054C4.27293 20.2453 3.60942 19.6515 3.26118 18.8724C3 18.2881 3 17.5162 3 15.9722V8.02764C3 6.4837 3 5.71174 3.26118 5.12746C3.60942 4.34842 4.27293 3.75454 5.08566 3.49447C5.69521 3.29941 6.46246 3.38466 7.99694 3.55516L9.01835 3.66865C9.31212 3.70129 9.45901 3.71761 9.58503 3.74267C10.8949 4.0031 11.8748 5.09798 11.989 6.42855C12 6.55657 12 6.70436 12 6.99994" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        Keluar
-                    </Link>
+                        {!collapsed && <span className='text-xs'>Logout</span>}
+                    </button>
                 </div>
+
+                {/* Dialog logout */}
+                <Dialog open={logoutOpen} onOpenChange={setLogoutOpen}>
+                    <DialogContent className="!w-80 !max-w-80">
+                        <div className="flex flex-col items-center space-y-3">
+                            <div className="flex flex-col items-center justify-center py-4 space-y-3">
+                                <div className="w-fit">
+                                    <img src={icon} alt="" className='w-20 h-20' />
+                                </div>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="font-semibold text-center text-xs text-gray-800">Keluar dari panel?</p>
+                                    <p className="text-[11px] text-gray-400 text-center">Dengan ini sesi Anda akan diakhiri</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex gap-2 justify-center">
+                            <DialogClose asChild>
+                                <Button variant="outline" className="text-xs cursor-pointer flex-1">Batal</Button>
+                            </DialogClose>
+                            <Link
+                                href="/auth/logout"
+                                method="post"
+                                as="button"
+                                className="inline-flex flex-1 items-center justify-center text-xs px-4 py-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors cursor-pointer"
+                            >
+                                Logout
+                            </Link>
+                        </div>
+                    </DialogContent>
+                </Dialog>
             </aside >
 
             {/* Workspace Area */}
@@ -258,15 +249,13 @@ export default function PanelLayout({ children }) {
 
                     {/* Avatar */}
                     {user && (
-                        <div className="w-8 h-8 rounded-full bg-prim/5 flex items-center ring ring-prim/20 justify-center">
+                        <div className="w-8 h-8 rounded-full bg-linear-to-b from-prim/10 to-prim/20 flex items-center ring ring-prim/20 justify-center">
                             <span className="text-xs font-semibold text-prim">
                                 {user.name?.charAt(0).toUpperCase()}
                             </span>
                         </div>
                     )}
                 </div>
-
-                <FlashBanner />
 
                 {/* Page content */}
                 <div className="flex-1 overflow-y-auto p-4 lg:p-6" >

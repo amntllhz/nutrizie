@@ -26,9 +26,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Inertia-compatible flash — dibaca via usePage().props.flash di React
-            session()->flash('success', 'Selamat datang kembali, Nutrimin!');
-
             return redirect()->intended(route('panel.dashboard'));
         }
 
