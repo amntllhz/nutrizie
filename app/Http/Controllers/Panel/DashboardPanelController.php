@@ -8,7 +8,7 @@ use App\Models\Feedback;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class DashboardController extends Controller
+class DashboardPanelController extends Controller
 {
     public function index(): Response
     {

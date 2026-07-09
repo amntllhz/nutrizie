@@ -11,5 +11,5 @@ class Feedback extends Model
 
     use HasFactory;
 
-    protected $fillable = [ 'email', 'pesan' ];
+    protected $fillable = ['email', 'pesan', 'is_read'];
 }
