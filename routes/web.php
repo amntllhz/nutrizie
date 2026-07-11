@@ -6,6 +6,7 @@ use App\Http\Controllers\CekGiziController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Panel\DashboardPanelController;
 use App\Http\Controllers\Panel\FeedbackPanelController;
+use App\Http\Controllers\Panel\ArticlePanelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -62,7 +63,15 @@ Route::middleware(['auth'])
 
         Route::get('/feedback', [FeedbackPanelController::class, 'index'])->name('feedback.index');
         Route::post('/feedback/bulk-mark-read', [FeedbackPanelController::class, 'bulkMarkRead'])->name('feedback.bulkMarkRead');
-        Route::delete('/feedback/bulk-destroy', [FeedbackPanelController::class, 'bulkDestroy'])->name('feedback.bulkDestroy');
         Route::patch('/feedback/{feedback}/mark-read', [FeedbackPanelController::class, 'markRead'])->name('feedback.markRead');
+        Route::delete('/feedback/bulk-destroy', [FeedbackPanelController::class, 'bulkDestroy'])->name('feedback.bulkDestroy');
         Route::delete('/feedback/{feedback}', [FeedbackPanelController::class, 'destroy'])->name('feedback.destroy');
+
+        Route::get('/artikel',                      [ArticlePanelController::class, 'index'])->name('artikel.index');
+        Route::get('/artikel/create',               [ArticlePanelController::class, 'create'])->name('artikel.create');
+        Route::post('/artikel',                     [ArticlePanelController::class, 'store'])->name('artikel.store');
+        Route::delete('/artikel/bulk-destroy',      [ArticlePanelController::class, 'bulkDestroy'])->name('artikel.bulkDestroy');
+        Route::get('/artikel/{artikel}/edit',       [ArticlePanelController::class, 'edit'])->name('artikel.edit');
+        Route::post('/artikel/{artikel}/update',           [ArticlePanelController::class, 'update'])->name('artikel.update');
+        Route::delete('/artikel/{artikel}',         [ArticlePanelController::class, 'destroy'])->name('artikel.destroy');
     });
