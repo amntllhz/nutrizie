@@ -1,3 +1,6 @@
+@import '../js/styles/_variables.scss';
+@import '../js/styles/_keyframe-animations.scss';
+
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import 'tailwindcss';
 @import "tw-animate-css";
