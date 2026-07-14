@@ -69,7 +69,7 @@ export default function ArticleCreate() {
                             <input type="text" value={form.judul}
                                 onChange={e => handleChange('judul', e.target.value)}
                                 placeholder="Judul artikel..."
-                                className={`w-full px-3.5 py-2 text-xs border rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors
+                                className={`w-full px-3.5 py-2 text-xs border rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors placeholder:text-gray-300
                                 ${errors.judul ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} />
                             {errors.judul && <p className="text-[11px] text-red-500 mt-1">{errors.judul}</p>}
                         </div>
@@ -80,7 +80,7 @@ export default function ArticleCreate() {
                             <textarea value={form.deskripsi}
                                 onChange={e => handleChange('deskripsi', e.target.value)}
                                 rows={3} placeholder="Ringkasan singkat artikel..."
-                                className={`w-full px-3.5 py-2 text-xs border rounded-lg focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors resize-none
+                                className={`w-full px-3.5 py-2 text-xs border rounded-lg focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors resize-none placeholder:text-gray-300
                                 ${errors.deskripsi ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} />
                             {errors.deskripsi && <p className="text-[11px] text-red-500 mt-1">{errors.deskripsi}</p>}
                         </div>
@@ -123,7 +123,7 @@ export default function ArticleCreate() {
                 <div className=''>
                     <label className="block text-xs font-medium text-gray-700 mb-1.5">Konten Artikel</label>
                     <div className='w-full overflow-hidden panel-editor border border-gray-200 rounded-lg'>
-                        <RichEditor value={form.konten} onChange={val => handleChange('konten', val)} />
+                        <RichEditor value={form.konten} placeholder="Tuliskan Artikel..." onChange={val => handleChange('konten', val)} />
                     </div>
                     {errors.konten && <p className="text-[11px] text-red-500 mt-1">{errors.konten}</p>}
                 </div>

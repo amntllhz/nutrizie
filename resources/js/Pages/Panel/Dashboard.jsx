@@ -70,15 +70,66 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                                 </svg>
                             </Link>
                         </div>
-                        <div className="divide-y divide-gray-50">
+                        <div className="grid grid-cols-3 gap-4 divide-y divide-gray-50 p-4">
                             {recentArtikel.length === 0 ? (
                                 <EmptyState label="Artikel belum tersedia" message="Silahkan buat sebuah artikel baru" icon={noArtikel} />
                             ) : (
                                 recentArtikel.map((artikel) => (
-                                    <div key={artikel.id} className="px-5 py-3">
-                                        <p className="text-sm text-gray-800 font-medium truncate">{artikel.title}</p>
-                                        <p className="text-xs text-gray-400 mt-0.5">{artikel.created_at}</p>
-                                    </div>
+                                    <Link
+                                        key={artikel.id}
+                                        href={`/panel/artikel/${artikel.id}`}
+                                        className="block group"
+                                    >
+                                        <div className="w-full bg-white p-2 rounded-xl space-y-3 ring-1 ring-inset ring-prim/20 hover:bg-prim/5 hover:ring-2 hover:ease-in-out hover:duration-300 sm:p-4">
+                                            {artikel.gambar && (
+                                                <div className="relative w-full h-24 rounded-md overflow-hidden transition-transform duration-300">
+                                                    <img
+                                                        className="object-cover w-full h-full"
+                                                        src={artikel.gambar}
+                                                        alt={artikel.judul}
+                                                    />
+
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
+
+                                                    <div className="absolute bottom-0 inset-x-0 px-2 py-1 flex flex-row w-full justify-between items-center sm:p-4">
+                                                        <p className="text-white bg-white/20 backdrop-blur-sm font-semibold text-[8px] py-0.5 px-2.5 rounded-full border border-white/10">
+                                                            Author
+                                                        </p>
+                                                        <p className="text-white text-[8px] py-1.5 px-1 font-medium drop-shadow-md">
+                                                            {artikel.created_at}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            <div className="px-2 pb-1 space-y-1.5">
+                                                <h1 className="text-xs text-prim font-bold line-clamp-1 sm:text-lg group-hover:text-gratwo transition-colors duration-300">
+                                                    {artikel.judul}
+                                                </h1>
+
+                                                <p className="text-[10px] text-gray-400 line-clamp-2 font-light">
+                                                    {artikel.deskripsi}
+                                                </p>
+
+                                                <div className="flex items-center text-[10px] text-prim font-semibold pt-1 group-hover:underline">
+                                                    Baca selengkapnya
+                                                    <svg
+                                                        className="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="2"
+                                                            d="M9 5l7 7-7 7"
+                                                        />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
                                 ))
                             )}
                         </div>

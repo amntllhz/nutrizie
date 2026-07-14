@@ -96,8 +96,37 @@ body,
   }
 
   .simple-editor-content .tiptap.ProseMirror.simple-editor {
-    padding: 1.5rem;
+    padding: 1.0rem;
     min-height: 300px;
     flex: none;
+    font-size: 13px; // ← PASTIKAN ADA DI SINI
+    line-height: 1.5;
+
+    // Target semua elemen di dalam editor
+    p,
+    span,
+    li,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: inherit; // ← warisi dari parent
+    }
   }
+}
+
+/* Placeholder styling */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--tt-gray-light-a-300);
+  font-size: 13px;
+  pointer-events: none;
+  height: 0;
+}
+
+.dark .tiptap p.is-editor-empty:first-child::before {
+  color: var(--tt-gray-dark-a-300);
 }

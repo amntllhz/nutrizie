@@ -13,6 +13,7 @@ import { Highlight } from "@tiptap/extension-highlight"
 import { Subscript } from "@tiptap/extension-subscript"
 import { Superscript } from "@tiptap/extension-superscript"
 import { Selection } from "@tiptap/extensions"
+import { Placeholder } from "@tiptap/extension-placeholder"
 
 // --- UI Primitives ---
 import { Button } from "@/components/tiptap-ui-primitive/button"
@@ -191,6 +192,9 @@ export function SimpleEditor({ content: initialContent, onContentChange, placeho
       Superscript,
       Subscript,
       Selection,
+      Placeholder.configure({
+        placeholder: placeholder ?? "Tulis artikel...",
+      }),
       ImageUploadNode.configure({
         accept: "image/*",
         maxSize: MAX_FILE_SIZE,
