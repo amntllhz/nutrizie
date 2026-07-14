@@ -7,7 +7,7 @@ import logoutIcon from '../../../public/img/logout.svg'
 
 const navItems = [
     {
-        label: 'Dashboard',
+        label: 'Beranda',
         href: '/panel/dashboard',
         icon: (
             <svg className="w-4.5 h-4.5 flex-shrink-0" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@ const navItems = [
         ),
     },
     {
-        label: 'Feedback',
+        label: 'Masukan',
         href: '/panel/feedback',
         icon: (
             <svg className="w-4.5 h-4.5 flex-shrink-0" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +105,7 @@ export default function PanelLayout({ children }) {
             {/* --- Sidebar Desktop (Default Flex, tapi disembunyikan di sm: max 639px) --- */}
             <aside
                 className={`
-                    flex flex-col h-screen bg-white border-r border-gray-200 
+                    flex flex-col h-screen bg-white border-r border-gray-100 
                     transition-all duration-300 flex-shrink-0 select-none 
                     sm:hidden
                     ${collapsed ? 'w-16' : 'w-64'}
