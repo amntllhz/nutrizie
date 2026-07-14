@@ -252,12 +252,12 @@ export default function FeedbackIndex({ feedbacks }) {
 
     return (
         <>
-            <Head title="Feedback" />
+            <Head title="Masukan" />
 
             <div>
                 <div className="mb-6">
-                    <h1 className="text-lg font-semibold text-gray-900">Feedback</h1>
-                    <p className="text-xs text-gray-500 mt-0.5">Daftar pesan masuk dari pengguna Nutrizie</p>
+                    <h1 className="text-lg font-bold text-gray-900">Masukan</h1>
+                    <p className="text-xs text-gray-500 mt-0.5">Daftar kritik dan saran dari pengguna Nutrizie</p>
                 </div>
 
 
@@ -507,13 +507,13 @@ export default function FeedbackIndex({ feedbacks }) {
                                     <IconMarkRead active={viewTarget.is_read} />
                                 </Button>
                             </div>
-                            <div className="flex flex-col p-2 rounded-r-lg rounded-bl-lg border border-gray-200 justify-between">
-                                <p className="text-[10px] text-gray-500 text-justify leading-relaxed whitespace-pre-wrap">{viewTarget.pesan}</p>
-                                <div className="flex items-center justify-end pt-2 space-x-1">
-                                    <svg className='w-2 h-2 text-gray-400' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex flex-col p-2 rounded-r-lg rounded-bl-lg bg-prim/10 border border-prim/10 justify-between">
+                                <p className="text-[10px] text-prim text-justify leading-relaxed whitespace-pre-wrap">{viewTarget.pesan}</p>
+                                <div className="flex items-center justify-end mt-2 space-x-1 mr-1 w-full">
+                                    <svg className='w-2 h-2 text-prim' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M22.7 13.5L20.7005 11.5L18.7 13.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C15.3019 3 18.1885 4.77814 19.7545 7.42909M12 7V12L15 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-                                    <p className="text-[8px] text-gray-500 text-right">{viewTarget.created_at}</p>
+                                    <p className="text-[8px] text-prim text-right">{viewTarget.created_at}</p>
                                 </div>
                             </div>
                         </div>
@@ -522,7 +522,7 @@ export default function FeedbackIndex({ feedbacks }) {
             </Dialog >
 
             {/* Dialog konfirmasi hapus */}
-            <Dialog Dialog open={!!deleteTarget
+            < Dialog Dialog open={!!deleteTarget
             } onOpenChange={(open) => !open && setDeleteTarget(null)}>
                 <DialogContent className="!w-80 !max-w-80">
                     <div className="flex flex-col items-center justify-center py-4 space-y-3">
@@ -554,7 +554,7 @@ export default function FeedbackIndex({ feedbacks }) {
                         </Button>
                     </div>
                 </DialogContent>
-            </Dialog >
+            </ Dialog>
         </>
     );
 }

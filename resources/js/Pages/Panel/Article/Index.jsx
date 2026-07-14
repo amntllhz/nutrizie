@@ -104,7 +104,9 @@ export default function ArticleIndex({ articles, filters }) {
                 data: { ids: selectAllDb ? [] : selected, select_all: selectAllDb },
                 preserveScroll: true,
                 onSuccess: () => {
-                    toast.success(selectAllDb ? 'Semua artikel dihapus' : `${selected.length} artikel dihapus`);
+                    toast.success(selectAllDb ? 'Semua artikel dihapus' : `${selected.length} artikel dihapus`, {
+                        description: 'Beberapa artikel berhasil dihapus dari database'
+                    });
                     clearSelection();
                     setDeleteTarget(null);
                 },
@@ -114,7 +116,9 @@ export default function ArticleIndex({ articles, filters }) {
             router.delete(`/panel/artikel/${deleteTarget}`, {
                 preserveScroll: true,
                 onSuccess: () => {
-                    toast.success('Artikel dihapus');
+                    toast.success('Artikel dihapus', {
+                        description: 'Artikel berhasil dihapus dari database'
+                    });
                     setDeleteTarget(null);
                 },
                 onError: () => toast.error('Gagal', { description: 'Terjadi kesalahan.' }),
@@ -127,7 +131,7 @@ export default function ArticleIndex({ articles, filters }) {
             <Head title="Artikel" />
             <div className='flex flex-col'>
                 <div className='mb-6'>
-                    <h1 className="text-lg font-semibold text-gray-900">Artikel</h1>
+                    <h1 className="text-lg font-bold text-gray-900">Artikel</h1>
                     <p className="text-xs text-gray-500 mt-0.5">Kelola konten berita dan artikel gizi</p>
                 </div>
 
@@ -201,7 +205,7 @@ export default function ArticleIndex({ articles, filters }) {
 
                     </div>
                     <Link href="/panel/artikel/create">
-                        <Button size="sm" className="text-xs py-4 cursor-pointer bg-prim hover:bg-gratwo">
+                        <Button size="sm" className="text-xs py-4 pr-4 cursor-pointer bg-prim hover:bg-gratwo">
                             <svg className='w-4 h-4' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>

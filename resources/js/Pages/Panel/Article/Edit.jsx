@@ -60,7 +60,7 @@ export default function ArticleEdit({ article }) {
             <Head title="Edit Artikel" />
             <div className="">
                 <div className="mb-6">
-                    <h1 className="text-lg font-semibold text-gray-900">Edit Artikel</h1>
+                    <h1 className="text-lg font-bold text-gray-900">Edit Artikel</h1>
                     <p className="text-xs text-gray-500 mt-0.5 truncate max-w-md">{article.judul}</p>
                 </div>
 

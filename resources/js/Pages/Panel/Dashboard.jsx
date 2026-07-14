@@ -4,6 +4,8 @@ import noArtikel from '../../../../public/img/no-artikel.svg';
 import noFeedback from '../../../../public/img/no-feedback.svg';
 import CountUp from '@/components/ui/CountUp';
 import EmptyState from '@/components/ui/EmptyState';
+import StatCard from '@/components/ui/statcard';
+import QuickAdd from '@/components/ui/quickAdd';
 
 export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedback = [] }) {
     const {
@@ -14,15 +16,15 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
 
     return (
         <>
-            <Head title='Dashboard' />
+            <Head title='Beranda' />
             <div>
                 <div className="mb-6">
-                    <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
-                    <p className="text-xs text-gray-500 mt-0.5">Selamat datang di panel admin Nutrizie</p>
+                    <h1 className="text-lg font-bold text-gray-900">Beranda</h1>
+                    <p className="text-xs text-gray-500 mt-0.5">Selamat datang di beranda admin Nutrizie</p>
                 </div>
 
                 {/* Stat cards */}
-                <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 mb-8">
+                <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 mb-6">
                     <StatCard
                         label="Total Artikel"
                         value={totalArtikel}
@@ -33,7 +35,7 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                         }
                     />
                     <StatCard
-                        label="Total Feedback"
+                        label="Total Masukan"
                         value={totalFeedback}
                         icon={
                             <svg className="w-4.5 h-4.5" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,24 +44,23 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                         }
                     />
                     <StatCard
-                        label="Feedback Belum Dibaca"
+                        label="Masukan Belum Dibaca"
                         value={feedbackBelumDibaca}
                         icon={
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            <svg className='w-4.5 h-4.5' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V13M13 17H7M15 13H7M20.1213 3.87868C21.2929 5.05025 21.2929 6.94975 20.1213 8.12132C18.9497 9.29289 17.0503 9.29289 15.8787 8.12132C14.7071 6.94975 14.7071 5.05025 15.8787 3.87868C17.0503 2.70711 18.9497 2.70711 20.1213 3.87868Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         }
                     />
                 </div>
 
                 {/* Tables row */}
-                <div className="grid grid-cols-3 sm:grid-cols-1 gap-6">
+                <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 items-start">
 
                     {/* Recent Artikel */}
-                    <div className="bg-white col-span-2 rounded-xl border border-gray-100">
-                        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-                            <h2 className="text-sm font-semibold text-gray-900">Artikel Terbaru</h2>
+                    <div className="bg-white col-span-2 rounded-xl border border-gray-100 p-1 ">
+                        <div className="flex items-center justify-between p-3 ">
+                            <h2 className="text-xs font-semibold text-gray-800">Artikel Terbaru</h2>
                             <Link
                                 href="/panel/artikel"
                                 className="flex items-center justify-center gap-1 text-[11px] text-gray-400 hover:text-gray-600 font-medium transition-all duration-300"
@@ -70,7 +71,7 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                                 </svg>
                             </Link>
                         </div>
-                        <div className="grid grid-cols-3 gap-4 divide-y divide-gray-50 p-4">
+                        <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 border border-gray-100 rounded-lg">
                             {recentArtikel.length === 0 ? (
                                 <EmptyState label="Artikel belum tersedia" message="Silahkan buat sebuah artikel baru" icon={noArtikel} />
                             ) : (
@@ -132,13 +133,25 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                                     </Link>
                                 ))
                             )}
+
+                            {/* Placeholder dinamis */}
+                            {recentArtikel.length === 1 && (
+                                <div className="col-span-2">
+                                    <QuickAdd />
+                                </div>
+                            )}
+
+                            {recentArtikel.length === 2 && (
+                                <QuickAdd />
+                            )}
                         </div>
+
                     </div>
 
                     {/* Recent Feedback */}
-                    <div className="bg-white rounded-xl border border-gray-100">
-                        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-                            <h2 className="text-sm font-semibold text-gray-900">Feedback Terbaru</h2>
+                    <div className="bg-white rounded-xl border border-gray-100 p-1">
+                        <div className="flex items-center justify-between p-3 ">
+                            <h2 className="text-xs font-semibold text-gray-800">Masukan Terbaru</h2>
                             <Link
                                 href="/panel/feedback"
                                 className="flex items-center justify-center gap-1 text-[11px] text-gray-400 hover:text-gray-600 font-medium transition-all duration-300"
@@ -149,14 +162,14 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                                 </svg>
                             </Link>
                         </div>
-                        <div className="divide-y divide-gray-100 bg-white rounded-xl overflow-hidden">
+                        <div className="divide-y divide-gray-100 bg-gray-50 rounded-lg border border-gray-100 overflow-hidden p-1">
                             {recentFeedback.length === 0 ? (
                                 <EmptyState label="Feedback belum tersedia" message="Belum ada feedback dari user" icon={noFeedback} />
                             ) : (
-                                recentFeedback.slice(0, 3).map((fb) => (
+                                recentFeedback.slice(0, 4).map((fb) => (
                                     <div
                                         key={fb.id}
-                                        className="px-5 py-4 flex items-start gap-3.5 hover:bg-gray-50/60 transition-colors duration-200 group"
+                                        className="px-4 py-2.5 flex items-start gap-3.5 hover:bg-gray-50/60 transition-colors duration-200 group"
                                     >
                                         {/* 1. Avatar Ringkas Modern */}
                                         <div className="shrink-0 w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200/60 text-gray-600 font-semibold text-xs uppercase">
@@ -204,43 +217,5 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
         </>
     );
 }
-
-function StatCard({ label, value, icon }) {
-
-    return (
-        <div className="bg-white rounded-xl border border-gray-100 p-4">
-            <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-medium text-gray-500">{label}</span>
-                <span className="p-1.5 rounded-lg bg-prim/5 text-prim">{icon}</span>
-            </div>
-            {/* <p className="text-2xl font-semibold text-gray-900">{value}</p> */}
-            <CountUp
-                from={0}
-                to={value}
-                separator=","
-                direction="up"
-                duration={0.8}
-                className="text-2xl font-semibold text-gray-900"
-                delay={0}
-            />
-        </div>
-    );
-}
-
-// function EmptyState({ label, message, icon }) {
-//     return (
-//         <>
-//             <div className='flex flex-col items-center justify-center py-8 space-y-2'>
-//                 <div className="w-fit">
-//                     <img src={icon} alt="" className='w-20 h-20' />
-//                 </div>
-//                 <div className='flex flex-col space-y-0.5'>
-//                     <div className="px-5 font-semibold text-center text-xs text-gray-800">{label}</div>
-//                     <p className='text-[11px] text-gray-400 text-center'>{message}</p>
-//                 </div>
-//             </div>
-//         </>
-//     );
-// }
 
 Dashboard.layout = (page) => <PanelLayout>{page}</PanelLayout>;
