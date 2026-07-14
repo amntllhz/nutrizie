@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://github.com/amntllhz/anaksehat/blob/fbc8e0e97dc68d1861e9a8ee724b70acf0e0c46e/nutrizie-logo.svg" alt="Anaksehat Logo" width="240"/>
+  <img src="https://github.com/amntllhz/nutrizie/blob/84e1f4c560f156820250ee49247bb9291894c4de/nutrizie-logo.svg" alt="Nutrizie Logo" width="240"/>
 </p>
 
 <p align="center">
@@ -15,18 +15,18 @@
   <img src="https://img.shields.io/badge/mysql-4479A1.svg?style=plastic&logo=mysql&logoColor=white" alt="MySQL" />
 </p>
 
-## About Anaksehat
+## Overview
 
-Anaksehat is a website that contains nutritional information equipped with a toddler nutritional status calculation system using the z-score method according to standards. This website was created as an effort to reduce stunting in Indonesia through the dissemination of nutritional information and flexibility in checking the nutritional status of toddlers.
+Nutrizie is a website that contains nutritional information equipped with a toddler nutritional status calculation system using the z-score method according to standards. This website was created as an effort to reduce stunting in Indonesia through the dissemination of nutritional information and flexibility in checking the nutritional status of toddlers.
 
 ## Feature
 
 - User-friendly Interface
-- Nutrition Status Calculator
+- Nutrition Status Calculator (AI suggestions)
 - Nutrition Information Page
 - Intuitive Admin Dashboard
 - Simple Article Management
 
 ## License
 
-&copy; anaksehat - 2024
+&copy; Nutrizie - 2024
