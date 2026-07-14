@@ -63,18 +63,18 @@
   --tt-gray-dark-800: rgba(224, 224, 225, 1);
   --tt-gray-dark-900: rgba(245, 245, 245, 1);
 
-  /* Brand colors */
-  --tt-brand-color-50: rgba(239, 238, 255, 1);
-  --tt-brand-color-100: rgba(222, 219, 255, 1);
-  --tt-brand-color-200: rgba(195, 189, 255, 1);
-  --tt-brand-color-300: rgba(157, 138, 255, 1);
-  --tt-brand-color-400: rgba(122, 82, 255, 1);
-  --tt-brand-color-500: rgba(98, 41, 255, 1);
-  --tt-brand-color-600: rgba(84, 0, 229, 1);
-  --tt-brand-color-700: rgba(75, 0, 204, 1);
-  --tt-brand-color-800: rgba(56, 0, 153, 1);
-  --tt-brand-color-900: rgba(43, 25, 102, 1);
-  --tt-brand-color-950: hsla(257, 100%, 9%, 1);
+  /* Brand colors — teal scale derived from app primary #35C6A8 (hsl 168, 58%, 49%) */
+  --tt-brand-color-50:  hsla(168, 70%, 96%, 1);  /* #edfaf7 — near white mint */
+  --tt-brand-color-100: hsla(168, 65%, 89%, 1);  /* #cdf2ea */
+  --tt-brand-color-200: hsla(168, 62%, 76%, 1);  /* #97e4d4 */
+  --tt-brand-color-300: hsla(168, 60%, 63%, 1);  /* #61d6be */
+  --tt-brand-color-400: hsla(168, 58%, 56%, 1);  /* #46ccb4 */
+  --tt-brand-color-500: hsla(168, 58%, 49%, 1);  /* #35C6A8 — primary exact */
+  --tt-brand-color-600: hsla(168, 60%, 40%, 1);  /* #29a48b */
+  --tt-brand-color-700: hsla(168, 62%, 31%, 1);  /* #1f7f6c */
+  --tt-brand-color-800: hsla(168, 65%, 22%, 1);  /* #155a4d */
+  --tt-brand-color-900: hsla(168, 68%, 14%, 1);  /* #0d3930 */
+  --tt-brand-color-950: hsla(168, 72%, 8%,  1);  /* #07211c — near black teal */
 
   /* Green */
   --tt-color-green-inc-5: hsla(129, 100%, 97%, 1);
@@ -163,7 +163,13 @@
   --tt-destructive-contrast: 8%;
   --tt-foreground-contrast: 8%;
 
-  &,
+}
+
+/* Scoped to Tiptap editor only — do NOT apply globally, as it overrides Tailwind transition utilities */
+.tiptap,
+.ProseMirror,
+.simple-editor-wrapper,
+.simple-editor-content {
   *,
   ::before,
   ::after {

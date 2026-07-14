@@ -133,7 +133,6 @@ export default function FeedbackIndex({ feedbacks }) {
         router.get('/panel/feedback', { per_page: value }, { preserveScroll: true });
     }
 
-    // Build smart windowed pagination: always show first/last + current±1 window + ellipsis for gaps
     function buildPageItems(allLinks) {
         if (!allLinks || allLinks.length < 3) return { prev: null, next: null, items: [] };
         const prev = allLinks[0];

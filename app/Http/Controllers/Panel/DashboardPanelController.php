@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Feedback;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -21,10 +22,12 @@ class DashboardPanelController extends Controller
 
             'recentArtikel' => Article::latest()
                 ->limit(5)
-                ->get(['id', 'judul', 'created_at'])
+                ->get(['id', 'judul', 'deskripsi', 'gambar', 'created_at'])
                 ->map(fn($a) => [
                     'id'         => $a->id,
                     'judul'      => $a->judul,
+                    'deskripsi'  => $a->deskripsi,
+                    'gambar'     => $a->gambar ? Storage::url($a->gambar) : null,
                     'created_at' => $a->created_at->diffForHumans(),
                 ]),
 
