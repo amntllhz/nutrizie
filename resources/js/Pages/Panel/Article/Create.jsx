@@ -45,7 +45,10 @@ export default function ArticleCreate() {
             },
             onSuccess: () => {
                 setProcessing(false);
-                toast.success('Artikel berhasil dibuat', { description: 'Berhasil menambahkan artikel baru' });
+                toast.success('Artikel berhasil dibuat', {
+                    description: 'Berhasil menambahkan artikel baru',
+                    icon: <svg className='size-4 text-prim' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M216,48V208a8,8,0,0,1-8,8H64L40,192V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"></path><path d="M224,48V208a16,16,0,0,1-16,16H136a8,8,0,0,1,0-16h72V48H48v96a8,8,0,0,1-16,0V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM125.66,154.34a8,8,0,0,0-11.32,0L64,204.69,45.66,186.34a8,8,0,0,0-11.32,11.32l24,24a8,8,0,0,0,11.32,0l56-56A8,8,0,0,0,125.66,154.34Z"></path></svg>
+                });
             },
         });
     }
@@ -104,7 +107,7 @@ export default function ArticleCreate() {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-[27px] text-gray-300">
-                                    <svg className='w-10 h-10 mb-2 text-prim' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path fill="currentColor" d="M 20 6 L 12 6 L 10.59 4.59 C 10.21 4.21 9.7 4 9.17 4 L 4 4 C 2.9 4 2.01 4.9 2.01 6 L 2 18 C 2 19.1 2.9 20 4 20 L 20 20 C 21.1 20 22 19.1 22 18 L 22 8 C 22 6.9 21.1 6 20 6 Z" opacity=".3" class="duo-icons-secondary-layer" /><path fill="currentColor" d="M 13 13 L 13 16 C 13 16.55 12.55 17 12 17 C 11.45 17 11 16.55 11 16 L 11 13 L 9.21 13 C 8.760000000000002 13 8.540000000000001 12.46 8.860000000000001 12.15 L 11.66 9.36 C 11.86 9.16 12.17 9.17 12.370000000000001 9.36 L 15.16 12.149999999999999 C 15.46 12.459999999999999 15.24 12.999999999999998 14.8 12.999999999999998 L 13 12.999999999999998 L 13 13 Z" class="duo-icons-primary-layer" /></svg>
+                                    <svg className='w-10 h-10 mb-2 text-prim/80' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"></path><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"></path></svg>
                                     <p className="text-[10px] text-gray-300">Klik untuk upload gambar</p>
                                     <p className="text-[10px] text-gray-300 mt-0.5">JPEG, JPG, PNG — maks 5MB</p>
                                 </div>
