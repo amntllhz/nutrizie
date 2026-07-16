@@ -260,26 +260,25 @@ export default function FeedbackIndex({ feedbacks }) {
                     <p className="text-xs text-gray-500 mt-0.5">Daftar kritik dan saran dari pengguna Nutrizie</p>
                 </div>
 
-
                 <div className={`overflow-hidden transition-all duration-200 ease-in-out ${someSelected ? 'max-h-20 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0'
                     }`}>
                     <div className="flex items-center justify-between px-4 py-2.5 bg-prim/5 border border-prim/20 rounded-lg">
                         <div className="flex items-center gap-2">
                             {!selectAllDb ? (
                                 <p className="text-xs text-prim">
-                                    <span className="font-semibold">{selected.length}</span> feedback di halaman ini dipilih.{' '}
+                                    <span className="font-semibold">{selected.length}</span> masukan di halaman ini dipilih{' '}
                                     {allSelected && meta.total > data.length && (
                                         <button
                                             onClick={() => setSelectAllDb(true)}
                                             className="underline font-semibold cursor-pointer hover:opacity-75"
                                         >
-                                            Pilih semua {meta.total} feedback?
+                                            Pilih semua {meta.total} masukan?
                                         </button>
                                     )}
                                 </p>
                             ) : (
                                 <p className="text-xs text-prim font-medium">
-                                    Semua <span className="font-semibold">{meta.total}</span> feedback dipilih
+                                    Semua <span className="font-semibold">{meta.total}</span> masukan dipilih
                                 </p>
                             )}
                         </div>
@@ -525,28 +524,28 @@ export default function FeedbackIndex({ feedbacks }) {
             < Dialog Dialog open={!!deleteTarget
             } onOpenChange={(open) => !open && setDeleteTarget(null)}>
                 <DialogContent className="!w-80 !max-w-80">
-                    <div className="flex flex-col items-center justify-center py-4 space-y-3">
+                    <div className="flex flex-col items-center justify-center py-2 space-y-3">
                         <div className="w-fit">
                             <img src={icon} alt="" className='w-20 h-20' />
                         </div>
-                        <div className="flex flex-col space-y-1">
+                        <div className="flex flex-col space-y-1 w-48">
                             <p className="font-semibold text-center text-xs text-gray-800">
                                 {deleteTarget === 'bulk'
                                     ? selectAllDb
-                                        ? `Hapus semua ${meta.total} feedback?`
-                                        : `Hapus ${selected.length} feedback?`
-                                    : 'Hapus feedback ini?'
+                                        ? `Hapus semua ${meta.total} masukan?`
+                                        : `Hapus ${selected.length} masukan?`
+                                    : 'Hapus masukan ini?'
                                 }
                             </p>
-                            <p className="text-[11px] text-gray-400 text-center">Tindakan ini tidak bisa dikembalikan.</p>
+                            <p className="text-[11px] text-gray-400 text-center">Masukan akan dihapus dan tindakan ini tidak bisa dikembalikan</p>
                         </div>
                     </div>
-                    <div className="flex gap-2 justify-end">
+                    <div className="flex gap-2 justify-center">
                         <DialogClose asChild>
-                            <Button className="text-xs px-4 cursor-pointer" variant="outline">Batal</Button>
+                            <Button className="text-xs px-4 cursor-pointer flex-1" variant="outline">Batal</Button>
                         </DialogClose>
                         <Button
-                            className="text-xs px-4 cursor-pointer"
+                            className="text-xs px-4 cursor-pointer flex-1"
                             variant="destructive"
                             onClick={handleDelete}
                         >

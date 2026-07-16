@@ -141,7 +141,7 @@ export default function ArticleIndex({ articles, filters }) {
                         <div className="flex items-center gap-2">
                             {!selectAllDb ? (
                                 <p className="text-xs text-prim">
-                                    <span className="font-semibold">{selected.length}</span> artikel dipilih.{' '}
+                                    <span className="font-semibold">{selected.length}</span> artikel dipilih{' '}
                                     {allSelected && meta.total > data.length && (
                                         <button onClick={() => setSelectAllDb(true)}
                                             className="underline font-semibold cursor-pointer hover:opacity-75">
@@ -151,7 +151,7 @@ export default function ArticleIndex({ articles, filters }) {
                                 </p>
                             ) : (
                                 <p className="text-xs text-prim font-medium">
-                                    Semua <span className="font-semibold">{meta.total}</span> artikel dipilih.
+                                    Semua <span className="font-semibold">{meta.total}</span> artikel dipilih
                                 </p>
                             )}
                         </div>
@@ -361,23 +361,23 @@ export default function ArticleIndex({ articles, filters }) {
             {/* Dialog hapus */}
             <Dialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
                 <DialogContent className="!w-80 !max-w-80">
-                    <div className="flex flex-col items-center justify-center py-4 space-y-3">
+                    <div className="flex flex-col items-center justify-center py-2 space-y-3">
                         <img src={icon} alt="" className="w-20 h-20" />
-                        <div className="flex flex-col space-y-1">
+                        <div className="flex flex-col space-y-1 w-48">
                             <p className="font-semibold text-center text-xs text-gray-800">
                                 {deleteTarget === 'bulk'
                                     ? selectAllDb ? `Hapus semua ${meta.total} artikel?` : `Hapus ${selected.length} artikel?`
                                     : 'Hapus artikel ini?'
                                 }
                             </p>
-                            <p className="text-[11px] text-gray-400 text-center">Tindakan ini tidak bisa dikembalikan.</p>
+                            <p className="text-[11px] text-gray-400 text-center">Artikel akan dihapus dan tindakan ini tidak bisa dikembalikan</p>
                         </div>
                     </div>
-                    <div className="flex gap-2 justify-end">
+                    <div className="flex gap-2 justify-center">
                         <DialogClose asChild>
-                            <Button className="text-xs px-4 cursor-pointer" variant="outline">Batal</Button>
+                            <Button className="text-xs px-4 cursor-pointer flex-1" variant="outline">Batal</Button>
                         </DialogClose>
-                        <Button className="text-xs px-4 cursor-pointer" variant="destructive" onClick={handleDelete}>
+                        <Button className="text-xs px-4 cursor-pointer flex-1" variant="destructive" onClick={handleDelete}>
                             Hapus
                         </Button>
                     </div>
