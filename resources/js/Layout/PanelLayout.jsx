@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import logoutIcon from '../../../public/img/logout.svg'
+import avatar from '../../../public/img/avatar.png'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const navItems = [
     {
@@ -161,7 +163,7 @@ export default function PanelLayout({ children }) {
                                     key={item.href}
                                     href={item.href}
                                     className={`
-                                        relative flex items-center gap-x-3 pr-3 pl-[0.55rem] py-2.5 rounded-md text-xs font-medium transition-colors duration-300 group overflow-hidden
+                                        relative flex items-center gap-x-3 pr-3 pl-[0.55rem] py-2 rounded-md text-xs font-medium transition-colors duration-300 group overflow-hidden
                                         ${active ? 'bg-prim/10 text-prim' : 'text-gray-500 hover:bg-gray-50/75 hover:text-gray-700'}
                                         ${collapsed ? 'justify-start' : ''}
                                     `}
@@ -170,12 +172,9 @@ export default function PanelLayout({ children }) {
                                     {item.icon}
                                     {!collapsed && <span>{item.label}</span>}
                                 </Link>
-                                {/* {active && (
-                                    <span className="absolute left-2 top-1/2 -translate-y-1/2 w-[2px] h-2/4 bg-prim rounded-md"></span>
-                                )} */}
                                 <span className={`
                                         pointer-events-none
-                                        absolute left-2 top-1/2 -translate-y-1/2 w-[2px] h-5 bg-prim rounded-md
+                                        absolute left-2 top-1/2 -translate-y-1/2 w-[2px] h-4 bg-prim rounded-md
                                         transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
                                         origin-center
                                         ${active ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}
@@ -186,55 +185,131 @@ export default function PanelLayout({ children }) {
                     })}
                 </nav>
 
-                {/* Logout */}
-                <div className="pr-3 pl-4 py-2 overflow-hidden">
-                    <button
-                        onClick={() => setLogoutOpen(true)}
-                        className="flex items-center gap-x-3 pr-3 pl-[0.55rem] py-2.5 w-full justify-start rounded-lg text-sm font-medium hover:bg-gray-50 transition-all duration-300 cursor-pointer text-gray-500 hover:text-gray-700 hover:ring hover:ring-gray-200"
-                    >
-                        <svg className='w-4.5 h-4.5 flex-shrink-0' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16 16.9999L21 11.9999M21 11.9999L16 6.99994M21 11.9999H9M12 16.9999C12 17.2955 12 17.4433 11.989 17.5713C11.8748 18.9019 10.8949 19.9968 9.58503 20.2572C9.45903 20.2823 9.31202 20.2986 9.01835 20.3312L7.99694 20.4447C6.46248 20.6152 5.69521 20.7005 5.08566 20.5054C4.27293 20.2453 3.60942 19.6515 3.26118 18.8724C3 18.2881 3 17.5162 3 15.9722V8.02764C3 6.4837 3 5.71174 3.26118 5.12746C3.60942 4.34842 4.27293 3.75454 5.08566 3.49447C5.69521 3.29941 6.46246 3.38466 7.99694 3.55516L9.01835 3.66865C9.31212 3.70129 9.45901 3.71761 9.58503 3.74267C10.8949 4.0031 11.8748 5.09798 11.989 6.42855C12 6.55657 12 6.70436 12 6.99994" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        {!collapsed && <span className='text-xs'>Logout</span>}
-                    </button>
-                </div>
+                {/* Account */}
+                <DropdownMenu>
+                    <div className="pr-3 pl-4 py-3 overflow-hidden">
+                        <DropdownMenuTrigger asChild>
+                            <button
+                                className={`
+                            flex items-center w-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer
+                            text-gray-300 rounded-lg hover:text-gray-600 hover:bg-gray-50 ring ring-gray-100
+                            ${collapsed
+                                        ? 'pl-0.5 pr-0 py-0.5 justify-start gap-x-0'
+                                        : 'px-2 py-2 justify-between gap-x-3'
+                                    }
+                        `}
+                            >
+                                {/* Avatar — selalu flex-shrink-0 agar tidak menyusut */}
+                                {user && (
+                                    <div className={`
+                                flex-shrink-0 rounded-md bg-linear-to-b from-prim/5 to-prim/20 flex items-center justify-center
+                                transition-all duration-300
+                                ${collapsed ? 'w-8 h-8 ring-1 ring-prim/20' : 'w-8 h-8 ring-1 ring-prim/20'}
+                            `}>
+                                        <img
+                                            src={avatar}
+                                            alt=""
+                                            className="object-cover w-full h-full rounded-md mt-0.5"
+                                        />
+                                    </div>
+                                )}
 
-                {/* Dialog logout */}
-                <Dialog open={logoutOpen} onOpenChange={setLogoutOpen}>
-                    <DialogContent className="!w-80 !max-w-80">
-                        <div className="flex flex-col items-center space-y-3">
-                            <div className="flex flex-col items-center justify-center py-4 space-y-3">
-                                <div className="w-fit">
-                                    <img src={icon} alt="" className='w-20 h-20' />
+                                {/* Info user — fade in/out saat expand/collapse */}
+                                <div className={`
+                                flex flex-col items-start overflow-hidden whitespace-nowrap
+                                transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
+                                ${collapsed
+                                        ? 'w-0 opacity-0 translate-x-2 scale-95'
+                                        : 'w-auto opacity-100 translate-x-0 scale-100'
+                                    }
+                            `}>
+                                    <span className="text-[11px] text-gray-800 font-medium">{user?.name}</span>
+                                    <span className="text-[9px] text-gray-400">{user?.email}</span>
                                 </div>
-                                <div className="flex flex-col space-y-1">
-                                    <p className="font-semibold text-center text-xs text-gray-800">Keluar dari panel?</p>
-                                    <p className="text-[11px] text-gray-400 text-center">Dengan ini sesi Anda akan diakhiri</p>
-                                </div>
+
+                                <svg className={`flex-shrink-0 w-4 h-4 ml-auto transition-all duration-300 ${collapsed ? 'w-0 opacity-0' : 'w-4 opacity-100'}`} width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem>
+                                {/* Logout */}
+                                <button
+                                    onClick={() => setLogoutOpen(true)}
+                                    className="flex items-center gap-x-3 py-1 px-1.5 w-full justify-start rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer text-gray-500 hover:text-gray-700"
+                                >
+                                    <svg className='w-4.5 h-4.5 flex-shrink-0' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 8L22 12M22 12L18 16M22 12H9M15 4.20404C13.7252 3.43827 12.2452 3 10.6667 3C5.8802 3 2 7.02944 2 12C2 16.9706 5.8802 21 10.6667 21C12.2452 21 13.7252 20.5617 15 19.796" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span className='text-xs'>Logout</span>
+                                </button>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                {/* Logout */}
+                                <button
+                                    onClick={() => setLogoutOpen(true)}
+                                    className="flex items-center gap-x-3 py-1 px-1.5 w-full justify-start rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer text-gray-500 hover:text-gray-700"
+                                >
+                                    <svg className='w-4.5 h-4.5 flex-shrink-0' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 8L22 12M22 12L18 16M22 12H9M15 4.20404C13.7252 3.43827 12.2452 3 10.6667 3C5.8802 3 2 7.02944 2 12C2 16.9706 5.8802 21 10.6667 21C12.2452 21 13.7252 20.5617 15 19.796" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span className='text-xs'>Logout</span>
+                                </button>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem variant='destructive'>
+                                {/* Logout */}
+                                <button
+                                    onClick={() => setLogoutOpen(true)}
+                                    className="flex items-center gap-x-3 py-1 px-1.5 w-full justify-start rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer text-red-500 hover:text-red-500"
+                                >
+                                    <svg className='w-4.5 h-4.5 flex-shrink-0' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 8L22 12M22 12L18 16M22 12H9M15 4.20404C13.7252 3.43827 12.2452 3 10.6667 3C5.8802 3 2 7.02944 2 12C2 16.9706 5.8802 21 10.6667 21C12.2452 21 13.7252 20.5617 15 19.796" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span className='text-xs'>Keluar</span>
+                                </button>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </div>
+                </DropdownMenu>
+
+            </aside >
+
+            {/* Dialog logout */}
+            < Dialog open={logoutOpen} onOpenChange={setLogoutOpen} >
+                <DialogContent className="!w-80 !max-w-80">
+                    <div className="flex flex-col items-center space-y-3">
+                        <div className="flex flex-col items-center justify-center py-2 space-y-3">
+                            <div className="w-fit">
+                                <img src={icon} alt="" className='w-20 h-20' />
+                            </div>
+                            <div className="flex flex-col space-y-1 w-48">
+                                <p className="font-semibold text-center text-xs text-gray-800">Keluar dari panel?</p>
+                                <p className="text-[10px] text-gray-400 text-center">Dengan ini sesi anda akan diakhiri dan perlu login kembali</p>
                             </div>
                         </div>
-                        <div className="flex gap-2 justify-center">
-                            <DialogClose asChild>
-                                <Button variant="outline" className="text-xs cursor-pointer flex-1">Batal</Button>
-                            </DialogClose>
-                            <Link
-                                href="/auth/logout"
-                                method="post"
-                                as="button"
-                                className="inline-flex flex-1 items-center justify-center text-xs px-4 py-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors cursor-pointer"
-                            >
-                                Logout
-                            </Link>
-                        </div>
-                    </DialogContent>
-                </Dialog>
-            </aside >
+                    </div>
+                    <div className="flex gap-2 justify-center">
+                        <DialogClose asChild>
+                            <Button variant="outline" className="text-xs cursor-pointer flex-1">Batal</Button>
+                        </DialogClose>
+                        <Link
+                            href="/auth/logout"
+                            method="post"
+                            as="button"
+                            className="inline-flex flex-1 items-center justify-center text-xs px-4 py-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors cursor-pointer"
+                        >
+                            Logout
+                        </Link>
+                    </div>
+                </DialogContent>
+            </Dialog >
 
             {/* Workspace Area */}
             < div className="flex-1 flex flex-col overflow-hidden" >
 
                 {/* Topbar */}
-                <div div className="bg-white border-b border-gray-100 h-14 px-4 flex items-center justify-between lg:px-6" >
+                < div className="bg-white border-b border-gray-100 h-14 px-4 flex items-center justify-between lg:px-6" >
                     <div className="flex items-center gap-4">
                         {/* Tombol menu: Hanya muncul di sm (di bawah 640px) */}
                         <button
@@ -248,19 +323,21 @@ export default function PanelLayout({ children }) {
                     </div>
 
                     {/* Avatar */}
-                    {user && (
-                        <div className="w-8 h-8 rounded-full bg-linear-to-b from-prim/10 to-prim/20 flex items-center ring ring-prim/20 justify-center">
-                            <span className="text-xs font-semibold text-prim">
-                                {user.name?.charAt(0).toUpperCase()}
-                            </span>
-                        </div>
-                    )}
-                </div>
+                    {
+                        user && (
+                            <div className="w-8 h-8 rounded-full bg-linear-to-b from-prim/10 to-prim/20 flex items-center ring ring-prim/20 justify-center">
+                                <span className="text-xs font-semibold text-prim">
+                                    {user.name?.charAt(0).toUpperCase()}
+                                </span>
+                            </div>
+                        )
+                    }
+                </ div >
 
                 {/* Page content */}
-                <div className="flex-1 overflow-y-auto p-4 lg:p-6" >
+                < div className="flex-1 overflow-y-auto p-4 lg:p-6" >
                     {children}
-                </div>
+                </div >
             </div >
         </div >
     );
