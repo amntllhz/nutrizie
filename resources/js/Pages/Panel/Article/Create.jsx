@@ -1,67 +1,30 @@
 import { Head, router } from '@inertiajs/react';
-import { useState, useRef } from 'react';
-import { toast } from 'sonner';
 import PanelLayout from '@/Layout/PanelLayout';
 import RichEditor from '@/Components/ui/RichEditor';
 import { Button } from '@/components/ui/button';
+import { useArticleForm } from './useArticleForm';
 
 export default function ArticleCreate() {
-    const [form, setForm] = useState({ judul: '', deskripsi: '', konten: '', gambar: null });
-    const [errors, setErrors] = useState({});
-    const [preview, setPreview] = useState(null);
-    const [processing, setProcessing] = useState(false);
-    const fileRef = useRef(null);
-
-    function handleChange(field, value) {
-        setForm(prev => ({ ...prev, [field]: value }));
-        if (errors[field]) setErrors(prev => ({ ...prev, [field]: null }));
-    }
-
-    function handleFile(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        setForm(prev => ({ ...prev, gambar: file }));
-        setPreview(URL.createObjectURL(file));
-        if (errors.gambar) setErrors(prev => ({ ...prev, gambar: null }));
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        const data = new FormData();
-        data.append('judul', form.judul);
-        data.append('deskripsi', form.deskripsi);
-        data.append('konten', form.konten);
-        if (form.gambar) data.append('gambar', form.gambar);
-
-        setProcessing(true);
-
-        router.post('/panel/artikel', data, {
-            forceFormData: true,
-            onError: (errs) => {
-                setErrors(errs);
-                setProcessing(false);
-                toast.error('Gagal menyimpan', { description: 'Periksa kembali form.' });
-            },
-            onSuccess: () => {
-                setProcessing(false);
-                toast.success('Artikel berhasil dibuat', {
-                    description: 'Berhasil menambahkan artikel baru',
-                    icon: <svg className='size-4 text-prim' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M216,48V208a8,8,0,0,1-8,8H64L40,192V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"></path><path d="M224,48V208a16,16,0,0,1-16,16H136a8,8,0,0,1,0-16h72V48H48v96a8,8,0,0,1-16,0V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM125.66,154.34a8,8,0,0,0-11.32,0L64,204.69,45.66,186.34a8,8,0,0,0-11.32,11.32l24,24a8,8,0,0,0,11.32,0l56-56A8,8,0,0,0,125.66,154.34Z"></path></svg>
-                });
-            },
-        });
-    }
+    const {
+        form,
+        errors,
+        preview,
+        processing,
+        fileRef,
+        handleChange,
+        handleFile,
+        handleSubmit,
+    } = useArticleForm({ mode: 'create' });
 
     return (
         <>
             <Head title="Buat Artikel" />
-            <div className="mb-6">
+            <div className="mb-8">
                 <h1 className="text-lg font-bold text-gray-900">Buat Artikel</h1>
                 <p className="text-xs text-gray-500 mt-0.5">Tulis dan tambahkan artikel baru</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
 
                 <div className='grid grid-cols-2 gap-4 w-full'>
 
@@ -72,9 +35,9 @@ export default function ArticleCreate() {
                             <input type="text" value={form.judul}
                                 onChange={e => handleChange('judul', e.target.value)}
                                 placeholder="Judul artikel..."
-                                className={`w-full px-3.5 py-2 text-xs border rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors placeholder:text-gray-300
+                                className={`w-full px-3.5 py-2 text-xs text-gray-600 border rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors placeholder:text-gray-300
                                 ${errors.judul ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} />
-                            {errors.judul && <p className="text-[11px] text-red-500 mt-1">{errors.judul}</p>}
+                            {errors.judul && <p className="text-[9px] text-red-500 mt-1">{errors.judul}</p>}
                         </div>
 
                         {/* Deskripsi */}
@@ -83,9 +46,9 @@ export default function ArticleCreate() {
                             <textarea value={form.deskripsi}
                                 onChange={e => handleChange('deskripsi', e.target.value)}
                                 rows={3} placeholder="Ringkasan singkat artikel..."
-                                className={`w-full px-3.5 py-2 text-xs border rounded-lg focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors resize-none placeholder:text-gray-300
+                                className={`w-full px-3.5 py-2 text-xs text-gray-600 border rounded-lg focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors resize-none placeholder:text-gray-300
                                 ${errors.deskripsi ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} />
-                            {errors.deskripsi && <p className="text-[11px] text-red-500 mt-1">{errors.deskripsi}</p>}
+                            {errors.deskripsi && <p className="text-[9px] text-red-500 mt-1">{errors.deskripsi}</p>}
                         </div>
                     </div>
 
@@ -115,7 +78,7 @@ export default function ArticleCreate() {
                         </div>
                         <input ref={fileRef} type="file" accept="image/jpeg,image/jpg,image/png"
                             onChange={handleFile} className="hidden" />
-                        {errors.gambar && <p className="text-[11px] text-red-500 mt-1">{errors.gambar}</p>}
+                        {errors.gambar && <p className="text-[9px] text-red-500 mt-1">{errors.gambar}</p>}
                     </div>
                 </div>
 
@@ -125,7 +88,7 @@ export default function ArticleCreate() {
                     <div className='w-full overflow-hidden panel-editor border border-gray-200 rounded-lg'>
                         <RichEditor value={form.konten} placeholder="Tuliskan Artikel..." onChange={val => handleChange('konten', val)} />
                     </div>
-                    {errors.konten && <p className="text-[11px] text-red-500 mt-1">{errors.konten}</p>}
+                    {errors.konten && <p className="text-[9px] text-red-500 mt-1">{errors.konten}</p>}
                 </div>
 
                 {/* Actions */}

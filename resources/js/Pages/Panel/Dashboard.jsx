@@ -54,7 +54,7 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                     {/* Recent Artikel */}
                     <div className="bg-white col-span-2 rounded-xl border border-gray-100 p-1 ">
                         <div className="flex items-center justify-between p-3 ">
-                            <h2 className="text-xs font-semibold text-gray-800">Artikel Terbaru</h2>
+                            <h2 className="text-xs font-semibold text-gray-600">Artikel Terbaru</h2>
                             <Link
                                 href="/panel/artikel"
                                 className="flex items-center justify-center gap-1 text-[11px] text-gray-400 hover:text-gray-600 font-medium transition-all duration-300"
@@ -145,7 +145,7 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                     {/* Recent Feedback */}
                     <div className="bg-white rounded-xl border border-gray-100 p-1">
                         <div className="flex items-center justify-between p-3 ">
-                            <h2 className="text-xs font-semibold text-gray-800">Masukan Terbaru</h2>
+                            <h2 className="text-xs font-semibold text-gray-600">Masukan Terbaru</h2>
                             <Link
                                 href="/panel/feedback"
                                 className="flex items-center justify-center gap-1 text-[11px] text-gray-400 hover:text-gray-600 font-medium transition-all duration-300"

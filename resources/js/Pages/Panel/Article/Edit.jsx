@@ -1,65 +1,30 @@
 import { Head, router } from '@inertiajs/react';
-import { useState, useRef } from 'react';
-import { toast } from 'sonner';
 import PanelLayout from '@/Layout/PanelLayout';
 import RichEditor from '@/Components/ui/RichEditor';
 import { Button } from '@/components/ui/button';
+import { useArticleForm } from './useArticleForm';
 
 export default function ArticleEdit({ article }) {
-    const [form, setForm] = useState({
-        judul: article.judul || '',
-        deskripsi: article.deskripsi || '',
-        konten: article.konten || '',
-        gambar: null,
+    const {
+        form,
+        errors,
+        preview,
+        processing,
+        fileRef,
+        handleChange,
+        handleFile,
+        handleSubmit,
+    } = useArticleForm({
+        mode: 'edit',
+        articleId: article.id,
+        initialData: article
     });
-    const [errors, setErrors] = useState({});
-    const [preview, setPreview] = useState(article.gambar || null);
-    const [processing, setProcessing] = useState(false);
-    const fileRef = useRef(null);
-
-    function handleChange(field, value) {
-        setForm(prev => ({ ...prev, [field]: value }));
-        if (errors[field]) setErrors(prev => ({ ...prev, [field]: null }));
-    }
-
-    function handleFile(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        setForm(prev => ({ ...prev, gambar: file }));
-        setPreview(URL.createObjectURL(file));
-        if (errors.gambar) setErrors(prev => ({ ...prev, gambar: null }));
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        const data = new FormData();
-        data.append('judul', form.judul);
-        data.append('deskripsi', form.deskripsi);
-        data.append('konten', form.konten);
-        if (form.gambar) data.append('gambar', form.gambar);
-
-        setProcessing(true);
-
-        router.post(`/panel/artikel/${article.id}/update`, data, {
-            forceFormData: true,
-            onError: (errs) => {
-                setErrors(errs);
-                setProcessing(false);
-                toast.error('Gagal menyimpan', { description: 'Periksa kembali form.' });
-            },
-            onSuccess: () => {
-                setProcessing(false);
-                toast.success('Artikel berhasil diperbarui', { description: 'Perubahan berhasil disimpan' });
-            },
-        });
-    }
 
     return (
         <>
             <Head title="Perbarui Artikel" />
             <div className="">
-                <div className="mb-6">
+                <div className="mb-8">
                     <h1 className="text-lg font-bold text-gray-900">Perbarui Artikel</h1>
                     <p className="text-xs text-gray-500 mt-0.5 truncate max-w-md">{article.judul}</p>
                 </div>
@@ -75,9 +40,9 @@ export default function ArticleEdit({ article }) {
                                 <input type="text" value={form.judul}
                                     onChange={e => handleChange('judul', e.target.value)}
                                     placeholder="Judul artikel..."
-                                    className={`w-full px-3.5 py-2 text-xs border rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors
+                                    className={`w-full px-3.5 py-2 text-xs text-gray-600 border rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors
                                 ${errors.judul ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} />
-                                {errors.judul && <p className="text-[11px] text-red-500 mt-1">{errors.judul}</p>}
+                                {errors.judul && <p className="text-[9px] text-red-500 mt-1">{errors.judul}</p>}
                             </div>
 
                             {/* Deskripsi */}
@@ -86,9 +51,9 @@ export default function ArticleEdit({ article }) {
                                 <textarea value={form.deskripsi}
                                     onChange={e => handleChange('deskripsi', e.target.value)}
                                     rows={3} placeholder="Ringkasan singkat artikel..."
-                                    className={`w-full px-3.5 py-2 text-xs border rounded-lg focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors resize-none
+                                    className={`w-full px-3.5 py-2 text-xs text-gray-600 border rounded-lg focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim transition-colors resize-none
                                 ${errors.deskripsi ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} />
-                                {errors.deskripsi && <p className="text-[11px] text-red-500 mt-1">{errors.deskripsi}</p>}
+                                {errors.deskripsi && <p className="text-[9px] text-red-500 mt-1">{errors.deskripsi}</p>}
                             </div>
                         </div>
 
@@ -121,7 +86,7 @@ export default function ArticleEdit({ article }) {
                             </div>
                             <input ref={fileRef} type="file" accept="image/jpeg,image/jpg,image/png"
                                 onChange={handleFile} className="hidden" />
-                            {errors.gambar && <p className="text-[11px] text-red-500 mt-1">{errors.gambar}</p>}
+                            {errors.gambar && <p className="text-[9px] text-red-500 mt-1">{errors.gambar}</p>}
                         </div>
                     </div>
 
@@ -131,7 +96,7 @@ export default function ArticleEdit({ article }) {
                         <div className='w-full overflow-hidden panel-editor border border-gray-200 rounded-lg'>
                             <RichEditor value={form.konten} onChange={val => handleChange('konten', val)} />
                         </div>
-                        {errors.konten && <p className="text-[11px] text-red-500 mt-1">{errors.konten}</p>}
+                        {errors.konten && <p className="text-[9px] text-red-500 mt-1">{errors.konten}</p>}
                     </div>
 
                     {/* Actions */}
