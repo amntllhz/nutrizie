@@ -111,8 +111,8 @@
 
         {{-- Menu utama (inline horizontal di lg) --}}
         <div class="sm:hidden flex items-center gap-8">
-            <a href={{ url('/berita') }}
-                class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Berita</a>
+            <a href={{ url('/artikel') }}
+                class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Artikel</a>
             <a href={{ url('/cekgizi') }}
                 class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Cek
                 Status Gizi</a>
@@ -125,8 +125,8 @@
     <div x-show="open" x-collapse x-cloak class="md:hidden overflow-hidden">
         <!-- Container dalam diberi margin & border-top agar rapi saat terbuka -->
         <div class="mt-4 mb-3 pt-3 flex flex-col gap-2">
-            <a href="{{ url('/berita') }}"
-                class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Berita</a>
+            <a href="{{ url('/artikel') }}"
+                class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Artikel</a>
             <a href="{{ url('/cekgizi') }}"
                 class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Cek
                 Gizi</a>

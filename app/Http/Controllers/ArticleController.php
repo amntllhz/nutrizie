@@ -21,7 +21,7 @@ class ArticleController extends Controller
 
 
         // kirim data artikel ke view
-        return view('berita', compact('articles'));
+        return view('artikel', compact('articles'));
     }
 
     public function show($id)
@@ -33,9 +33,9 @@ class ArticleController extends Controller
         $article->created_at_human = $article->created_at->diffForHumans();
 
         // Ambil 3 artikel lain untuk rekomendasi berita terkait
-        $beritaTerkait = Article::where('id', '!=', $id)
+        $artikelTerkait = Article::where('id', '!=', $id)
             ->latest()
-            ->take(3)
+            ->take(10)
             ->get()
             ->map(function ($item) {
                 $item->created_at_human = $item->created_at->diffForHumans();
@@ -43,6 +43,6 @@ class ArticleController extends Controller
             });
 
         // Kirim data artikel utama dan berita terkait ke view
-        return view('detail', compact('article', 'beritaTerkait'));
+        return view('detail', compact('article', 'artikelTerkait'));
     }
 }

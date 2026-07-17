@@ -31,16 +31,16 @@ Breadcrumbs::for('kontributor', function (BreadcrumbTrail $trail) {
     $trail->push('Kontributor', route('kontributor'));
 });
 
-// Beranda > Berita
-Breadcrumbs::for('berita', function (BreadcrumbTrail $trail) {
+// Beranda > Artikel
+Breadcrumbs::for('artikel', function (BreadcrumbTrail $trail) {
     $trail->parent('beranda');
-    $trail->push('Berita', route('berita'));
+    $trail->push('Artikel', route('artikel'));
 });
 
-// Beranda > Berita > Detail
-Breadcrumbs::for('detailberita', function (BreadcrumbTrail $trail, $article) {
-    $trail->parent('berita'); // Berita
-    $trail->push('Detail', route('detailberita.show', ['id' => $article->id])); // Detail Berita
+// Beranda > Artikel > Detail
+Breadcrumbs::for('detailartikel', function (BreadcrumbTrail $trail, $article) {
+    $trail->parent('artikel'); // Berita
+    $trail->push('Detail', route('detailartikel.show', ['id' => $article->id])); // Detail Artikel
 });
 
 // Beranda > Cek Gizi
@@ -54,4 +54,3 @@ Breadcrumbs::for('hasilgizi', function (BreadcrumbTrail $trail) {
     $trail->parent('cekgizi');
     $trail->push('Status Gizi', route('cekgizi.hitung'));
 });
-

@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'Detail Berita')
+@section('title', 'Detail Artikel')
 
 @section('content')
 
@@ -8,7 +8,7 @@
 
         <section class="max-w-6xl p-10 mx-auto sm:w-full sm:p-6">
             <div class="flex font-semibold text-prim">
-                {{ Breadcrumbs::render('detailberita', $article) }}
+                {{ Breadcrumbs::render('detailartikel', $article) }}
             </div>
         </section>
 
@@ -46,27 +46,27 @@
             {{-- Sisi Kanan: Rekomendasi Berita Terkait --}}
             <div class="col-span-1 flex flex-col space-y-6">
                 <div class="border-b border-gray-200 pb-3">
-                    <h2 class="text-lg font-bold text-gray-900">Berita Terkait</h2>
+                    <h2 class="text-lg font-bold text-gray-900">Artikel Terkait</h2>
                 </div>
 
                 <div class="flex flex-col gap-y-5">
-                    @forelse($beritaTerkait as $terkait)
-                        <a href="{{ route('detailberita.show', $terkait->id) }}"
+                    @forelse($artikelTerkait as $terkait)
+                        <a href="{{ route('detailartikel.show', $terkait->id) }}"
                             class="group flex gap-x-4 items-start p-2 rounded-xl hover:bg-white hover:ring-1 hover:ring-prim/20 hover:ring-inset transition-all duration-300">
-                            <img class="w-20 h-20 object-cover rounded-lg flex-shrink-0 bg-gray-100"
+                            <img class="w-16 h-16 object-cover rounded-lg flex-shrink-0 bg-gray-100"
                                 src="{{ asset('storage/' . $terkait->gambar) }}" alt="">
                             <div class="flex flex-col gap-y-1">
                                 <span class="text-[9px] text-prim font-semibold bg-prim/10 px-2 py-0.5 rounded w-fit">
                                     {{ $terkait->created_at_human }}
                                 </span>
                                 <h4
-                                    class="text-sm font-semibold text-gray-800 line-clamp-2 group-hover:text-prim transition-colors duration-200">
+                                    class="text-xs font-semibold text-gray-800 line-clamp-2 group-hover:text-prim transition-colors duration-200">
                                     {{ $terkait->judul }}
                                 </h4>
                             </div>
                         </a>
                     @empty
-                        <p class="text-xs text-gray-400 italic">Tidak ada berita terkait lainnya.</p>
+                        <p class="text-xs text-gray-400 italic">Tidak ada artikel terkait lainnya.</p>
                     @endforelse
                 </div>
             </div>
