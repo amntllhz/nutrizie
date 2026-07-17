@@ -225,12 +225,12 @@ export default function ArticleIndex({ articles, filters }) {
                                     <Checkbox checked={allSelected} onCheckedChange={toggleAll}
                                         className="cursor-pointer data-[state=checked]:bg-prim data-[state=checked]:border-prim" />
                                 </TableHead>
-                                <TableHead className="text-xs font-medium w-10 text-center">No</TableHead>
-                                <TableHead className="text-xs font-medium w-20">Gambar</TableHead>
-                                <TableHead className="text-xs font-medium">Judul</TableHead>
-                                <TableHead className="text-xs font-medium">Deskripsi</TableHead>
-                                <TableHead className="text-xs font-medium text-center">Dibuat</TableHead>
-                                <TableHead className="text-xs font-medium text-center">Aksi</TableHead>
+                                <TableHead className="text-xs font-semibold text-gray-800 w-10 text-center">No</TableHead>
+                                <TableHead className="text-xs font-semibold text-gray-800 text-center w-20">Gambar</TableHead>
+                                <TableHead className="text-xs font-semibold text-gray-800 text-center">Judul</TableHead>
+                                <TableHead className="text-xs font-semibold text-gray-800 text-center">Deskripsi</TableHead>
+                                <TableHead className="text-xs font-semibold text-gray-800 text-center">Dibuat</TableHead>
+                                <TableHead className="text-xs font-semibold text-gray-800 text-center">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -255,7 +255,7 @@ export default function ArticleIndex({ articles, filters }) {
                                         <TableCell className="text-gray-400 text-xs text-center">
                                             {(meta.current_page - 1) * meta.per_page + index + 1}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell className="flex text-center justify-center items-center">
                                             {article.gambar ? (
                                                 <img src={article.gambar} alt={article.judul}
                                                     className="w-14 h-10 object-cover rounded-md border border-gray-100" />
@@ -265,10 +265,10 @@ export default function ArticleIndex({ articles, filters }) {
                                                 </div>
                                             )}
                                         </TableCell>
-                                        <TableCell className="text-xs text-gray-800 font-medium max-w-[200px]">
+                                        <TableCell className="text-xs text-center text-gray-800 font-medium max-w-[200px]">
                                             <p className="truncate">{article.judul}</p>
                                         </TableCell>
-                                        <TableCell className="text-xs text-gray-500 max-w-[200px]">
+                                        <TableCell className="text-xs text-center text-gray-500 max-w-[200px]">
                                             <p className="truncate">{article.deskripsi}</p>
                                         </TableCell>
                                         <TableCell className="text-center">

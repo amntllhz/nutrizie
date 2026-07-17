@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import logoutIcon from '../../../public/img/logout.svg'
 import avatar from '../../../public/img/avatar.png'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
 
 const navItems = [
     {
@@ -193,7 +194,7 @@ export default function PanelLayout({ children }) {
                                 {/* Avatar — selalu flex-shrink-0 agar tidak menyusut */}
                                 {user && (
                                     <div className={`
-                                flex-shrink-0 rounded-md bg-linear-to-b from-prim/5 to-prim/20 flex items-center justify-center
+                                flex-shrink-0 rounded-md bg-linear-to-b from-prim/5 to-acctwo/80 flex items-center justify-center
                                 transition-all duration-300
                                 ${collapsed ? 'w-8 h-8 ring-1 ring-prim/20' : 'w-8 h-8 ring-1 ring-prim/20'}
                             `}>
@@ -223,7 +224,13 @@ export default function PanelLayout({ children }) {
                                 </svg>
                             </button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent>
+                        <DropdownMenuContent
+                            side={collapsed ? 'right' : 'top'}
+                            className={cn(
+                                "z-50",
+                                collapsed ? "ml-4 mb-3 w-40" : "mb-0.5"
+                            )}
+                        >
                             <DropdownMenuItem>
                                 {/* Logout */}
                                 <button
