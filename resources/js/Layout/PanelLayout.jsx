@@ -194,7 +194,7 @@ export default function PanelLayout({ children }) {
                                 {/* Avatar — selalu flex-shrink-0 agar tidak menyusut */}
                                 {user && (
                                     <div className={`
-                                flex-shrink-0 rounded-md bg-linear-to-b from-prim/5 to-acctwo/80 flex items-center justify-center
+                                flex-shrink-0 rounded-md bg-linear-to-b from-prim/5 to-prim/40 flex items-center justify-center
                                 transition-all duration-300
                                 ${collapsed ? 'w-8 h-8 ring-1 ring-prim/20' : 'w-8 h-8 ring-1 ring-prim/20'}
                             `}>
