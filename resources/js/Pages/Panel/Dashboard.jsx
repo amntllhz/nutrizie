@@ -72,7 +72,7 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                                 recentArtikel.slice(0, 3).map((artikel) => (
                                     <Link
                                         key={artikel.id}
-                                        href={`/panel/artikel/${artikel.id}`}
+                                        href={`/artikel/${artikel.id}`}
                                         className="block group"
                                     >
                                         <div className="w-full bg-white p-2 rounded-xl space-y-3 ring-1 ring-inset ring-prim/20 hover:bg-prim/5 hover:ring-2 hover:ease-in-out hover:duration-300 sm:p-4">

@@ -30,8 +30,8 @@ Route::get('/kontributor', function () {
     return view('kontributor');
 })->name('kontributor');
 
-Route::get('/berita', [ArticleController::class, 'index'])->name('berita');
-Route::get('/berita/{id}', [ArticleController::class, 'show'])->name('detailberita.show');
+Route::get('/artikel', [ArticleController::class, 'index'])->name('artikel');
+Route::get('/artikel/{id}', [ArticleController::class, 'show'])->name('detailartikel.show');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 Route::get('/cekgizi', [CekGiziController::class, 'index'])->name('cekgizi');

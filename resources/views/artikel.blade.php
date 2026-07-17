@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'Berita')
+@section('title', 'Artikel')
 
 @section('content')
 
@@ -8,13 +8,13 @@
 
         <section class="max-w-6xl p-10 mx-auto sm:w-full sm:p-6">
             <div class="flex font-semibold text-prim">
-                {{ Breadcrumbs::render('berita') }}
+                {{ Breadcrumbs::render('artikel') }}
             </div>
         </section>
 
         <div class="max-w-6xl mx-auto px-10 py-4 w-full mb-2 sm:px-6 sm:mb-0">
             <div class="flex items-center space-x-2">
-                <form method="GET" action="{{ url('/berita') }}">
+                <form method="GET" action="{{ url('/artikel') }}">
                     @if (request('search'))
                         <input type="hidden" name="search" value="{{ request('search') }}">
                     @endif
@@ -26,7 +26,7 @@
                     </button>
                 </form>
 
-                <form method="GET" action="{{ url('/berita') }}">
+                <form method="GET" action="{{ url('/artikel') }}">
                     @if (request('search'))
                         <input type="hidden" name="search" value="{{ request('search') }}">
                     @endif
@@ -44,7 +44,7 @@
             <div class="grid grid-cols-4 gap-4 sm:grid-cols-1 sm:p-2">
 
                 @foreach ($articles as $article)
-                    <a href="{{ url('/berita/' . $article->id) }}" class="block group">
+                    <a href="{{ url('/artikel/' . $article->id) }}" class="block group">
                         <div
                             class="w-full bg-white p-2 rounded-3xl space-y-3 ring-1 ring-inset ring-prim/20 hover:bg-prim/5 hover:ring-2 hover:ease-in-out hover:duration-300 sm:p-4">
 
