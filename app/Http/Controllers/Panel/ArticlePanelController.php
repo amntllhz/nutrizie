@@ -13,7 +13,7 @@ class ArticlePanelController extends Controller
 {
     public function index(Request $request): Response
     {
-        $perPage  = in_array((int) $request->get('per_page', 10), [5, 10, 25]) ? (int) $request->get('per_page', 10) : 10;
+        $perPage  = in_array((int) $request->get('per_page', 5), [5, 10, 25]) ? (int) $request->get('per_page', 5) : 5;
         $search   = $request->get('search', '');
 
         /** @var \Illuminate\Pagination\LengthAwarePaginator $articles */

@@ -69,7 +69,7 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                             {recentArtikel.length === 0 ? (
                                 <EmptyState label="Artikel belum tersedia" message="Silahkan buat sebuah artikel baru" icon={noArtikel} />
                             ) : (
-                                recentArtikel.map((artikel) => (
+                                recentArtikel.slice(0, 3).map((artikel) => (
                                     <Link
                                         key={artikel.id}
                                         href={`/panel/artikel/${artikel.id}`}
