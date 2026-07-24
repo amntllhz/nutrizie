@@ -4,9 +4,10 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CekGiziController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\Panel\ArticlePanelController;
 use App\Http\Controllers\Panel\DashboardPanelController;
 use App\Http\Controllers\Panel\FeedbackPanelController;
-use App\Http\Controllers\Panel\ArticlePanelController;
+use App\Http\Controllers\Panel\ProfilePanelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -72,6 +73,9 @@ Route::middleware(['auth'])
         Route::post('/artikel',                     [ArticlePanelController::class, 'store'])->name('artikel.store');
         Route::delete('/artikel/bulk-destroy',      [ArticlePanelController::class, 'bulkDestroy'])->name('artikel.bulkDestroy');
         Route::get('/artikel/{artikel}/edit',       [ArticlePanelController::class, 'edit'])->name('artikel.edit');
-        Route::post('/artikel/{artikel}/update',           [ArticlePanelController::class, 'update'])->name('artikel.update');
+        Route::post('/artikel/{artikel}/update',    [ArticlePanelController::class, 'update'])->name('artikel.update');
         Route::delete('/artikel/{artikel}',         [ArticlePanelController::class, 'destroy'])->name('artikel.destroy');
+
+        Route::patch('/profile/update',          [ProfilePanelController::class, 'updateProfile'])->name('profile.update');
+        Route::patch('/profile/update-password', [ProfilePanelController::class, 'updatePassword'])->name('profile.updatePassword');
     });
