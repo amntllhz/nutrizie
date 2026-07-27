@@ -10,6 +10,7 @@ use App\Http\Controllers\Panel\FeedbackPanelController;
 use App\Http\Controllers\Panel\ProfilePanelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Panel\PanduanPanelController;
 
 Route::get('/', function () {
     return view('home');
@@ -78,4 +79,12 @@ Route::middleware(['auth'])
 
         Route::patch('/profile/update',          [ProfilePanelController::class, 'updateProfile'])->name('profile.update');
         Route::patch('/profile/update-password', [ProfilePanelController::class, 'updatePassword'])->name('profile.updatePassword');
+
+        Route::get('/panduan',                    [PanduanPanelController::class, 'index'])->name('panduan.index');
+        Route::get('/panduan/create',             [PanduanPanelController::class, 'create'])->name('panduan.create');
+        Route::post('/panduan',                   [PanduanPanelController::class, 'store'])->name('panduan.store');
+        Route::delete('/panduan/bulk-destroy',    [PanduanPanelController::class, 'bulkDestroy'])->name('panduan.bulkDestroy');
+        Route::get('/panduan/{panduan}/edit',     [PanduanPanelController::class, 'edit'])->name('panduan.edit');
+        Route::post('/panduan/{panduan}/update',  [PanduanPanelController::class, 'update'])->name('panduan.update');
+        Route::delete('/panduan/{panduan}',       [PanduanPanelController::class, 'destroy'])->name('panduan.destroy');
     });
