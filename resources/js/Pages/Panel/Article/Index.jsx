@@ -165,7 +165,7 @@ export default function ArticleIndex({ articles, filters }) {
                             </Button>
                             <button onClick={clearSelection}
                                 className="text-xs text-gray-400 hover:text-gray-600 ml-1 cursor-pointer">
-                                ✕ Batal
+                                Batal
                             </button>
                         </div>
                     </div>
