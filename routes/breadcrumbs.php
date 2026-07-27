@@ -43,6 +43,18 @@ Breadcrumbs::for('detailartikel', function (BreadcrumbTrail $trail, $article) {
     $trail->push('Detail', route('detailartikel.show', ['id' => $article->id])); // Detail Artikel
 });
 
+// Beranda > Panduan
+Breadcrumbs::for('panduan', function (BreadcrumbTrail $trail) {
+    $trail->parent('beranda');
+    $trail->push('Panduan', route('panduan'));
+});
+
+// Beranda > Panduan > Detail
+Breadcrumbs::for('detailpanduan', function (BreadcrumbTrail $trail, $panduan) {
+    $trail->parent('panduan');
+    $trail->push('Detail', route('detailpanduan.show', ['id' => $panduan->id]));
+});
+
 // Beranda > Cek Gizi
 Breadcrumbs::for('cekgizi', function (BreadcrumbTrail $trail) {
     $trail->parent('beranda');

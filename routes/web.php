@@ -4,13 +4,14 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CekGiziController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\Panel\ArticlePanelController;
 use App\Http\Controllers\Panel\DashboardPanelController;
 use App\Http\Controllers\Panel\FeedbackPanelController;
+use App\Http\Controllers\Panel\PanduanPanelController;
 use App\Http\Controllers\Panel\ProfilePanelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\Panel\PanduanPanelController;
 
 Route::get('/', function () {
     return view('home');
@@ -35,6 +36,9 @@ Route::get('/kontributor', function () {
 Route::get('/artikel', [ArticleController::class, 'index'])->name('artikel');
 Route::get('/artikel/{id}', [ArticleController::class, 'show'])->name('detailartikel.show');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+
+Route::get('/panduan', [PanduanController::class, 'index'])->name('panduan');
+Route::get('/panduan/{id}', [PanduanController::class, 'show'])->name('detailpanduan.show');
 
 Route::get('/cekgizi', [CekGiziController::class, 'index'])->name('cekgizi');
 Route::post('/cekgizi', [CekGiziController::class, 'hitung'])->name('cekgizi.hitung')->middleware('throttle:10,1');
