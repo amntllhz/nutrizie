@@ -14,33 +14,33 @@
         </section>
 
         {{-- Main Content --}}
-        <section class="max-w-6xl mx-auto px-10 sm:w-full sm:px-4 mb-24 grid grid-cols-3 gap-10 sm:grid-cols-1">
+        <section class="max-w-6xl mx-auto px-10 sm:w-full sm:px-4 mb-24 grid grid-cols-3 gap-10 sm:grid-cols-1 sm:mt-8">
 
             {{-- Sisi Kiri: Detail Panduan Utama --}}
-            <div class="col-span-2 flex flex-col space-y-6 mb-10 sm:px-2">
+            <div class="col-span-2 sm:col-span-1 flex flex-col space-y-6 mb-10 sm:px-2">
 
                 {{-- Cover Panduan --}}
-                <div class="flex justify-start gap-4">
+                <div class="flex sm:flex-col justify-start gap-4">
                     <img class="object-contain max-h-[220px] w-auto rounded-xl sm:h-72"
                         src="{{ asset('storage/' . $panduan->cover) }}" alt="{{ $panduan->judul }}">
 
                     <div class="flex flex-col gap-2 p-2">
                         {{-- Tanggal Upload --}}
                         <div class="flex items-center gap-x-2">
-                            <span class="text-prim text-[9px] py-1 px-3 bg-prim/10 rounded-md font-semibold">
+                            <span class="text-prim text-[9px] sm:text-[8px] py-1 px-3 bg-prim/10 rounded-md font-semibold">
                                 {{ $panduan->created_at_human }}
                             </span>
                         </div>
 
                         {{-- Judul Panduan --}}
-                        <h1 class="text-lg text-gray-900 font-bold tracking-tight sm:text-xl leading-tight">
+                        <h1 class="text-lg sm:text-base text-gray-900 font-bold tracking-tight leading-tight">
                             {{ $panduan->judul }}
                         </h1>
 
                         {{-- Deskripsi Panduan --}}
                         @if ($panduan->deskripsi)
                             <div class="space-y-2">
-                                <p class="text-gray-600 text-xs text-justify leading-relaxed line-clamp-5">
+                                <p class="text-gray-600 text-xs text-justify leading-relaxed line-clamp-4">
                                     {{ $panduan->deskripsi }}
                                 </p>
                             </div>
@@ -161,7 +161,7 @@
             </div>
 
             {{-- Sisi Kanan: Panduan Terkait --}}
-            <div class="col-span-1 flex flex-col space-y-6">
+            <div class="col-span-1 flex flex-col space-y-6 sm:px-2">
                 <div class="border-b border-gray-200 pb-3">
                     <h2 class="text-lg font-bold text-gray-900">Panduan Lainnya</h2>
                 </div>

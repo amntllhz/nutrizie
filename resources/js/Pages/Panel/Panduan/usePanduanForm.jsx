@@ -74,7 +74,7 @@ export function usePanduanForm({ mode = 'create', panduanId = null, initialData 
     function validate() {
         const errs = {};
 
-        if (!form.judul.trim()) errs.judul = 'Judul wajib diisi.';
+        if (!form.judul.trim()) errs.judul = 'Judul wajib diisi';
         if (!form.deskripsi.trim()) errs.deskripsi = 'Deskripsi wajib di isi';
         if (!form.penerbit.trim()) errs.penerbit = 'Penerbit wajib di isi';
         if (!form.penanggung_jawab.trim()) errs.penanggung_jawab = 'Penanggung jawab wajib di isi';
@@ -82,30 +82,30 @@ export function usePanduanForm({ mode = 'create', panduanId = null, initialData 
         if (!form.tajuk_pengarah_tambahan.trim()) errs.tajuk_pengarah_tambahan = 'Tajuk pengarah tambahan wajib di isi';
         if (!form.tahun_terbit.trim()) errs.tahun_terbit = 'Tahun terbit wajib di isi';
         if (!form.tempat_terbit.trim()) errs.tempat_terbit = 'Tempat terbit wajib di isi';
-        if (!form.halaman.trim()) errs.halaman = 'Halaman wajib di isi';
+        if (!form.halaman) errs.halaman = 'Halaman wajib di isi';
         if (!form.bahasa.trim()) errs.bahasa = 'Bahasa wajib di isi';
         if (!form.isbn.trim()) errs.isbn = 'ISBN wajib di isi';
         if (!form.edisi.trim()) errs.edisi = 'Edisi wajib di isi';
 
         // Cover wajib hanya saat create
         if (mode === 'create' && !form.cover) {
-            errs.cover = 'Cover wajib diunggah.';
+            errs.cover = 'Cover wajib diunggah';
         }
 
         // PDF wajib hanya saat create
         if (mode === 'create' && !form.file_pdf) {
-            errs.file_pdf = 'File PDF wajib diunggah.';
+            errs.file_pdf = 'File PDF wajib diunggah';
         }
 
         if (form.tahun_terbit) {
             const tahun = parseInt(form.tahun_terbit);
             if (tahun < 1900 || tahun > new Date().getFullYear()) {
-                errs.tahun_terbit = 'Tahun terbit tidak valid.';
+                errs.tahun_terbit = 'Tahun terbit tidak valid';
             }
         }
 
         if (form.halaman && parseInt(form.halaman) < 1) {
-            errs.halaman = 'Jumlah halaman tidak valid.';
+            errs.halaman = 'Jumlah halaman tidak valid';
         }
 
         setErrors(errs);
