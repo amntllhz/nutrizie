@@ -190,7 +190,8 @@
                             </div>
 
                             <div class="flex flex-col space-y-2">
-                                <p class="text-gray-700 font-semibold text-xs">Catatan & Rekomendasi</p>
+                                <p class="text-gray-700 font-semibold text-xs">Catatan & Rekomendasi <span
+                                        class="text-gray-400 font-normal ml-0.5">(AI)</span></p>
                                 <p class="text-gray-500 text-xs text-justify">{{ $catatan }}</p>
                             </div>
                         </div>

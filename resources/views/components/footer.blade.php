@@ -57,17 +57,17 @@
             <h3 class="text-white font-bold text-sm">Informasi Publik</h3>
             <ul class="flex flex-col gap-y-1.5">
                 <li>
-                    <a href="#" class="text-xs text-white/70 hover:text-white sm:text-sm">
-                        Berita
+                    <a href="{{ url('/artikel') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                        Artikel
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/panduan') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
                         Buku Panduan
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/cekgizi') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
                         Cek Status Gizi
                     </a>
                 </li>
@@ -125,6 +125,11 @@
                 <li>
                     <a href="../src/contributors.html" class="text-xs text-white/70 hover:text-white sm:text-sm">
                         Kontributor
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('/auth/login') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                        Panel Admin
                     </a>
                 </li>
             </ul>
