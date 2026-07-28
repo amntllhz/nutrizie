@@ -43,6 +43,6 @@ class ArticleController extends Controller
             });
 
         // Kirim data artikel utama dan berita terkait ke view
-        return view('detail', compact('article', 'artikelTerkait'));
+        return view('detail-artikel', compact('article', 'artikelTerkait'));
     }
 }

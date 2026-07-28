@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'Detail Artikel')
+@section('title', $article->judul)
 
 @section('content')
 
