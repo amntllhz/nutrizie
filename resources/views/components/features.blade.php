@@ -43,7 +43,7 @@
             </a>
 
             {{-- card2 --}}
-            <a href="{{ url('/berita') }}"
+            <a href="{{ url('/artikel') }}"
                 class="w-full bg-white h-fit p-3 rounded-3xl ring-1 ring-inset ring-prim/20 space-y-2 hover:bg-prim/10 hover:-translate-y-2 transition-all duration-300">
 
                 <div

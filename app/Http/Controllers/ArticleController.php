@@ -10,17 +10,28 @@ class ArticleController extends Controller
     //
     public function index(Request $request)
     {
-        // Ambil parameter sorting dari request (default: desc)
-        $order = $request->get('order', 'desc');
+        // Ambil parameter sorting dan search dari request
+        $order  = $request->get('order', 'desc');
+        $search = $request->get('search');
 
-        // Ambil data artikel sesuai urutan
-        $articles = Article::orderBy('created_at', $order)->get()->map(function ($article) {
-            $article->created_at_human = $article->created_at->diffForHumans();
-            return $article;
-        });
+        // Ambil data artikel dengan filter search (opsional) dan urutan
+        $articles = Article::when($search, function ($query) use ($search) {
+                $query->where('judul', 'like', "%{$search}%")
+                      ->orWhere('konten', 'like', "%{$search}%");
+            })
+            ->orderBy('created_at', $order)
+            ->get()
+            ->map(function ($article) {
+                $article->created_at_human = $article->created_at->diffForHumans();
+                return $article;
+            });
 
+        // Jika request AJAX → kembalikan hanya partial kartu artikel
+        if ($request->ajax()) {
+            return view('partials.artikel-cards', compact('articles'));
+        }
 
-        // kirim data artikel ke view
+        // Kirim data artikel ke view utama
         return view('artikel', compact('articles'));
     }
 
