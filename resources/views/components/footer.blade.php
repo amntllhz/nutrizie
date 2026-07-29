@@ -17,19 +17,25 @@
                     mendukung pengembangan kualitas layanan kami</p>
 
                 <form method="POST" action="{{ route('feedback.store') }}" class="flex flex-col gap-y-3 mt-2"
-                    x-data="{ loading: false }" @submit="loading = true">
+                    x-data="feedbackForm" x-on:submit.prevent="validateAndSubmit" novalidate>
                     @csrf
 
+                    {{-- Email --}}
                     <div>
-                        <input name="email" type="email" id="email"
-                            class="bg-gray-50 border border-gray-300 text-gratwo text-xs rounded-lg placeholder:text-gray-400 placeholder:text-[11px] focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
-                            placeholder="example@gmail.com" required autocomplete="off" />
+                        <input name="email" type="email" id="footer-email" @input="clearError('footer-email')"
+                            class="bg-gray-50 border border-gray-300 text-gray-800 text-xs rounded-lg placeholder:text-gray-300 placeholder:text-[11px] focus:ring focus:ring-prim focus:border-prim block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-prim dark:focus:border-prim"
+                            placeholder="example@gmail.com" autocomplete="off" />
                     </div>
 
-                    <div>
-                        <textarea id="pesan" name="pesan" rows="3"
-                            class="block w-full rounded-lg border-0 py-2.5 text-xs text-gratwo placeholder:text-gray-400 placeholder:text-[11px] focus:ring-2 focus:ring-inset focus:ring-prim"
-                            placeholder="Tuliskan pesanmu disini" required autocomplete="off"></textarea>
+                    {{-- Pesan --}}
+                    <div class="relative">
+                        <textarea id="footer-pesan" name="pesan" rows="3" maxlength="500" @input="clearError('footer-pesan')"
+                            class="block w-full rounded-lg border border-gray-300 p-2.5 text-xs text-gray-800 placeholder:text-gray-300 placeholder:text-[11px] focus:ring focus:ring-inset focus:ring-prim"
+                            placeholder="Tuliskan pesanmu disini" autocomplete="off"></textarea>
+                        <div class="flex items-center justify-between mt-0.5">
+                            <span id="footer-pesan-error-slot" class="text-red-400 font-medium pl-1 text-[10px]"></span>
+                            <p class="text-[10px] text-white/50" id="footer-pesan-counter">0 / 500</p>
+                        </div>
                     </div>
 
                     <button type="submit" :disabled="loading"
@@ -136,8 +142,163 @@
         </div>
 
     </div>
+
     <div class="mt-2 flex items-center justify-center gap-x-6 sm:mt-6">
         <h3 class="text-xs text-white/20 mb-4 sm:mb-2"><span>&#169</span> 2024 Nutrizie -
             All Right Reserved</h3>
     </div>
+
 </section>
+
+<!-- Modal toggle -->
+@if (session('success'))
+    <div id="default-modal" tabindex="-1" aria-hidden="true"
+        class="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-50">
+        <div class="relative p-7 w-full max-w-md max-h-full animate-fade-in-up">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-3xl shadow sm:max-w-sm ">
+
+                <!-- Modal header -->
+                <div class="flex items-center justify-end pt-4 pr-4 rounded-t ">
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-100 hover:text-gray-500 rounded-lg text-sm w-7 h-7 inline-flex justify-center items-center"
+                        data-modal-hide="default-modal">
+                        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="p-4 space-y-4 flex flex-col items-center">
+                    <div class="w-36 h-36 flex items-center justify-center">
+                        <img src="{{ asset('img/succes-message.png') }}" alt="Success" width="144"
+                            height="144" loading="eager" class="w-full h-full object-contain">
+                    </div>
+
+                    <div class="flex flex-col space-y-1 justify-center items-center">
+                        <p class="text-sm font-semibold leading-relaxed text-black ">
+                            {{ session('success') }}
+                        </p>
+                        <p class="text-xs text-gray-400 font-light">
+                            Tunggu kabar selanjutnya dari kami!
+                        </p>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex justify-center items-center py-5 border-gray-200 rounded-b dark:border-gray-600">
+                    <button data-modal-hide="default-modal" type="button"
+                        class="text-white items-end w-24 bg-prim hover:bg-gratwo font-medium rounded-lg text-xs px-2.5 py-2 text-center cursor-pointer">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('feedbackForm', () => ({
+            loading: false,
+
+            init() {
+                // Char counter for pesan
+                const pesan = document.getElementById('footer-pesan');
+                const counter = document.getElementById('footer-pesan-counter');
+                if (pesan && counter) {
+                    pesan.addEventListener('input', () => {
+                        counter.textContent = pesan.value.length + ' / 500';
+                    });
+                }
+            },
+
+            clearError(fieldId) {
+                const el = document.getElementById(fieldId);
+                if (!el) return;
+                el.classList.remove('ring-1', 'ring-red-400', 'border-red-400');
+                // For pesan: clear the dedicated inline slot
+                if (fieldId === 'footer-pesan') {
+                    const slot = document.getElementById('footer-pesan-error-slot');
+                    if (slot) slot.textContent = '';
+                } else {
+                    el.closest('div')?.querySelectorAll('.form-error-msg').forEach(m => m.remove());
+                }
+            },
+
+            showError(el, message) {
+                el.classList.add('ring-1', 'ring-red-400', 'border-red-400');
+                // For pesan: inject into the inline slot next to the counter
+                if (el.id === 'footer-pesan') {
+                    const slot = document.getElementById('footer-pesan-error-slot');
+                    if (slot) slot.textContent = message;
+                } else {
+                    const msg = document.createElement('p');
+                    msg.className = 'text-red-400 font-medium pl-1 text-[10px] mt-1 form-error-msg';
+                    msg.textContent = message;
+                    el.closest('div').appendChild(msg);
+                }
+            },
+
+            validateAndSubmit(e) {
+                this.loading = true;
+                let valid = true;
+                let firstError = null;
+
+                // Clear previous errors
+                document.querySelectorAll('.form-error-msg').forEach(m => m.remove());
+
+                // === 1. Validate Email
+                const emailEl = document.getElementById('footer-email');
+                if (emailEl) {
+                    const val = emailEl.value.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!val) {
+                        valid = false;
+                        if (!firstError) firstError = emailEl;
+                        this.showError(emailEl, 'Email wajib diisi');
+                    } else if (!emailRegex.test(val)) {
+                        valid = false;
+                        if (!firstError) firstError = emailEl;
+                        this.showError(emailEl, 'Format email tidak valid');
+                    } else {
+                        emailEl.classList.remove('ring-1', 'ring-red-400', 'border-red-400');
+                    }
+                }
+
+                // === 2. Validate Pesan
+                const pesanEl = document.getElementById('footer-pesan');
+                if (pesanEl) {
+                    const val = pesanEl.value.trim();
+                    if (!val) {
+                        valid = false;
+                        if (!firstError) firstError = pesanEl;
+                        this.showError(pesanEl, 'Pesan wajib diisi');
+                    } else if (val.length > 500) {
+                        valid = false;
+                        if (!firstError) firstError = pesanEl;
+                        this.showError(pesanEl, 'Pesan maksimal 500 karakter');
+                    } else {
+                        pesanEl.classList.remove('ring-1', 'ring-red-400', 'border-red-400');
+                    }
+                }
+
+                // === 3. If invalid — cancel and scroll to first error
+                if (!valid) {
+                    this.loading = false;
+                    if (firstError) {
+                        firstError.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                    return;
+                }
+
+                // === 4. Submit if valid
+                e.target.submit();
+            }
+        }));
+    });
+</script>
