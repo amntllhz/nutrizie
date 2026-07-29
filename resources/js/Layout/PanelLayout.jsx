@@ -112,7 +112,7 @@ export default function PanelLayout({ children }) {
                     flex flex-col h-screen bg-white border-r border-gray-100 
                     transition-all duration-300 flex-shrink-0 select-none 
                     sm:hidden
-                    ${collapsed ? 'w-16' : 'w-64'}
+                    ${collapsed ? 'w-16' : 'w-60'}
                 `}
             >
                 {/* Header: Logo + Toggle */}

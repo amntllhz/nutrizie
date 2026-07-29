@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Feedback;
+use App\Models\Panduan;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,6 +17,7 @@ class DashboardPanelController extends Controller
         return Inertia::render('Panel/Dashboard', [
             'stats' => [
                 'totalArtikel'         => Article::count(),
+                'totalPanduan'         => Panduan::count(),
                 'totalFeedback'        => Feedback::count(),
                 'feedbackBelumDibaca'  => Feedback::where('is_read', false)->count(),
             ],
