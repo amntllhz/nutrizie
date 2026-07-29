@@ -12,12 +12,24 @@ class PanduanController extends Controller
     {
         // Ambil parameter sorting dari request (default: desc)
         $order = $request->get('order', 'desc');
+        $search = $request->get('search');
 
-        // Ambil data artikel sesuai urutan
-        $panduans = Panduan::orderBy('created_at', $order)->get()->map(function ($panduan) {
-            $panduan->created_at_human = $panduan->created_at->diffForHumans();
-            return $panduan;
-        });
+        // Ambil data artikel dengan filter search (opsional) dan urutan
+        $panduans = Panduan::when($search, function ($query) use ($search) {
+            $query->where('judul', 'like', "%{$search}%")
+                ->orWhere('deskripsi', 'like', "%{$search}%");
+        })
+            ->orderBy('created_at', $order)
+            ->get()
+            ->map(function ($panduan) {
+                $panduan->created_at_human = $panduan->created_at->diffForHumans();
+                return $panduan;
+            });
+
+        // Jika request AJAX → kembalikan hanya partial kartu artikel
+        if ($request->ajax()) {
+            return view('partials.panduan-cards', compact('panduans'));
+        }
 
 
         // kirim data artikel ke view

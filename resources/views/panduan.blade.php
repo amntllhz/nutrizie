@@ -4,96 +4,112 @@
 
 @section('content')
 
-    <section class="max-w-6xl p-10 mx-auto sm:w-full sm:p-6">
-        <div class="flex font-semibold text-prim">
-            {{ Breadcrumbs::render('panduan') }}
-        </div>
-    </section>
+    <body class="font-in">
 
-    <div class="max-w-6xl mx-auto px-10 py-4 w-full mb-2 sm:px-6 sm:mb-0">
-        <div class="flex items-center space-x-2">
-            <form method="GET" action="{{ url('/panduan') }}">
-                @if (request('search'))
-                    <input type="hidden" name="search" value="{{ request('search') }}">
-                @endif
+        <section class="max-w-6xl p-10 mx-auto sm:w-full sm:p-6">
+            <div class="flex font-semibold text-prim">
+                {{ Breadcrumbs::render('panduan') }}
+            </div>
+        </section>
 
-                <input type="hidden" name="order" value="desc">
-                <button type="submit"
-                    class="px-3.5 py-1 cursor-pointer text-[11px] rounded-full border transition-all duration-300 {{ request('order', 'desc') === 'desc' ? 'bg-prim/10 text-prim border-prim' : 'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100' }}">
+        {{-- Search + Sort wrapper dengan Alpine.js --}}
+        <div class="max-w-6xl mx-auto px-10 py-4 w-full mb-6 sm:px-6 sm:mb-0" x-data="{
+            search: '{{ request('search') }}',
+            order: '{{ request('order', 'desc') }}',
+            loading: false,
+            debounceTimer: null,
+        
+            fetchArticles() {
+                clearTimeout(this.debounceTimer);
+                this.debounceTimer = setTimeout(() => {
+                    this.loading = true;
+                    const params = new URLSearchParams({ search: this.search, order: this.order });
+                    fetch(`/panduan?${params}`, {
+                            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                        })
+                        .then(r => r.text())
+                        .then(html => {
+                            document.getElementById('panduan-results').innerHTML = html;
+                            this.loading = false;
+                        })
+                        .catch(() => { this.loading = false; });
+                }, 350);
+            },
+        
+            setOrder(val) {
+                this.order = val;
+                this.fetchArticles();
+            }
+        }">
+            {{-- Search input --}}
+            <div class="relative mb-4">
+                <span class="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-gray-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                    </svg>
+                </span>
+                <input id="artikel-search" type="text" x-model="search" @input="fetchArticles()"
+                    placeholder="Cari artikel..." autocomplete="off"
+                    class="w-full pl-10 pr-4 py-2 text-sm rounded-full border border-gray-200 bg-gray-50 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring focus:ring-prim focus:ring-inset-1 transition-all duration-300" />
+
+                {{-- Loading spinner --}}
+                <span x-show="loading" x-transition class="absolute inset-y-0 right-3.5 flex items-center">
+                    <svg class="w-4 h-4 text-prim animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        {{-- Ring Latar Belakang --}}
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4">
+                        </circle>
+
+                        {{-- Busur Bergerak (Loading Arc) --}}
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                </span>
+
+                {{-- Clear button --}}
+                <button x-show="search.length > 0" x-transition @click="search = ''; fetchArticles()"
+                    class="absolute inset-y-0 right-3.5 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                    :class="loading ? 'hidden' : ''" type="button" aria-label="Hapus pencarian">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            {{-- Sort tags --}}
+            <div class="flex items-center space-x-2">
+                <button type="button" id="sort-terbaru" @click="setOrder('desc')"
+                    :class="order === 'desc'
+                        ?
+                        'bg-prim/10 text-prim border-prim/50' :
+                        'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100'"
+                    class="px-3.5 py-1 cursor-pointer text-[11px] rounded-full border transition-all duration-300">
                     Terbaru
                 </button>
-            </form>
 
-            <form method="GET" action="{{ url('/panduan') }}">
-                @if (request('search'))
-                    <input type="hidden" name="search" value="{{ request('search') }}">
-                @endif
-
-                <input type="hidden" name="order" value="asc">
-                <button type="submit"
-                    class="px-3.5 py-1 cursor-pointer text-[11px] rounded-full border transition-all duration-300 {{ request('order') === 'asc' ? 'bg-prim/10 text-prim border-prim' : 'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100' }}">
+                <button type="button" id="sort-terlama" @click="setOrder('asc')"
+                    :class="order === 'asc'
+                        ?
+                        'bg-prim/10 text-prim border-prim/50' :
+                        'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100'"
+                    class="px-3.5 py-1 cursor-pointer text-[11px] rounded-full border transition-all duration-300">
                     Terlama
                 </button>
-            </form>
+            </div>
         </div>
-    </div>
 
-    <section class="max-w-6xl mx-auto px-10 sm:w-full sm:px-4 mb-24">
-        <div class="grid grid-cols-4 gap-4 sm:grid-cols-1 sm:p-2">
+        {{-- Panduan grid --}}
+        <section class="max-w-6xl mx-auto px-10 sm:w-full sm:px-4 mb-24">
+            <div id="panduan-results" class="grid grid-cols-4 gap-4 sm:grid-cols-1 sm:p-2">
+                @include('partials.panduan-cards')
+            </div>
+        </section>
 
-            @foreach ($panduans as $panduan)
-                <a href="{{ url('/panduan/' . $panduan->id) }}" class="block group">
-                    <div
-                        class="w-full bg-white p-2 rounded-3xl space-y-3 ring-1 ring-inset ring-prim/20 hover:bg-prim/5 hover:ring-2 hover:ease-in-out hover:duration-300 sm:p-4">
+        <x-footer></x-footer>
 
-                        @if ($panduan->cover)
-                            <div class="relative w-full h-40 rounded-2xl overflow-hidden transition-transform duration-300">
-                                <img class="object-cover w-full h-full" src="{{ asset('storage/' . $panduan->cover) }}"
-                                    alt="{{ $panduan->judul }}">
-
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent">
-                                </div>
-
-                                <div
-                                    class="absolute bottom-0 inset-x-0 p-3 flex flex-row w-full justify-between items-center sm:p-4">
-                                    <p
-                                        class="text-white bg-white/20 backdrop-blur-sm font-semibold text-[9px] py-1 px-2.5 rounded-full border border-white/10">
-                                        Author
-                                    </p>
-                                    <p class="text-white text-[9px] py-1.5 px-1 font-medium drop-shadow-md">
-                                        {{ $panduan->created_at_human }}
-                                    </p>
-                                </div>
-                            </div>
-                        @endif
-
-                        <div class="px-2 pb-1 space-y-1.5">
-                            <h1
-                                class="text-sm text-prim font-bold line-clamp-2 sm:text-lg group-hover:text-gratwo transition-colors duration-300">
-                                {{ $panduan->judul }}
-                            </h1>
-
-                            <p class="text-[11px] text-gray-400 line-clamp-2 font-light leading-relaxed">
-                                {{ Str::limit(strip_tags($panduan->deskripsi), 100) }}
-                            </p>
-
-                            <div class="flex items-center text-[11px] text-prim font-semibold pt-1 group-hover:underline">
-                                Baca selengkapnya
-                                <svg class="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                                    </path>
-                                </svg>
-                            </div>
-                        </div>
-
-                    </div>
-                </a>
-            @endforeach
-
-        </div>
-    </section>
-
-    <x-footer></x-footer>
+    </body>
 
 @endsection
