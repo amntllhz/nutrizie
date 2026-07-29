@@ -19,7 +19,7 @@
             </div>
 
             <div class="flex flex-col gap-y-3 sm:text-center">
-                <h1 class="font-in text-4xl font-bold text-white leading-10 sm:text-left sm:text-[26px] md:text-3xl">
+                <h1 class="font-in text-3xl font-bold text-white leading-9 sm:text-left sm:text-[26px] md:text-3xl">
                     Bersama Ibu Pintar <br>Cegah Stunting Sejak Dini</h1>
                 <p
                     class="max-w-md text-sm leading-5 text-gray-300 sm:text-left sm:text-xs sm:max-w-xs sm:leading-5 md:leading-5 md:text-xs">
