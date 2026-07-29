@@ -159,9 +159,8 @@ export default function PanduanIndex({ panduans, filters }) {
                 <div className="mb-3 flex justify-between items-center">
                     <div className="relative flex items-center w-full max-w-xs">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-300">
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-                                <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
-                                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <svg className="w-4 h-4" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 21L16.65 16.65M11 6C13.7614 6 16 8.23858 16 11M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
                         <input type="text" value={search} onChange={handleSearch}
