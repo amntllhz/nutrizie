@@ -2,7 +2,6 @@ import PanelLayout from '@/Layout/PanelLayout';
 import { Head, Link } from '@inertiajs/react';
 import noArtikel from '../../../../public/img/no-artikel.svg';
 import noFeedback from '../../../../public/img/no-feedback.svg';
-import CountUp from '@/components/ui/CountUp';
 import EmptyState from '@/components/ui/EmptyState';
 import StatCard from '@/components/ui/statcard';
 import QuickAdd from '@/components/ui/quickAdd';
@@ -10,6 +9,7 @@ import QuickAdd from '@/components/ui/quickAdd';
 export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedback = [] }) {
     const {
         totalArtikel = 0,
+        totalPanduan = 0,
         totalFeedback = 0,
         feedbackBelumDibaca = 0,
     } = stats;
@@ -24,12 +24,19 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                 </div>
 
                 {/* Stat cards */}
-                <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 mb-6">
+                <div className="grid grid-cols-4 sm:grid-cols-1 gap-4 mb-6">
                     <StatCard
                         label="Total Artikel"
                         value={totalArtikel}
                         icon={
                             <svg className='w-4.5 h-4.5 flex-shrink-0' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M216,48H40a8,8,0,0,0-8,8V216l32-16,32,16,32-16,32,16,32-16,32,16V56A8,8,0,0,0,216,48ZM112,160H64V96h48Z" opacity="0.2"></path><path d="M216,40H40A16,16,0,0,0,24,56V216a8,8,0,0,0,11.58,7.15L64,208.94l28.42,14.21a8,8,0,0,0,7.16,0L128,208.94l28.42,14.21a8,8,0,0,0,7.16,0L192,208.94l28.42,14.21A8,8,0,0,0,232,216V56A16,16,0,0,0,216,40Zm0,163.06-20.42-10.22a8,8,0,0,0-7.16,0L160,207.06l-28.42-14.22a8,8,0,0,0-7.16,0L96,207.06,67.58,192.84a8,8,0,0,0-7.16,0L40,203.06V56H216ZM136,112a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H144A8,8,0,0,1,136,112Zm0,32a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H144A8,8,0,0,1,136,144ZM64,168h48a8,8,0,0,0,8-8V96a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8v64A8,8,0,0,0,64,168Zm8-64h32v48H72Z"></path></svg>
+                        }
+                    />
+                    <StatCard
+                        label="Total Buku Panduan"
+                        value={totalPanduan}
+                        icon={
+                            <svg className='w-4.5 h-4.5 flex-shrink-0' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M208,32V192H72a24,24,0,0,0-24,24V56A24,24,0,0,1,72,32h40v96l32-24,32,24V32Z" opacity="0.2"></path><path d="M208,24H72A32,32,0,0,0,40,56V224a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16H56a16,16,0,0,1,16-16H208a8,8,0,0,0,8-8V32A8,8,0,0,0,208,24ZM120,40h48v72L148.79,97.6a8,8,0,0,0-9.6,0L120,112Zm80,144H72a31.82,31.82,0,0,0-16,4.29V56A16,16,0,0,1,72,40h32v88a8,8,0,0,0,12.8,6.4L144,114l27.21,20.4A8,8,0,0,0,176,136a8.1,8.1,0,0,0,3.58-.84A8,8,0,0,0,184,128V40h16Z"></path></svg>
                         }
                     />
                     <StatCard
