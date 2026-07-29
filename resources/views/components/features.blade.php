@@ -53,7 +53,7 @@
 
                 <div class="flex justify-between items-center">
 
-                    <h3 class="text-md ml-1.5 font-bold text-prim">Berita Gizi</h3>
+                    <h3 class="text-md ml-1.5 font-bold text-prim">Artikel Gizi</h3>
 
                     <div
                         class="w-8 h-8 text-sm bg-prim/10 rounded-full font-semibold text-prim flex items-center justify-center">
