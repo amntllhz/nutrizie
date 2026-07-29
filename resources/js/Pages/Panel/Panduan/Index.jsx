@@ -206,7 +206,7 @@ export default function PanduanIndex({ panduans, filters }) {
                         <TableBody>
                             {data.length === 0 ? (
                                 <TableRow>
-                                    <TableCell colSpan={7} className="text-center text-sm text-gray-400 py-4">
+                                    <TableCell colSpan={8} className="text-center text-sm text-gray-400 py-4">
                                         {search ?
                                             <EmptyState label="Panduan Gizi tidak ditemukan" message={`Tidak ada data dengan kata kunci "${search}".`} icon={noArtikel} />
                                             :
