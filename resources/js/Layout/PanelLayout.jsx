@@ -8,6 +8,14 @@ import avatar from '../../../public/img/avatar.png'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { EditProfileDialog, ChangePasswordDialog } from '@/components/ui/accountDialogs';
+import {
+    Breadcrumb,
+    BreadcrumbList,
+    BreadcrumbLink,
+    BreadcrumbItem,
+    BreadcrumbSeparator,
+    BreadcrumbPage
+} from '@/components/ui/breadcrumb';
 
 const navItems = [
     {
@@ -25,7 +33,7 @@ const navItems = [
         ),
     },
     {
-        label: 'Buku Panduan',
+        label: 'Panduan',
         href: '/panel/panduan',
         icon: (
             <svg className='w-4.5 h-4.5 flex-shrink-0' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M208,32V192H72a24,24,0,0,0-24,24V56A24,24,0,0,1,72,32h40v96l32-24,32,24V32Z" opacity="0.2"></path><path d="M208,24H72A32,32,0,0,0,40,56V224a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16H56a16,16,0,0,1,16-16H208a8,8,0,0,0,8-8V32A8,8,0,0,0,208,24ZM120,40h48v72L148.79,97.6a8,8,0,0,0-9.6,0L120,112Zm80,144H72a31.82,31.82,0,0,0-16,4.29V56A16,16,0,0,1,72,40h32v88a8,8,0,0,0,12.8,6.4L144,114l27.21,20.4A8,8,0,0,0,176,136a8.1,8.1,0,0,0,3.58-.84A8,8,0,0,0,184,128V40h16Z"></path></svg>
@@ -40,6 +48,15 @@ const navItems = [
     },
 ];
 
+const routeNameMap = {
+    dashboard: 'Beranda',
+    artikel: 'Artikel',
+    panduan: 'Panduan',
+    feedback: 'Masukan',
+    create: 'Tambah',
+    edit: 'Edit',
+};
+
 export default function PanelLayout({ children }) {
     const { url, props } = usePage();
     const user = props.auth?.user;
@@ -52,8 +69,68 @@ export default function PanelLayout({ children }) {
 
     // const isActive = (href) => url === href || url.startsWith(href + '/');
     const cleanUrl = url ? url.split('?')[0] : '';
-
     const isActive = (href) => cleanUrl === href || cleanUrl.startsWith(href + '/');
+
+    // 2. Helper untuk Generate Dynamic Breadcrumbs dari URL saat ini
+    const renderBreadcrumbs = () => {
+        // Memecah URL misal "/panel/artikel/create" -> ["panel", "artikel", "create"]
+        const segments = cleanUrl.split('/').filter(Boolean).filter((segment) => isNaN(segment));
+
+        // Jika hanya di /panel atau /panel/dashboard
+        if (segments.length <= 2 && segments[1] === 'dashboard') {
+            return (
+                <Breadcrumb className="mb-4">
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink asChild className="text-[11px] font-light text-gray-400">
+                                <Link href="/panel/dashboard">Panel</Link>
+                            </BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator className="text-gray-400" />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="text-[11px] font-light text-gray-400">
+                                Beranda
+                            </BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            );
+        }
+
+        // Untuk URL berjenjang seperti /panel/artikel, /panel/artikel/create, /panel/artikel/edit/1
+        let currentPath = '';
+        return (
+            <Breadcrumb className="mb-4">
+                <BreadcrumbList>
+                    {segments.map((segment, index) => {
+                        currentPath += `/${segment}`;
+                        const isLast = index === segments.length - 1;
+
+                        // Menentukan label teks (Menggunakan routeNameMap / kapitalisasi biasa / ID)
+                        let label = routeNameMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
+                        const targetHref = segment === 'panel' ? '/panel/dashboard' : currentPath;
+
+                        return (
+                            <div key={currentPath} className="inline-flex items-center gap-1.5">
+                                <BreadcrumbItem>
+                                    {isLast ? (
+                                        <BreadcrumbPage className="text-[11px] font-light text-gray-400">
+                                            {label}
+                                        </BreadcrumbPage>
+                                    ) : (
+                                        <BreadcrumbLink asChild className="text-[11px] font-light text-gray-400">
+                                            <Link href={targetHref}>{label}</Link>
+                                        </BreadcrumbLink>
+                                    )}
+                                </BreadcrumbItem>
+                                {!isLast && <BreadcrumbSeparator className="text-gray-400" />}
+                            </div>
+                        );
+                    })}
+                </BreadcrumbList>
+            </Breadcrumb>
+        );
+    };
 
     return (
         <div className="flex h-screen overflow-hidden bg-gray-50">
@@ -338,6 +415,8 @@ export default function PanelLayout({ children }) {
 
                 {/* Page content */}
                 < div className="flex-1 overflow-y-auto p-4 lg:p-6" >
+                    {renderBreadcrumbs()}
+
                     {children}
                 </div >
             </div >
