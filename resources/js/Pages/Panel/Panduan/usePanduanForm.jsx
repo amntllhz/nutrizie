@@ -8,6 +8,9 @@ const ALLOWED_PDF = ['application/pdf'];
 const MAX_IMG_BYTE = 5 * 1024 * 1024; // 5MB
 const MAX_PDF_BYTE = 50 * 1024 * 1024; // 50MB
 
+export const DESKRIPSI_MIN = 300;
+export const DESKRIPSI_MAX = 500;
+
 export function usePanduanForm({ mode = 'create', panduanId = null, initialData = {} } = {}) {
     const [form, setForm] = useState({
         judul: initialData.judul || '',
@@ -75,7 +78,9 @@ export function usePanduanForm({ mode = 'create', panduanId = null, initialData 
         const errs = {};
 
         if (!form.judul.trim()) errs.judul = 'Judul wajib diisi';
-        if (!form.deskripsi.trim()) errs.deskripsi = 'Deskripsi wajib di isi';
+        const deskripsiLen = form.deskripsi.trim().length;
+        if (deskripsiLen === 0) errs.deskripsi = 'Deskripsi wajib diisi';
+        else if (deskripsiLen < DESKRIPSI_MIN) errs.deskripsi = `Deskripsi minimal ${DESKRIPSI_MIN} karakter`;
         if (!form.penerbit.trim()) errs.penerbit = 'Penerbit wajib di isi';
         if (!form.penanggung_jawab.trim()) errs.penanggung_jawab = 'Penanggung jawab wajib di isi';
         if (!form.tajuk_pengarang.trim()) errs.tajuk_pengarang = 'Tajuk pengarang wajib di isi';
