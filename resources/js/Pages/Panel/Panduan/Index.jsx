@@ -116,7 +116,7 @@ export default function PanduanIndex({ panduans, filters }) {
             <div>
                 <div className="flex items-center justify-between mb-6">
                     <div>
-                        <h1 className="text-lg font-semibold text-gray-900">Panduan Gizi</h1>
+                        <h1 className="text-lg font-bold text-gray-900">Panduan Gizi</h1>
                         <p className="text-xs text-gray-500 mt-0.5">Kelola buku panduan gizi yang tersedia.</p>
                     </div>
                 </div>
@@ -221,7 +221,7 @@ export default function PanduanIndex({ panduans, filters }) {
                                     <TableCell className="text-gray-400 text-xs text-center">
                                         {(meta.current_page - 1) * meta.per_page + index + 1}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className="flex items-center justify-center">
                                         {p.cover ? (
                                             <img src={p.cover} alt={p.judul} className="w-10 h-14 object-cover rounded border border-gray-100" />
                                         ) : (
