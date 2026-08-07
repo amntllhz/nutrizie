@@ -6,6 +6,9 @@ const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 const MAX_SIZE_MB = 5;
 const MAX_SIZE_BYTE = MAX_SIZE_MB * 1024 * 1024;
 
+export const DESKRIPSI_MIN = 300;
+export const DESKRIPSI_MAX = 500;
+
 // Tiptap output "<p></p>" atau "<p> </p>" = konten kosong
 function isEmptyHtml(html) {
     if (!html) return true;
@@ -58,9 +61,11 @@ export function useArticleForm({ mode = 'create', articleId = null, initialData 
             errs.judul = 'Judul maksimal 255 karakter';
         }
 
-        if (!form.deskripsi.trim()) {
-            errs.deskripsi = 'Deskripsi singkat wajib diisi';
-        }
+        const deskripsiLen = form.deskripsi.trim().length;
+
+        if (deskripsiLen === 0) errs.deskripsi = 'Deskripsi wajib diisi';
+        else if (deskripsiLen < DESKRIPSI_MIN) errs.deskripsi = `Deskripsi minimal ${DESKRIPSI_MIN} karakter`;
+        else if (deskripsiLen > DESKRIPSI_MAX) errs.deskripsi = `Deskripsi maksimal ${DESKRIPSI_MAX} karakter`;
 
         if (isEmptyHtml(form.konten)) {
             errs.konten = 'Konten artikel wajib diisi';
