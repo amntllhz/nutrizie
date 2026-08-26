@@ -33,6 +33,12 @@ export function usePanduanForm({ mode = 'create', panduanId = null, initialData 
     const [coverPreview, setCoverPreview] = useState(initialData.cover_url || null);
     const [pdfName, setPdfName] = useState(initialData.file_pdf_url ? 'File PDF tersimpan' : null);
     const [processing, setProcessing] = useState(false);
+    const [previewName, setPreviewName] = useState(null);
+    const [previewSize, setPreviewSize] = useState(null);
+    const [pdfPreview, setPdfPreview] = useState(null);
+    const [pdfSize, setPdfSize] = useState(null);
+    const [isRenderingPdf, setIsRenderingPdf] = useState(false);
+    const [isImgLoading, setIsImgLoading] = useState(false);
 
     const coverRef = useRef(null);
     const pdfRef = useRef(null);
@@ -54,11 +60,36 @@ export function usePanduanForm({ mode = 'create', panduanId = null, initialData 
             return;
         }
         setForm(prev => ({ ...prev, cover: file }));
+
+        // Pemotongan nama file jika melebihi 30 karakter tanpa merusak ekstensi
+        const fullFileName = file.name;
+        const lastDotIndex = fullFileName.lastIndexOf('.');
+
+        if (lastDotIndex !== -1) {
+            const baseName = fullFileName.slice(0, lastDotIndex);
+            const extension = fullFileName.slice(lastDotIndex);
+
+            const formattedName = baseName.length > 30
+                ? `${baseName.slice(0, 30)}...${extension}`
+                : fullFileName;
+
+            setPreviewName(formattedName);
+        } else {
+            const formattedName = fullFileName.length > 30
+                ? `${fullFileName.slice(0, 30)}...`
+                : fullFileName;
+
+            setPreviewName(formattedName);
+        }
+
+        setIsImgLoading(true);
+
         setCoverPreview(URL.createObjectURL(file));
+        setPreviewSize((file.size / 1024 / 1024).toFixed(2) + ' MB');
         setErrors(prev => ({ ...prev, cover: null }));
     }
 
-    function handlePdf(e) {
+    async function handlePdf(e) {
         const file = e.target.files[0];
         if (!file) return;
         if (!ALLOWED_PDF.includes(file.type)) {
@@ -70,8 +101,52 @@ export function usePanduanForm({ mode = 'create', panduanId = null, initialData 
             return;
         }
         setForm(prev => ({ ...prev, file_pdf: file }));
-        setPdfName(file.name);
+
+        // Pemotongan nama file tanpa menghilangkan ekstensi .pdf
+        const fullFileName = file.name;
+        const lastDotIndex = fullFileName.lastIndexOf('.');
+
+        if (lastDotIndex !== -1) {
+            const baseName = fullFileName.slice(0, lastDotIndex);
+            const extension = fullFileName.slice(lastDotIndex);
+
+            const formattedName = baseName.length > 30
+                ? `${baseName.slice(0, 30)}...${extension}`
+                : fullFileName;
+
+            setPdfName(formattedName);
+        } else {
+            const formattedName = fullFileName.length > 30
+                ? `${fullFileName.slice(0, 30)}...`
+                : fullFileName;
+
+            setPdfName(formattedName);
+        }
+
+        setPdfSize((file.size / 1024 / 1024).toFixed(2) + ' MB');
         setErrors(prev => ({ ...prev, file_pdf: null }));
+
+        setIsRenderingPdf(true);
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            const page = await pdf.getPage(1);
+            const viewport = page.getViewport({ scale: 1.5 });
+
+            const targetW = viewport.width;
+            const targetH = Math.round(viewport.width * (158 / 470))
+
+            const canvas = document.createElement('canvas');
+            canvas.width = targetW;
+            canvas.height = targetH;
+            await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+            setPdfPreview(canvas.toDataURL('image/png'));
+        } catch {
+            setPdfPreview(null);
+        } finally {
+            setIsRenderingPdf(false);
+        }
     }
 
     function validate() {
@@ -159,6 +234,13 @@ export function usePanduanForm({ mode = 'create', panduanId = null, initialData 
         processing,
         coverRef,
         pdfRef,
+        previewName,
+        previewSize,
+        pdfPreview,
+        pdfSize,
+        isRenderingPdf,
+        isImgLoading,
+        setIsImgLoading,
         handleChange,
         handleCover,
         handlePdf,
