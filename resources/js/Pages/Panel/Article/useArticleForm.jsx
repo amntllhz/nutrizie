@@ -6,7 +6,7 @@ const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 const MAX_SIZE_MB = 5;
 const MAX_SIZE_BYTE = MAX_SIZE_MB * 1024 * 1024;
 
-export const DESKRIPSI_MIN = 300;
+export const DESKRIPSI_MIN = 100;
 export const DESKRIPSI_MAX = 500;
 
 // Tiptap output "<p></p>" atau "<p> </p>" = konten kosong
@@ -26,6 +26,9 @@ export function useArticleForm({ mode = 'create', articleId = null, initialData 
     const [errors, setErrors] = useState({});
     const [preview, setPreview] = useState(initialData.gambar || null);
     const [processing, setProcessing] = useState(false);
+    const [previewName, setPreviewName] = useState(null);
+    const [previewSize, setPreviewSize] = useState(null);
+    const [isImgLoading, setIsImgLoading] = useState(false);
     const fileRef = useRef(null);
 
     function handleChange(field, value) {
@@ -48,7 +51,32 @@ export function useArticleForm({ mode = 'create', articleId = null, initialData 
         }
 
         setForm(prev => ({ ...prev, gambar: file }));
+
+        // Pemotongan nama file jika melebihi 30 karakter tanpa merusak ekstensi
+        const fullFileName = file.name;
+        const lastDotIndex = fullFileName.lastIndexOf('.');
+
+        if (lastDotIndex !== -1) {
+            const baseName = fullFileName.slice(0, lastDotIndex);
+            const extension = fullFileName.slice(lastDotIndex);
+
+            const formattedName = baseName.length > 30
+                ? `${baseName.slice(0, 30)}...${extension}`
+                : fullFileName;
+
+            setPreviewName(formattedName);
+        } else {
+            const formattedName = fullFileName.length > 30
+                ? `${fullFileName.slice(0, 30)}...`
+                : fullFileName;
+
+            setPreviewName(formattedName);
+        }
+
+        setIsImgLoading(true);
+
         setPreview(URL.createObjectURL(file));
+        setPreviewSize((file.size / 1024 / 1024).toFixed(2) + ' MB');
         setErrors(prev => ({ ...prev, gambar: null }));
     }
 
@@ -124,14 +152,36 @@ export function useArticleForm({ mode = 'create', articleId = null, initialData 
         });
     }
 
+    const getPreviewHeight = () => {
+        const hasJudulError = !!errors.judul;
+        const hasDeskripsiError = !!errors.deskripsi;
+
+        if (hasJudulError && hasDeskripsiError) {
+            return 'h-53'; // Kondisi 4: Judul & Deskripsi Error (Paling Tinggi)
+        }
+        if (hasJudulError) {
+            return 'h-53'; // Kondisi 2: Hanya Judul Error
+        }
+        if (hasDeskripsiError) {
+            return 'h-48'; // Kondisi 3: Hanya Deskripsi Error
+        }
+
+        return 'h-48';     // Kondisi 1: Tidak Ada Error (Default)
+    };
+
     return {
         form,
         errors,
         preview,
         processing,
         fileRef,
+        isImgLoading,
+        previewName,
+        previewSize,
+        setIsImgLoading,
         handleChange,
         handleFile,
         handleSubmit,
+        getPreviewHeight
     };
 }
