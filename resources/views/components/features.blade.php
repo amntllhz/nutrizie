@@ -2,17 +2,27 @@
     <div class="p-10 max-w-6xl mx-auto sm:w-full sm:p-2">
 
         <div
-            class="flex flex-row max-w-6xl p-10 ring-1 ring-prim/20 ring-inset rounded-3xl items-center justify-between sm:flex-col sm:p-6 sm:space-y-4">
-            <h1 class="text-3xl text-prim font-bold w-1/3 sm:w-full sm:text-xl">Platform <span
-                    class="text-acc">Informasi</span><br> Gizi Online</h1>
-            <p class="w-2/3 text-gray-500 text-sm text-justify leading-relaxed sm:w-full sm:text-xs sm:leading-relaxed">
+            class="relative overflow-hidden flex flex-row max-w-6xl p-8 ring-1 ring-prim/20 bg-gradient-to-tr from-gratwo to-prim ring-inset rounded-3xl items-center justify-between sm:flex-col sm:p-6 sm:space-y-4">
+            <svg class="absolute z-0 opacity-30 w-full left-0 h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="a" width="25" height="25" patternUnits="userSpaceOnUse">
+                        <rect width="100%" height="100%" fill="none" />
+                        <path fill="none" stroke="#35C6A8" stroke-linecap="round" stroke-linejoin="round"
+                            d="M5.75 10h13.5M12.5 3.25v13.5" />
+                    </pattern>
+                </defs>
+                <rect width="800%" height="800%" fill="url(#a)" />
+            </svg>
+            <h1 class="text-2xl z-1 text-white font-bold w-1/3 sm:w-full sm:text-xl">Platform <span
+                    class="text-acctwo">Informasi</span><br> Gizi Online</h1>
+            <p
+                class="w-2/3 text-white bg-white/10 backdrop-blur-sm py-4 px-5 rounded-xl text-xs text-justify leading-relaxed sm:w-full sm:text-xs sm:leading-relaxed">
                 Nutrisi yang tepat adalah pondasi bagi perkembangan balita yang sehat.
                 Platform ini hadir untuk menyediakan informasi tentang makanan bergizi,
                 pola makan yang tepat sesuai usia, serta cara mengatasi tantangan yang
-                sering dihadapi dalam memberi makan balita. <span class="font-bold text-prim">Cek status gizi</span>
-                balita Anda
-                secara langsung untuk memastikan mereka mendapatkan kebutuhan
-                nutrisi yang optimal
+                sering dihadapi dalam memberi makan balita. <span class="font-bold text-acctwo">Cek status gizi</span>
+                balita anda melalui fitur yang tersedia untuk memastikan mereka mendapatkan kebutuhan nutrisi yang
+                optimal
             </p>
         </div>
 
