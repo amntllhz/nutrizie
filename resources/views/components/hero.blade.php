@@ -50,7 +50,7 @@
                 </div>
                 <div class="flex flex-col pr-5 space-y-1.5">
                     <p class="text-[11px] text-gray-300">Data Cek Gizi</p>
-                    <p class="text-sm font-semibold text-white">Tidak Disimpan</p>
+                    <p class="text-sm font-semibold text-white">Sekali Pakai</p>
                 </div>
             </div>
 
