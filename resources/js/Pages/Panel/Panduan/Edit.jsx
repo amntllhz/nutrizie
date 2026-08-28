@@ -52,7 +52,10 @@ export default function PanduanEdit({ panduan }) {
 
                 {/* Informasi Utama */}
                 <div className="bg-white rounded-lg border border-gray-100 p-5 space-y-4">
-                    <p className="text-xs font-semibold text-gray-700 mb-5">Informasi Utama</p>
+                    <div className='flex items-center gap-2 border-b border-gray-100 pb-2.5'>
+                        <svg className='size-5 text-gray-400' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M205.6,159.41,213.67,192,184,174.54,154.33,192l8.07-32.59L136,137.61l34.65-2.67L184,104l13.35,30.94L232,137.61Z" opacity="0.2"></path><path d="M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,72H96a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm72,48H40a8,8,0,0,0,0,16h72a8,8,0,0,0,0-16Zm125.09-40.22-22.52,18.59,6.86,27.71a8,8,0,0,1-11.82,8.81L184,183.82l-25.61,15.07a8,8,0,0,1-11.82-8.81l6.85-27.71-22.51-18.59a8,8,0,0,1,4.47-14.14l29.84-2.31,11.43-26.5a8,8,0,0,1,14.7,0l11.43,26.5,29.84,2.31a8,8,0,0,1,4.47,14.14Zm-25.47.28-14.89-1.15a8,8,0,0,1-6.73-4.8l-6-13.92-6,13.92a8,8,0,0,1-6.73,4.8l-14.89,1.15,11.11,9.18a8,8,0,0,1,2.68,8.09l-3.5,14.12,13.27-7.81a8,8,0,0,1,8.12,0l13.27,7.81-3.5-14.12a8,8,0,0,1,2.68-8.09Z"></path></svg>
+                        <p className="text-xs font-semibold text-gray-700">Informasi Utama</p>
+                    </div>
                     <Field label="Judul" required error={errors.judul}>
                         <TextInput value={form.judul} onChange={e => handleChange('judul', e.target.value)}
                             placeholder="Judul buku panduan..." error={errors.judul} />
@@ -87,7 +90,10 @@ export default function PanduanEdit({ panduan }) {
 
                 {/* Detail Bibliografi */}
                 <div className="bg-white rounded-lg border border-gray-100 p-5 space-y-4">
-                    <p className="text-xs font-semibold text-gray-700 mb-5">Detail Bibliografi</p>
+                    <div className='flex items-center gap-2 border-b border-gray-100 pb-2.5'>
+                        <svg className='size-5 text-gray-400' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M205.6,159.41,213.67,192,184,174.54,154.33,192l8.07-32.59L136,137.61l34.65-2.67L184,104l13.35,30.94L232,137.61Z" opacity="0.2"></path><path d="M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,72H96a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm72,48H40a8,8,0,0,0,0,16h72a8,8,0,0,0,0-16Zm125.09-40.22-22.52,18.59,6.86,27.71a8,8,0,0,1-11.82,8.81L184,183.82l-25.61,15.07a8,8,0,0,1-11.82-8.81l6.85-27.71-22.51-18.59a8,8,0,0,1,4.47-14.14l29.84-2.31,11.43-26.5a8,8,0,0,1,14.7,0l11.43,26.5,29.84,2.31a8,8,0,0,1,4.47,14.14Zm-25.47.28-14.89-1.15a8,8,0,0,1-6.73-4.8l-6-13.92-6,13.92a8,8,0,0,1-6.73,4.8l-14.89,1.15,11.11,9.18a8,8,0,0,1,2.68,8.09l-3.5,14.12,13.27-7.81a8,8,0,0,1,8.12,0l13.27,7.81-3.5-14.12a8,8,0,0,1,2.68-8.09Z"></path></svg>
+                        <p className="text-xs font-semibold text-gray-700">Detail Bibliografi</p>
+                    </div>
                     <div className="grid grid-cols-2 gap-4">
                         <Field label="Penerbit" error={errors.penerbit}>
                             <TextInput value={form.penerbit} onChange={e => handleChange('penerbit', e.target.value)} placeholder="Nama penerbit..." error={errors.penerbit} />
@@ -124,9 +130,12 @@ export default function PanduanEdit({ panduan }) {
 
                 {/* File */}
                 <div className="bg-white rounded-lg border border-gray-100 p-5 space-y-4">
-                    <p className="text-xs font-semibold text-gray-700 mb-5">File
-                        <span className="text-gray-300 font-light ml-1">( kosongkan jika tidak ingin mengubah )</span>
-                    </p>
+                    <div className='flex items-center gap-2 border-b border-gray-100 pb-2.5'>
+                        <svg className='size-5 text-gray-400' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,80H32V56a8,8,0,0,1,8-8H92.69a8,8,0,0,1,5.65,2.34Z" opacity="0.2"></path><path d="M216,72H131.31L104,44.69A15.86,15.86,0,0,0,92.69,40H40A16,16,0,0,0,24,56V200.62A15.4,15.4,0,0,0,39.38,216H216.89A15.13,15.13,0,0,0,232,200.89V88A16,16,0,0,0,216,72ZM92.69,56l16,16H40V56ZM216,200H40V88H216Zm-88-88a8,8,0,0,1,8,8v16h16a8,8,0,0,1,0,16H136v16a8,8,0,0,1-16,0V152H104a8,8,0,0,1,0-16h16V120A8,8,0,0,1,128,112Z"></path></svg>
+                        <p className="text-xs font-semibold text-gray-700">Dokumen
+                            <span className="text-gray-300 font-light ml-1">( kosongkan jika tidak ingin mengubah )</span>
+                        </p>
+                    </div>
                     <div className="grid grid-cols-2 gap-4">
                         {/* Cover */}
                         <Field label="Cover Buku" required error={errors.cover}>
