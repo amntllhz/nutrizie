@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import { toast } from 'sonner';
 
@@ -42,6 +42,34 @@ export function usePanduanForm({ mode = 'create', panduanId = null, initialData 
 
     const coverRef = useRef(null);
     const pdfRef = useRef(null);
+
+    useEffect(() => {
+        if (mode !== 'edit' || !initialData.file_pdf_url) return;
+
+        async function renderExistingPdf() {
+            setIsRenderingPdf(true);
+            try {
+                const response = await fetch(initialData.file_pdf_url);
+                const arrayBuffer = await response.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const page = await pdf.getPage(1);
+                const viewport = page.getViewport({ scale: 1.5 });
+                const targetW = viewport.width;
+                const targetH = Math.round(viewport.width * (158 / 470));
+                const canvas = document.createElement('canvas');
+                canvas.width = targetW;
+                canvas.height = targetH;
+                await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+                setPdfPreview(canvas.toDataURL('image/png'));
+            } catch {
+                setPdfPreview(null);
+            } finally {
+                setIsRenderingPdf(false);
+            }
+        }
+
+        renderExistingPdf();
+    }, []);
 
     function handleChange(field, value) {
         setForm(prev => ({ ...prev, [field]: value }));
