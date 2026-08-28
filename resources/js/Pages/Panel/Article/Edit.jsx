@@ -36,6 +36,8 @@ export default function ArticleEdit({ article }) {
         handleSubmit,
         previewName,
         previewSize,
+        isImgLoading,
+        setIsImgLoading,
         getPreviewHeight
     } = useArticleForm({
         mode: 'edit',
@@ -114,29 +116,45 @@ export default function ArticleEdit({ article }) {
                                         <div>
                                             {/* Gambar preview */}
                                             <div className="relative">
-                                                <img src={preview} alt="preview"
-                                                    className={`w-full ${getPreviewHeight()} object-cover rounded-lg`} />
-                                                {/* Container Elemen Info */}
-                                                <div className="absolute bottom-0 inset-x-0 flex items-end justify-between p-3">
-
-                                                    {/* Shadow Gradient */}
-                                                    <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-prim/80 via-prim/40 to-transparent rounded-b-lg pointer-events-none" />
-
-                                                    {/* Elemen Info */}
-                                                    <div className="relative z-10 min-w-0">
-                                                        <p className="text-white text-[10px] font-medium truncate">{previewName}</p>
-                                                        <p className="text-white/70 text-[9px]">{previewSize}</p>
+                                                {isImgLoading && (
+                                                    <div className="absolute inset-0 flex flex-col gap-2 items-center justify-center bg-gray-50 z-20">
+                                                        <div className="w-5 h-5 border-2 border-prim border-t-transparent rounded-full animate-spin" />
+                                                        <p className="text-[10px] font-medium text-gray-500">Memproses pratinjau Gambar...</p>
                                                     </div>
+                                                )}
 
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => fileRef.current?.click()}
-                                                        className="relative flex z-10 shrink-0 ml-2 text-[10px] gap-x-1 px-2 py-1 bg-white/20 hover:bg-white/30 text-white rounded-sm backdrop-blur-sm transition-colors cursor-pointer justify-center items-center"
-                                                    >
-                                                        <svg className='size-3' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,90.34,192,120,136,64l29.66-29.66a8,8,0,0,1,11.31,0L221.66,79A8,8,0,0,1,221.66,90.34Z" opacity="0.2"></path><path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H216a8,8,0,0,0,0-16H115.32l112-112A16,16,0,0,0,227.32,73.37ZM48,163.31l88-88L180.69,120l-88,88H48Zm144-54.62L147.32,64l24-24L216,84.69Z"></path></svg>
-                                                        Ubah Gambar
-                                                    </button>
-                                                </div>
+                                                <img
+                                                    src={preview}
+                                                    alt="preview"
+                                                    onLoad={() => setIsImgLoading(false)}
+                                                    className={`w-full ${getPreviewHeight()} object-cover rounded-lg`} />
+
+                                                {/* Container Elemen Info */}
+                                                {!isImgLoading && (
+                                                    <div className="absolute bottom-0 inset-x-0 flex items-end justify-between p-3">
+
+                                                        {/* Shadow Gradient */}
+                                                        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-prim/80 via-prim/40 to-transparent rounded-b-lg pointer-events-none" />
+
+                                                        {/* Elemen Info */}
+                                                        <div className="relative z-10 min-w-0">
+                                                            <p className="text-white text-[10px] font-medium truncate">{previewName}</p>
+                                                            <p className="text-white/70 text-[9px]">{previewSize}</p>
+                                                        </div>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation()
+                                                                fileRef.current?.click()
+                                                            }}
+                                                            className="relative flex z-10 shrink-0 ml-2 text-[10px] gap-x-1 px-2 py-1 bg-white/20 hover:bg-white/30 text-white rounded-sm backdrop-blur-sm transition-colors cursor-pointer justify-center items-center"
+                                                        >
+                                                            <svg className='size-3' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,90.34,192,120,136,64l29.66-29.66a8,8,0,0,1,11.31,0L221.66,79A8,8,0,0,1,221.66,90.34Z" opacity="0.2"></path><path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H216a8,8,0,0,0,0-16H115.32l112-112A16,16,0,0,0,227.32,73.37ZM48,163.31l88-88L180.69,120l-88,88H48Zm144-54.62L147.32,64l24-24L216,84.69Z"></path></svg>
+                                                            Ubah Gambar
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     ) : (
