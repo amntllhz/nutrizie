@@ -8,7 +8,6 @@
                 pengguna mengenai platform Nutrizie</p>
         </div>
 
-        <!-- Inisialisasi State Alpine.js -->
         <!-- Set active: 1 jika ingin item pertama terbuka saat pertama dimuat, atau set active: null jika ingin semua tertutup di awal -->
         <div x-data="{ active: 1 }" class="mt-6">
             <div id="accordion-flush">
@@ -21,19 +20,22 @@
                             :class="{ 'text-[#35C6A8] dark:text-white': active === 1 }">Apa itu Nutrizie ?</span>
                         <div class="relative w-[14px] h-[14px] shrink-0 flex items-center justify-center">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor"
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                                 class="w-[14px] h-[14px] absolute transition-all duration-300 transform text-gray-500 dark:text-gray-400"
                                 :class="active === 1 ? 'opacity-0 rotate-90 scale-75' : 'opacity-100 rotate-0 scale-100'">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor"
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                                 class="w-[14px] h-[14px] absolute transition-all duration-300 transform text-prim"
                                 :class="active === 1 ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-75'">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
+
                         </div>
                     </button>
                 </h2>
@@ -58,19 +60,22 @@
                             Nutrizie ?</span>
                         <div class="relative w-[14px] h-[14px] shrink-0 flex items-center justify-center">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor"
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                                 class="w-[14px] h-[14px] absolute transition-all duration-300 transform text-gray-500 dark:text-gray-400"
                                 :class="active === 2 ? 'opacity-0 rotate-90 scale-75' : 'opacity-100 rotate-0 scale-100'">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor"
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                                 class="w-[14px] h-[14px] absolute transition-all duration-300 transform text-prim"
                                 :class="active === 2 ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-75'">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
+
                         </div>
                     </button>
                 </h2>
@@ -95,19 +100,22 @@
                             tepat untuk balita di Nutrizie ?</span>
                         <div class="relative w-[14px] h-[14px] shrink-0 flex items-center justify-center">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor"
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                                 class="w-[14px] h-[14px] absolute transition-all duration-300 transform text-gray-500 dark:text-gray-400"
                                 :class="active === 3 ? 'opacity-0 rotate-90 scale-75' : 'opacity-100 rotate-0 scale-100'">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor"
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                                 class="w-[14px] h-[14px] absolute transition-all duration-300 transform text-prim"
                                 :class="active === 3 ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-75'">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
+
                         </div>
                     </button>
                 </h2>
