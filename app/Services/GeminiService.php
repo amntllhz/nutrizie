@@ -20,7 +20,7 @@ class GeminiService
         $prompt = $this->buildPrompt($gender, $umur, $statusBbu, $statusPbu);
 
         try {
-            $response = Http::timeout(5)
+            $response = Http::timeout(15)
                 ->withHeaders([
                     'x-goog-api-key' => $this->apiKey,
                     'Content-Type' => 'application/json',
