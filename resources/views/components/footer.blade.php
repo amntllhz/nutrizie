@@ -30,7 +30,7 @@
                     {{-- Pesan --}}
                     <div class="relative">
                         <textarea id="footer-pesan" name="pesan" rows="3" maxlength="500" @input="clearError('footer-pesan')"
-                            class="block w-full rounded-lg border border-gray-300 p-2.5 text-xs text-gray-800 placeholder:text-gray-300 placeholder:text-[11px] focus:ring focus:ring-inset focus:ring-prim"
+                            class="block w-full text-justify rounded-lg border border-gray-300 p-2.5 text-xs text-gray-800 placeholder:text-gray-300 placeholder:text-[11px] focus:ring focus:ring-inset focus:ring-prim"
                             placeholder="Tuliskan pesanmu disini" autocomplete="off"></textarea>
                         <div class="flex items-center justify-between mt-0.5">
                             <span id="footer-pesan-error-slot" class="text-red-400 font-medium pl-1 text-[10px]"></span>
@@ -39,7 +39,7 @@
                     </div>
 
                     <button type="submit" :disabled="loading"
-                        class="w-fit flex gap-2 justify-center items-center text-white text-center cursor-pointer font-semibold bg-prim hover:bg-gratwo transition duration-300 ease-in-out px-6 py-2 text-sm rounded-lg disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prim hover:ring-1 hover:ring-inset-1 hover:ring-white">
+                        class="w-full flex gap-2 justify-center items-center text-white text-center cursor-pointer font-semibold bg-prim hover:bg-gratwo transition duration-300 ease-in-out px-6 py-2 text-sm rounded-lg disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-prim">
 
                         <svg x-show="loading" class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24" style="display: none;">
@@ -50,7 +50,13 @@
                             </path>
                         </svg>
 
-                        <span x-text="loading ? 'Mengirim...' : 'Kirim'"></span>
+                        <span x-text="loading ? 'Mengirim...' : 'Kirim Pesan'"></span>
+
+                        <svg x-show="!loading" class="h-4 w-4 text-white" width="100%" height="100%"
+                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
                     </button>
                 </form>
             </div>
@@ -63,22 +69,26 @@
             <h3 class="text-white font-bold text-sm">Informasi Publik</h3>
             <ul class="flex flex-col gap-y-1.5">
                 <li>
-                    <a href="{{ url('/artikel') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/artikel') }}"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Artikel
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/panduan') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/panduan') }}"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Buku Panduan
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/cekgizi') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/cekgizi') }}"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Cek Status Gizi
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="#"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Himbauan
                     </a>
                 </li>
@@ -91,22 +101,26 @@
             <h3 class="text-white font-bold text-sm">Tentang</h3>
             <ul class="flex flex-col gap-y-2">
                 <li>
-                    <a href="{{ url('/profil') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/profil') }}"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Profil
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/visimisi') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/visimisi') }}"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Visi & Misi
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/kontributor') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/kontributor') }}"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Kontributor
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="#"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Referensi
                     </a>
                 </li>
@@ -119,22 +133,26 @@
             <h3 class="text-white font-bold text-sm">Bantuan</h3>
             <ul class="flex flex-col gap-y-2">
                 <li>
-                    <a href="../src/guide.html" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="../src/guide.html"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Panduan Pengguna
                     </a>
                 </li>
                 <li>
-                    <a href="../src/report.html" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="../src/report.html"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Lapor Kendala Layanan
                     </a>
                 </li>
                 <li>
-                    <a href="../src/contributors.html" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="../src/contributors.html"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Kontributor
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/auth/login') }}" class="text-xs text-white/70 hover:text-white sm:text-sm">
+                    <a href="{{ url('/auth/login') }}"
+                        class="text-xs text-white/70 hover:text-white sm:text-sm transition-all duration-300">
                         Panel Admin
                     </a>
                 </li>
@@ -163,8 +181,8 @@
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-100 hover:text-gray-500 rounded-lg text-sm w-7 h-7 inline-flex justify-center items-center"
                         data-modal-hide="default-modal">
-                        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
+                        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                 stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
