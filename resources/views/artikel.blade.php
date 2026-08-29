@@ -50,8 +50,8 @@
                     </svg>
                 </span>
                 <input id="artikel-search" type="text" x-model="search" @input="fetchArticles()"
-                    placeholder="Cari artikel..." autocomplete="off"
-                    class="w-full pl-10 pr-4 py-2 text-sm rounded-full border border-gray-200 bg-gray-50 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring focus:ring-prim focus:ring-inset-1 transition-all duration-300" />
+                    placeholder="Tuliskan judul artikel..." autocomplete="off"
+                    class="w-full pl-10 pr-4 py-2 text-xs rounded-full border border-gray-200 bg-gray-50 text-gray-700 placeholder-gray-300 focus:outline-none focus:ring focus:ring-prim focus:ring-inset-1 transition-all duration-300" />
 
                 {{-- Loading spinner --}}
                 <span x-show="loading" x-transition class="absolute inset-y-0 right-3.5 flex items-center">
@@ -84,8 +84,8 @@
                     :class="order === 'desc'
                         ?
                         'bg-prim/10 text-prim border-prim/50' :
-                        'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100'"
-                    class="px-3.5 py-1 cursor-pointer text-[11px] rounded-full border transition-all duration-300">
+                        'bg-gray-50 text-gray-400 border-gray-300 hover:bg-gray-100'"
+                    class="px-3 py-1 cursor-pointer text-[10px] rounded-full border transition-all duration-300">
                     Terbaru
                 </button>
 
@@ -93,8 +93,8 @@
                     :class="order === 'asc'
                         ?
                         'bg-prim/10 text-prim border-prim/50' :
-                        'bg-gray-50 text-gray-500 border-gray-300 hover:bg-gray-100'"
-                    class="px-3.5 py-1 cursor-pointer text-[11px] rounded-full border transition-all duration-300">
+                        'bg-gray-50 text-gray-400 border-gray-300 hover:bg-gray-100'"
+                    class="px-3 py-1 cursor-pointer text-[10px] rounded-full border transition-all duration-300">
                     Terlama
                 </button>
             </div>
