@@ -34,7 +34,7 @@
                             placeholder="Tuliskan pesanmu disini" autocomplete="off"></textarea>
                         <div class="flex items-center justify-between mt-0.5">
                             <span id="footer-pesan-error-slot" class="text-red-400 font-medium pl-1 text-[10px]"></span>
-                            <p class="text-[10px] text-white/50" id="footer-pesan-counter">0 / 500</p>
+                            <p class="text-[8px] text-white/50" id="footer-pesan-counter">0 / 500</p>
                         </div>
                     </div>
 
