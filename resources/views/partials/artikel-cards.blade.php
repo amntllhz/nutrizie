@@ -46,14 +46,14 @@
         </div>
     </a>
 @empty
-    <div class="col-span-4 flex flex-col items-center justify-center py-16 text-center sm:col-span-1">
+    <div class="col-span-4 flex flex-col items-center justify-center py-8 text-center sm:col-span-1">
         <div class='flex flex-col items-center justify-center py-2 space-y-2'>
             <div class="w-full flex items-center justify-center">
-                <img src="{{ asset('img/no-artikel.svg') }}" alt="" class='w-28 h-28' />
+                <img src="{{ asset('img/no-artikel.svg') }}" alt="" class='w-24 h-24' />
             </div>
             <div class='flex flex-col space-y-0.5'>
-                <div class="px-5 text-center font-semibold text-sm text-gray-800">Artikel tidak ditemukan</div>
-                <p class='text-xs text-gray-400 text-center'>Coba kata kunci lain</p>
+                <div class="px-5 text-center font-semibold text-xs text-gray-800">Artikel tidak ditemukan</div>
+                <p class='text-[10px] text-gray-400 text-center'>Coba kata kunci lain</p>
             </div>
         </div>
     </div>
