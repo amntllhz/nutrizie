@@ -21,7 +21,7 @@
                 <div class="flex mx-auto items-center space-x-2.5 mb-6">
                     <p
                         class="font-semibold text-xs py-1.5 px-3.5 text-prim bg-prim/5 rounded-lg ring ring-inset ring-prim/10">
-                        Informasi Gizi</p>
+                        Artikel Gizi</p>
                     <p
                         class="font-semibold text-xs py-1.5 px-3.5 text-prim bg-prim/5 rounded-lg ring ring-inset ring-prim/10">
                         Cek Status Gizi</p>
@@ -31,8 +31,8 @@
                 </div>
 
                 <div class="space-y-2 mb-6">
-                    <h1 class="text-2xl text-prim font-bold sm:text-xl">Visi</h1>
-                    <p class="text-gray-500 text-sm text-justify leading-relaxed">
+                    <h1 class="text-xl text-prim font-bold sm:text-xl">Visi</h1>
+                    <p class="text-gray-500 text-[13px] text-justify leading-relaxed">
                         Menjadi platform digital terdepan yang mendukung orang tua dan pengasuh dalam meningkatkan kualitas
                         hidup balita melalui edukasi gizi yang akurat, inovasi teknologi yang ramah pengguna, dan layanan
                         konsultasi berbasis data. Dengan berkomitmen pada pertumbuhan generasi yang sehat, cerdas, dan
@@ -42,22 +42,25 @@
                 </div>
 
                 <div class="space-y-2">
-                    <h1 class="text-2xl text-prim font-bold sm:text-xl">Misi</h1>
+                    <h1 class="text-xl text-prim font-bold sm:text-xl">Misi</h1>
                     <div class="pl-4">
                         <ol class="list-decimal list-outside space-y-1">
-                            <li class="text-gray-500 text-sm text-justify leading-relaxed">Menyediakan Informasi Edukatif:
+                            <li class="text-gray-500 text-[13px] text-justify leading-relaxed">Menyediakan Informasi
+                                Edukatif:
                                 Memberikan akses mudah terhadap artikel dan panduan gizi balita yang akurat, terpercaya, dan
                                 berbasis data ilmiah.</li>
-                            <li class="text-gray-500 text-sm text-justify leading-relaxed">Meningkatkan Kesadaran Orang Tua:
+                            <li class="text-gray-500 text-[13px] text-justify leading-relaxed">Meningkatkan Kesadaran Orang
+                                Tua:
                                 Mengedukasi orang tua dan pengasuh tentang pentingnya gizi dalam tumbuh kembang anak melalui
                                 konten yang relevan dan interaktif.</li>
-                            <li class="text-gray-500 text-sm text-justify leading-relaxed">Mendukung Pemantauan Gizi Anak:
+                            <li class="text-gray-500 text-[13px] text-justify leading-relaxed">Mendukung Pemantauan Gizi
+                                Anak:
                                 Mengembangkan fitur otomatis untuk mengevaluasi status gizi balita secara cepat, akurat, dan
                                 sesuai standar internasional.</li>
-                            <li class="text-gray-500 text-sm text-justify leading-relaxed">Memfasilitasi Akses Informasi
+                            <li class="text-gray-500 text-[13px] text-justify leading-relaxed">Memfasilitasi Akses Informasi
                                 Praktis: Menyediakan buku panduan gizi balita online yang dapat diakses kapan saja untuk
                                 membantu orang tua merencanakan pola makan sehat.</li>
-                            <li class="text-gray-500 text-sm text-justify leading-relaxed">Berinovasi dalam Pelayanan:
+                            <li class="text-gray-500 text-[13px] text-justify leading-relaxed">Berinovasi dalam Pelayanan:
                                 Mengintegrasikan teknologi terkini untuk terus meningkatkan pengalaman pengguna dalam
                                 mengakses layanan edukasi dan konsultasi gizi balita.</li>
                         </ol>
