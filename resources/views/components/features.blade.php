@@ -67,7 +67,7 @@
 
                     <div
                         class="w-8 h-8 text-sm bg-prim/10 rounded-full font-semibold text-prim flex items-center justify-center">
-                        <svg width="7" height="12" viewBox="0 0 7 12" fill="none"
+                        <svg class="ml-0.5" width="7" height="12" viewBox="0 0 7 12" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 11L6 6L1 1" stroke="#35C6A8" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" />
@@ -91,7 +91,7 @@
 
                     <div
                         class="w-8 h-8 text-sm bg-prim/10 rounded-full font-semibold text-prim flex items-center justify-center">
-                        <svg width="7" height="12" viewBox="0 0 7 12" fill="none"
+                        <svg class="ml-0.5" width="7" height="12" viewBox="0 0 7 12" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 11L6 6L1 1" stroke="#35C6A8" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" />
