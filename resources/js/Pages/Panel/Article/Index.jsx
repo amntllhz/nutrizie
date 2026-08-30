@@ -269,7 +269,7 @@ export default function ArticleIndex({ articles, filters }) {
                                         <TableCell className="flex text-center justify-center items-center">
                                             {article.gambar ? (
                                                 <img src={article.gambar} alt={article.judul}
-                                                    className="w-14 h-10 object-cover rounded-md border border-gray-100" />
+                                                    className="w-14 h-10 object-cover rounded-md border border-gray-100 pointer-events-none" />
                                             ) : (
                                                 <div className="w-14 h-10 rounded-md bg-gray-100 flex items-center justify-center">
                                                     <span className="text-[10px] text-gray-400">No img</span>
