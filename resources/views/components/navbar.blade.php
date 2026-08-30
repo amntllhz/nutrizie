@@ -112,12 +112,12 @@
         {{-- Menu utama (inline horizontal di lg) --}}
         <div class="sm:hidden flex items-center gap-8">
             <a href={{ url('/artikel') }}
-                class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Artikel</a>
+                class="text-prim hover:text-acc font-display text-[13px] font-medium transition duration-300 ease-in-out">Artikel</a>
             <a href={{ url('/cekgizi') }}
-                class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Cek
+                class="text-prim hover:text-acc font-display text-[13px] font-medium transition duration-300 ease-in-out">Cek
                 Status Gizi</a>
             <a href="#tentang"
-                class="text-prim hover:text-white font-display text-[13px] font-medium transition duration-300 ease-in-out">Tentang</a>
+                class="text-prim hover:text-acc font-display text-[13px] font-medium transition duration-300 ease-in-out">Tentang</a>
         </div>
     </div>
 
@@ -126,12 +126,12 @@
         <!-- Container dalam diberi margin & border-top agar rapi saat terbuka -->
         <div class="mt-4 mb-3 pt-3 flex flex-col gap-2">
             <a href="{{ url('/artikel') }}"
-                class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Artikel</a>
+                class="text-prim hover:text-acc font-display text-sm font-bold transition duration-300 ease-in-out py-1">Artikel</a>
             <a href="{{ url('/cekgizi') }}"
-                class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Cek
+                class="text-prim hover:text-acc font-display text-sm font-bold transition duration-300 ease-in-out py-1">Cek
                 Gizi</a>
             <a href="#tentang"
-                class="text-prim hover:text-white font-display text-sm font-bold transition duration-300 ease-in-out py-1">Tentang</a>
+                class="text-prim hover:text-acc font-display text-sm font-bold transition duration-300 ease-in-out py-1">Tentang</a>
         </div>
     </div>
 </div>
