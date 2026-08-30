@@ -26,7 +26,7 @@ export default function Login() {
 
                     <img src="/img/nutrizie-icon.svg" alt="Logo" className="w-12 mx-auto" />
 
-                    <div className="flex flex-col space-y-1">
+                    <div className="flex flex-col space-y-0.5 mb-6">
                         <h1 className="text-lg text-center font-bold text-gray-800">Selamat Datang</h1>
                         <p className="text-gray-400 text-xs text-center">Masukkan kredensial untuk mengakses panel</p>
                     </div>
@@ -107,7 +107,7 @@ export default function Login() {
                             <span>{processing ? 'Mengautentikasi...' : 'Masuk'}</span>
                         </button>
 
-                        <p className="text-center text-[11px] text-gray-400 pt-1">
+                        <p className="text-center text-[11px] text-gray-400">
                             Anda bukan admin?{' '}
                             <a href="/" className="text-prim hover:underline font-medium">Beranda</a>
                         </p>
