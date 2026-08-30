@@ -72,7 +72,7 @@ export default function Dashboard({ stats = {}, recentArtikel = [], recentFeedba
                                 </svg>
                             </Link>
                         </div>
-                        <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 border border-gray-100 rounded-lg">
+                        <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 p-4 bg-gray-50 border border-gray-100 rounded-lg">
                             {recentArtikel.length === 0 ? (
                                 <EmptyState label="Artikel belum tersedia" message="Silahkan buat sebuah artikel baru" icon={noArtikel} />
                             ) : (
