@@ -400,17 +400,6 @@ export default function PanelLayout({ children }) {
                             </svg>
                         </button>
                     </div>
-
-                    {/* Avatar */}
-                    {
-                        user && (
-                            <div className="w-8 h-8 rounded-full bg-linear-to-b from-prim/10 to-prim/20 flex items-center ring ring-prim/20 justify-center">
-                                <span className="text-xs font-semibold text-prim">
-                                    {user.name?.charAt(0).toUpperCase()}
-                                </span>
-                            </div>
-                        )
-                    }
                 </ div >
 
                 {/* Page content */}
