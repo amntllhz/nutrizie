@@ -197,7 +197,7 @@ export default function ArticleIndex({ articles, filters }) {
                             value={search}
                             onChange={handleSearch}
                             placeholder="Tuliskan judul artikel..."
-                            className="w-full pl-9 pr-3 py-2 text-xs border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim placeholder-gray-300"
+                            className="w-full sm:w-4/5 pl-9 pr-3 py-2 text-xs border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim placeholder-gray-300"
                         />
 
                         {/* Clear button */}

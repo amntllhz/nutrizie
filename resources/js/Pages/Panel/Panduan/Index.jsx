@@ -176,7 +176,7 @@ export default function PanduanIndex({ panduans, filters }) {
                         </div>
                         <input type="text" value={search} onChange={handleSearch}
                             placeholder="Tuliskan judul panduan gizi..."
-                            className="w-full pl-9 pr-7 py-2 text-xs border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim placeholder-gray-300" />
+                            className="w-full sm:w-4/5 pl-9 pr-7 py-2 text-xs border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-prim focus:border-prim placeholder-gray-300" />
                         {search && (
                             <button type="button" onClick={() => { setSearch(''); router.get('/panel/panduan', { per_page: meta.per_page }, { preserveScroll: true }); }}
                                 className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-300 hover:text-gray-500 cursor-pointer">
