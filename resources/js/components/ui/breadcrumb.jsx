@@ -25,7 +25,7 @@ function BreadcrumbList({
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        "flex flex-wrap items-center gap-1.5 text-sm wrap-break-word text-muted-foreground",
+        "flex flex-wrap items-center gap-1.5 text-sm ring ring-gray-100 px-2.5 py-1 rounded-sm bg-gray-50 wrap-break-word text-muted-foreground",
         className
       )}
       {...props} />
@@ -54,7 +54,7 @@ function BreadcrumbLink({
   return (
     <Comp
       data-slot="breadcrumb-link"
-      className={cn("transition-colors hover:text-foreground", className)}
+      className={cn("transition-colors hover:text-prim hover:underline", className)}
       {...props} />
   );
 }

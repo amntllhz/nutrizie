@@ -79,7 +79,7 @@ export default function PanelLayout({ children }) {
         // Jika hanya di /panel atau /panel/dashboard
         if (segments.length <= 2 && segments[1] === 'dashboard') {
             return (
-                <Breadcrumb className="mb-4">
+                <Breadcrumb className="">
                     <BreadcrumbList>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild className="text-[11px] font-light text-gray-400">
@@ -100,7 +100,7 @@ export default function PanelLayout({ children }) {
         // Untuk URL berjenjang seperti /panel/artikel, /panel/artikel/create, /panel/artikel/edit/1
         let currentPath = '';
         return (
-            <Breadcrumb className="mb-4">
+            <Breadcrumb className="">
                 <BreadcrumbList>
                     {segments.map((segment, index) => {
                         currentPath += `/${segment}`;
@@ -399,12 +399,15 @@ export default function PanelLayout({ children }) {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
+
+                        <div className="block sm:hidden">
+                            {renderBreadcrumbs()}
+                        </div>
                     </div>
                 </ div >
 
                 {/* Page content */}
                 < div className="flex-1 overflow-y-auto p-4 lg:p-6" >
-                    {renderBreadcrumbs()}
 
                     {children}
                 </div >
