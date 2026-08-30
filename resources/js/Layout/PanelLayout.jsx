@@ -197,7 +197,7 @@ export default function PanelLayout({ children }) {
                     {!collapsed ? (
                         <div className="flex items-center justify-between w-full transition-all pl-2 pr-1">
 
-                            <img src="/img/nutrizie-logo.svg" className="h-5" alt="Logo" />
+                            <img src="/img/nutrizie-logo.svg" className="h-5 shrink-0" alt="Logo" />
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <button
@@ -288,7 +288,7 @@ export default function PanelLayout({ children }) {
                                         <img
                                             src={avatar}
                                             alt=""
-                                            className="object-cover w-full h-full rounded-md mt-0.5"
+                                            className="object-cover w-full h-full rounded-md"
                                         />
                                     </div>
                                 )}
