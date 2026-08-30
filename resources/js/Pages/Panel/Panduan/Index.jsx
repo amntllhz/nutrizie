@@ -234,7 +234,7 @@ export default function PanduanIndex({ panduans, filters }) {
                                     </TableCell>
                                     <TableCell className="flex items-center justify-center">
                                         {p.cover ? (
-                                            <img src={p.cover} alt={p.judul} className="w-10 h-14 object-cover rounded border border-gray-100" />
+                                            <img src={p.cover} alt={p.judul} className="w-10 h-14 object-cover rounded border border-gray-100 pointer-events-none" />
                                         ) : (
                                             <div className="w-10 h-14 rounded bg-gray-100 flex items-center justify-center">
                                                 <span className="text-[9px] text-gray-400">No img</span>
