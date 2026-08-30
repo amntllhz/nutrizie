@@ -123,34 +123,45 @@ export default function PanduanIndex({ panduans, filters }) {
 
                 {/* Bulk action bar */}
                 <div className={`overflow-hidden transition-all duration-200 ease-in-out ${someSelected ? 'max-h-20 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0'}`}>
-                    <div className="flex items-center justify-between px-4 py-2.5 bg-prim/5 border border-prim/20 rounded-lg">
+                    <div className="flex items-center justify-between px-2.5 py-2 bg-white border border-gray-200 rounded-lg">
                         <div className="flex items-center gap-2">
                             {!selectAllDb ? (
-                                <p className="text-xs text-prim">
-                                    <span className="font-semibold">{selected.length}</span> artikel dipilih{' '}
-                                    {allSelected && meta.total > data.length && (
-                                        <button onClick={() => setSelectAllDb(true)}
-                                            className="underline font-semibold cursor-pointer hover:opacity-75">
-                                            Pilih semua {meta.total} artikel?
-                                        </button>
-                                    )}
-                                </p>
+                                <div className="flex items-center gap-1 pl-1">
+                                    <span className="font-semibold text-xs text-gray-500">{selected.length} </span>
+                                    <span className="text-xs text-gray-500">Artikel telah dipilih</span>
+                                </div>
                             ) : (
-                                <p className="text-xs text-prim font-medium">
-                                    Semua <span className="font-semibold">{meta.total}</span> artikel dipilih
-                                </p>
+                                <div className="flex items-center gap-1 text-gray-500 pl-1">
+                                    <span className="font-semibold text-xs text-gray-500">{meta.total} </span>
+                                    <span className="text-xs text-gray-500">Artikel telah dipilih</span>
+                                </div>
                             )}
                         </div>
                         <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm"
+                            {allSelected && meta.total > data.length && (
+                                <Button size="sm" variant="ghost" onClick={() => setSelectAllDb(true)}
+                                    className="flex rounded-md items-center gap-1.5 text-gray-500 cursor-pointer text-xs hover:bg-gray-100">
+                                    <svg className='size-3.5' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 11L12 14L22 4M16 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    Pilih Semua
+                                </Button>
+                            )}
+                            <Button variant="ghost" size="sm"
                                 onClick={() => setDeleteTarget('bulk')}
-                                className="text-xs h-7 px-3 cursor-pointer border-red-200 text-red-500 hover:bg-red-50">
+                                className=" flex rounded-md items-center gap-1.5 text-xs h-7 pl-2.5 pr-3 cursor-pointer text-red-600 hover:bg-red-100 hover:text-red-600">
+                                <svg className='size-3.5' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 3H15M3 6H21M19 6L18.2987 16.5193C18.1935 18.0975 18.1409 18.8867 17.8 19.485C17.4999 20.0118 17.0472 20.4353 16.5017 20.6997C15.882 21 15.0911 21 13.5093 21H10.4907C8.90891 21 8.11803 21 7.49834 20.6997C6.95276 20.4353 6.50009 20.0118 6.19998 19.485C5.85911 18.8867 5.8065 18.0975 5.70129 16.5193L5 6M10 10.5V15.5M14 10.5V15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
                                 Hapus
                             </Button>
-                            <button onClick={clearSelection}
-                                className="text-xs text-gray-400 hover:text-gray-600 ml-1 cursor-pointer">
+                            <Button variant="ghost" size="sm" onClick={clearSelection}
+                                className=" flex rounded-md items-center gap-1.5 text-gray-500 text-xs h-7 pl-2.5 pr-3 cursor-pointer border hover:bg-gray-100">
+                                <svg className='size-3.5' width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 7H14C17.3137 7 20 9.68629 20 13C20 16.3137 17.3137 19 14 19H4M4 7L8 3M4 7L8 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
                                 Batal
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>
