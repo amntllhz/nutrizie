@@ -23,7 +23,7 @@
                     Bersama Ibu Pintar <br>Cegah Stunting Sejak Dini</h1>
                 <p
                     class="max-w-md text-sm leading-5 text-gray-300 sm:text-left sm:text-xs sm:max-w-xs sm:leading-5 md:leading-5 md:text-xs">
-                    Pantau tumbuh kembang Si Kecil secara akurat dengan standar gizi terpercaya. Akses panduan nutrisi
+                    Pantau tumbuh kembang buah hati secara akurat dengan standar gizi terpercaya. Akses panduan nutrisi
                     harian dan konsultasi langsung dengan AI Assisten </p>
             </div>
 
