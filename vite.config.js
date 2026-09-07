@@ -9,7 +9,11 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/js/hasilgizi.js'],
+                'resources/js/navbar.js',
+                'resources/js/formval.js',
+                'resources/js/app.jsx',
+                'resources/js/hasilgizi.js',
+                'resources/js/success.js'],
             refresh: true,
         }),
         react(),

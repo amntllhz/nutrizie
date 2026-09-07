@@ -1,6 +1,6 @@
 import { Head, router } from '@inertiajs/react';
 import PanelLayout from '@/Layout/PanelLayout';
-import RichEditor from '@/Components/ui/RichEditor';
+import RichEditor from '@/components/ui/RichEditor';
 import { Button } from '@/components/ui/button';
 import { useArticleForm, DESKRIPSI_MIN, DESKRIPSI_MAX } from './useArticleForm';
 
