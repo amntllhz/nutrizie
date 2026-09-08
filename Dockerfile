@@ -61,14 +61,10 @@ RUN apk add --no-cache --virtual .build-deps \
 # Ambil HASIL dari stage lain (bukan proses ulang) — inti dari multi-stage.
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=frontend /app/public/build ./public/build
-COPY . .
+COPY --chown=www-data:www-data . .
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# www-data = user default yang dipake PHP-FPM buat eksekusi.
-# storage/ & bootstrap/cache/ butuh izin tulis (log, cache, session file).
-RUN chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 9000
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -21,6 +21,9 @@ class GeminiService
 
         try {
             $response = Http::timeout(15)
+                ->retry(2, 500, function ($exception) {
+                    return $exception instanceof \Illuminate\Http\Client\ConnectionException;
+                })
                 ->withHeaders([
                     'x-goog-api-key' => $this->apiKey,
                     'Content-Type' => 'application/json',
